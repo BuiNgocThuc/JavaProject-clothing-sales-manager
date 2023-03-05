@@ -9,5 +9,16 @@ package QuanLy_BanQuanAo_Object;
  * @author NGOC THUC
  */
 public class SANPHAM {
-    
+
+    private String maSP, tenSP, trangThai;
+    private double giaSP, soLuongSP; 
+
+    public SANPHAM(String maSP, String tenSP, double giaSP, double soLuongSP, String trangThai) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.giaSP = giaSP;
+        this.soLuongSP = soLuongSP;
+        this.trangThai = trangThai;
+    }
+
 }

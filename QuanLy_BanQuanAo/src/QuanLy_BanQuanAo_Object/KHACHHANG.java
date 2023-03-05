@@ -10,4 +10,13 @@ package QuanLy_BanQuanAo_Object;
  */
 public class KHACHHANG {
     private String maKH, tenKH, sdt, diaChi;
+
+    public KHACHHANG(String maKH, String tenKH, String sdt, String diaChi) {
+        this.maKH = maKH;
+        this.tenKH = tenKH;
+        this.sdt = sdt;
+        this.diaChi = diaChi;
+    }
+    
+    
 }

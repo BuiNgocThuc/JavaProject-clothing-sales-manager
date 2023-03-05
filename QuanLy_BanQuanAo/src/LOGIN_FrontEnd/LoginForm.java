@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package QuanLy_BanQuanAo_Object;
+package LOGIN_FrontEnd;
 
 /**
  *
  * @author NGOC THUC
  */
-public class CHUCNANG {
-    private String tenCN, moTa;
+public class LoginForm {
+    
 }

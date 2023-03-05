@@ -12,5 +12,17 @@ package QuanLy_BanQuanAo_Object;
 public class NHANVIEN {
     private String maNV, tenNV, diaChi, sdt;
     
-    
-}
+    public NHANVIEN() {
+        maNV = null;
+        tenNV = null;
+        diaChi = null;
+        sdt = null;
+    }
+
+    public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+    }
+ }

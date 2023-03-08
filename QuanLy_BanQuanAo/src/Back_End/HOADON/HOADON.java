@@ -10,10 +10,15 @@ package Back_End.HOADON;
  */
 public class HOADON {
 
-    private String maHD, maNV, maKH, ngayNhap;
-    private double tongTien;
+	private String maHD, maNV, maKH, ngayNhap;
+    private float tongTien;
+    
+    public HOADON()
+    {
+    	
+    }
 
-    public HOADON(String maHD, String maNV, String maKH, String ngayNhap, double tongTien) {
+    public HOADON(String maHD, String maNV, String maKH, String ngayNhap, Float tongTien) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.maKH = maKH;
@@ -21,45 +26,46 @@ public class HOADON {
         this.tongTien = tongTien;
     }
 
-    public String getMaHD() {
-        return maHD;
-    }
+	public String getMaHD() {
+		return maHD;
+	}
 
-    public String getMaNV() {
-        return maNV;
-    }
+	public void setMaHD(String maHD) {
+		this.maHD = maHD;
+	}
 
-    public String getMaKH() {
-        return maKH;
-    }
+	public String getMaNV() {
+		return maNV;
+	}
 
-    public String getNgayNhap() {
-        return ngayNhap;
-    }
+	public void setMaNV(String maNV) {
+		this.maNV = maNV;
+	}
 
-    public double getTongTien() {
-        return tongTien;
-    }
+	public String getMaKH() {
+		return maKH;
+	}
 
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
+	public void setMaKH(String maKH) {
+		this.maKH = maKH;
+	}
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
+	public String getNgayNhap() {
+		return ngayNhap;
+	}
 
-    public void setMaKH(String maKH) {
-        this.maKH = maKH;
-    }
+	public void setNgayNhap(String ngayNhap) {
+		this.ngayNhap = ngayNhap;
+	}
 
-    public void setNgayNhap(String ngayNhap) {
-        this.ngayNhap = ngayNhap;
-    }
+	public float getTongTien() {
+		return tongTien;
+	}
 
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
+	public void setTongTien(float tongTien) {
+		this.tongTien = tongTien;
+	}
+    
     
 
 }

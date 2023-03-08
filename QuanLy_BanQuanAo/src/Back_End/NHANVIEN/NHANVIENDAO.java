@@ -4,88 +4,216 @@
  */
 package Back_End.NHANVIEN;
 
-import connectDB.ConnectionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import Connection.connec;
+import Dao.DAOInterface;
+
 
 /**
  *
  * @author NGOC THUC
  */
-public class NHANVIENDAO {
+public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
+	public static NHANVIENDAO getInstance()
+	{
+		return new NHANVIENDAO();
+	}
 
-    Connection con = ConnectionDB.getConnection();
+	@Override
+	public int insert(NHANVIEN t) {
+		int ketQua = 0;
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "INSERT INTO NHANVIEN (MANV, NV_MAQUYEN, TENNV, SDTNV, DIACHINV, TUOI, GT) " +
+			             " VALUES (?,?,?,?,?,?,?)";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, t.getMaNV());
+			pst.setString(2, t.getMaQuyen());
+			pst.setString(3, t.getTenNV());
+			pst.setString(4, t.getSdt());
+			pst.setString(5, t.getDiaChi());
+			pst.setInt(6, t.getTuoiNV());
+			pst.setString(7, t.getGioiTinh());
+			
+			ketQua = pst.executeUpdate();
+			
+			System.out.println("Bạn đã thực thi " + sql);
+			System.out.println("Có " + ketQua + " bị thay đổi");
+			
+			connec.closeConnection(conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return 0;
+	}
 
-    public NHANVIENDAO() {
+	@Override
+	public int delete(NHANVIEN t) {
+		int ketQua;
+	    try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "DELETE from NHANVIEN " +
+			             " WHERE MANV=? ";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			
+			
+			pst.setString(1, t.getMaNV());
+			ketQua = pst.executeUpdate();
+			System.out.println("Bạn đã thực thi " + sql);
+			System.out.println("Có " + ketQua + " bị thay đổi");
+			
+			connec.closeConnection(conn);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return 0;
+	}
 
-    }
+	@Override
+	public int update(NHANVIEN t) {
+		int ketQua = 0;
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "UPDATE NHANVIEN " + 
+			             " SET NV_MAQUYEN=?" +
+					     ", TENNV=?" +
+			             ", SDTNV=?" +
+					     ", DIACHINV=?" +
+			             ", TUOI=?" +
+					     ", GT=?" +
+			             " WHERE MANV=?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			
+			
+			pst.setString(1, t.getMaQuyen());
+			pst.setString(2, t.getTenNV());
+			pst.setString(3, t.getSdt());
+			pst.setString(4, t.getDiaChi());
+			pst.setString(5, t.getMaNV());
+			pst.setInt(6, t.getTuoiNV());
+			pst.setString(7, t.getGioiTinh());
+			
+			ketQua = pst.executeUpdate();
+			
+			System.out.println("Bạn đã thực thi " + sql);
+			System.out.println("Có " + ketQua + " bị thay đổi");
+			
+			connec.closeConnection(conn);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return 0;
+	}
 
-    public ArrayList<NHANVIEN> get() {
-        ArrayList<NHANVIEN> dsnv = new ArrayList<>();
-        try {
-            String query = "select * from NHANVIEN";//+
-            PreparedStatement st = con.prepareStatement(query);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String maNV = rs.getString("maNV");//+
-                String tenNV = rs.getString("tenNV");//+
-                String diaChi = rs.getString("diaChi");//+
-                String sdt = rs.getString("sdt");
-                String thuongHieu = rs.getString("thuongHieu");
-                NHANVIEN nv = new NHANVIEN(maNV, tenNV, diaChi, sdt, thuongHieu);//+
-                dsnv.add(nv);//+
-            }
-        } catch (SQLException e) {
-        } finally {
-            ConnectionDB.closeConnection(con);
-        }
-        return dsnv;
-    }
-    
-    public void add(NHANVIEN nv) {
-        try {
-            String query = "INSERT INTO NHANVIEN VALUES (?,?,?,?);";//++
-            PreparedStatement st = con.prepareStatement(query);
-            st.setString(1, nv.getMaNV());//+
-            st.setString(2, nv.getTenNV());//+
-            st.setString(3, nv.getDiaChi());//+
-            st.setString(4, nv.getSdt());//+
-            st.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            ConnectionDB.closeConnection(con);
-        }
-    }
-    
-    public void update(String maNV, NHANVIEN nv) {
-        try {
-            String query = "UPDATE NHANVIEN SET maNV = ?, tenNV = ?, diaChi = ?, sdt = ? WHERE maNV=?";//+
-            PreparedStatement st = con.prepareStatement(query);
-            st.setString(1, nv.getMaNV());//+
-            st.setString(2, nv.getTenNV());//+
-            st.setString(3, nv.getDiaChi());//+
-            st.setString(4, nv.getSdt());//+
-            st.setString(5,maNV);//+
-            ResultSet rs = st.executeQuery();
-        } catch (SQLException e) {
-        } finally {
-            ConnectionDB.closeConnection(con);
-        }
-    }
-    
-    public void delete(String maNV) {
-        try {
-            String query = "DELETE FROM NHANVIEN WHERE maNV=?;";//+
-            PreparedStatement st = con.prepareStatement(query);
-            st.setString(1, maNV);//+
-            ResultSet rs = st.executeQuery();
-        } catch (SQLException e) {
-        } finally {
-            ConnectionDB.closeConnection(con);
-        }
-    }
+	@Override
+	public ArrayList<NHANVIEN> selectAll() {
+		ArrayList<NHANVIEN> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			Statement st = conn.createStatement();
+			
+			String sql = "SELECT * FROM NHANVIEN";
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNV = rs.getString("MANV");
+				String tenNV = rs.getNString("TENNV");
+				String diaChi = rs.getNString("DIACHINV");
+				String sdt = rs.getString("SDTNV");
+				String maQuyen = rs.getString("NV_MAQUYEN");
+				int tuoi = rs.getInt("TUOI");
+				String gioiTinh = rs.getNString("GT");
+				
+				
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen, tuoi, gioiTinh);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+
+	@Override
+	public NHANVIEN selectById(NHANVIEN t) {
+		NHANVIEN ketQua = null;
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHANVIEN " +
+			             " WHERE MANV=?";
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, t.getMaNV());
+			 
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				String maNV = rs.getString("MANV");
+				String tenNV = rs.getNString("TENNV");
+				String diaChi = rs.getNString("DIACHINV");
+				String sdt = rs.getString("SDTNV");
+				String maQuyen = rs.getString("NV_MAQUYEN");
+				int tuoi = rs.getInt("TUOI");
+				String gioiTinh = rs.getNString("GT");
+				
+				ketQua = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen,tuoi,gioiTinh);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		return ketQua;
+	}
+
+	@Override
+	public ArrayList<NHANVIEN> selectByCondition(String condition) {
+		ArrayList<NHANVIEN> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHANVIEN WHERE " + condition;
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNV = rs.getString("MANV");
+				String tenNV = rs.getNString("TENNV");
+				String diaChi = rs.getNString("DIACHINV");
+				String sdt = rs.getString("SDTNV");
+				String maQuyen = rs.getString("NV_MAQUYEN");
+				int tuoi = rs.getInt("TUOI");
+				String gioiTinh = rs.getNString("GT");
+				
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen, tuoi, gioiTinh);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+	
+
+  
 }

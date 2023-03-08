@@ -17,6 +17,39 @@ public class KHACHHANG {
         this.sdt = sdt;
         this.diaChi = diaChi;
     }
+
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+    
     
     
 }

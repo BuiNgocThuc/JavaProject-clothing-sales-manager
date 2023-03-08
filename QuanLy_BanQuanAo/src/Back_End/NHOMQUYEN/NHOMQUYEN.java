@@ -18,4 +18,5 @@ public class NHOMQUYEN {
         this.moTaQuyen = moTaQuyen;
     }
 
+    
 }

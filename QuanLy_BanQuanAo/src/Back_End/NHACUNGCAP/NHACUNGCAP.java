@@ -26,5 +26,39 @@ public class NHACUNGCAP {
         this.sdt = sdt;
     }
 
+    public String getMaNCC() {
+        return maNCC;
+    }
+
+    public String getTenNCC() {
+        return tenNCC;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
+    }
+
+    public void setTenNCC(String tenNCC) {
+        this.tenNCC = tenNCC;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+    
+    
+
     
 }

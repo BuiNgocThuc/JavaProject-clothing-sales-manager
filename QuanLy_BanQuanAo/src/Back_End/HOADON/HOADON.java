@@ -21,4 +21,45 @@ public class HOADON {
         this.tongTien = tongTien;
     }
 
+    public String getMaHD() {
+        return maHD;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public String getNgayNhap() {
+        return ngayNhap;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public void setNgayNhap(String ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+    
+
 }

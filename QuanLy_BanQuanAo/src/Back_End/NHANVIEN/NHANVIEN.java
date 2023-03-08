@@ -10,20 +10,30 @@ package Back_End.NHANVIEN;
  * @author NGOC THUC
  */
 public class NHANVIEN {
-    private String maNV, tenNV, diaChi, sdt;
-    
+
+    private String maNV, tenNV, diaChi, sdt, thuongHieu;
+
     public NHANVIEN() {
         maNV = null;
         tenNV = null;
         diaChi = null;
         sdt = null;
+        thuongHieu = null;
     }
 
-    public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt) {
+    public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt, String thuongHieu) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.diaChi = diaChi;
         this.sdt = sdt;
+    }
+
+    public String getThuongHieu() {
+        return thuongHieu;
+    }
+
+    public void setThuongHieu(String thuongHieu) {
+        this.thuongHieu = thuongHieu;
     }
 
     public String getMaNV() {
@@ -57,6 +67,5 @@ public class NHANVIEN {
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
-    
-    
- }
+
+}

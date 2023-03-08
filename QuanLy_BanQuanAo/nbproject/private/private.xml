@@ -4,25 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/KHACHHANG/KHACHHANG.java</file>
-            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/QuanLy_BanQuanAo_Object/CTPhanQuyen.java</file>
+            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/CTHoaDon/CTHoaDon.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/HOADON/HOADON.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/QuanLy_BanQuanAo_Object/THUONGHIEU.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHACUNGCAP/NHACUNGCAP.java</file>
-            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/QuanLy_BanQuanAo_Object/CTHoaDon.java</file>
+            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/CTPhieuNhap/CTPhieuNhap.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/KHACHHANG/KHACHHANGDAO.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/connectDB/ConnectionDB.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHANVIEN/NHANVIENDAO.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHANVIEN/NHANVIENBUS.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Front_End/LOGIN_FrontEnd/LoginFormtest.java</file>
+            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/CHUCNANG/CHUCNANG.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/SANPHAM/SANPHAM.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/PHIEUNHAP/PHIEUNHAP.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Front_End/LOGIN_FrontEnd/LoginForm.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHOMQUYEN/NHOMQUYEN.java</file>
-            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/QuanLy_BanQuanAo_Object/CTPhieuNhap.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHACUNGCAP/NHACUNGCAPBUS.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHACUNGCAP/NHACUNGCAPDAO.java</file>
-            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/QuanLy_BanQuanAo_Object/CHUCNANG.java</file>
             <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/NHANVIEN/NHANVIEN.java</file>
+            <file>file:/E:/nam%20II%20-%20HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/QuanLy_BanQuanAo/src/Back_End/CTPhanQuyen/CTPhanQuyen.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Front_End/" kind="src" path="QuanLy_BanQuanAo/src"/>
+	<classpathentry kind="src" path="QuanLy_BanQuanAo/src/Front_End"/>
+	<classpathentry kind="lib" path="QuanLy_BanQuanAo/dist/QuanLy_BanQuanAo.jar"/>
+	<classpathentry kind="lib" path="QuanLy_BanQuanAo/lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="output" path="QuanLy_BanQuanAo/build/classes"/>
+</classpath>

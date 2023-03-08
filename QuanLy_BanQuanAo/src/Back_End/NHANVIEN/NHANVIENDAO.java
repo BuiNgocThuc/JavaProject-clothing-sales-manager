@@ -34,7 +34,8 @@ public class NHANVIENDAO {
                 String tenNV = rs.getString("tenNV");//+
                 String diaChi = rs.getString("diaChi");//+
                 String sdt = rs.getString("sdt");
-                NHANVIEN nv = new NHANVIEN(maNV, tenNV, diaChi, sdt);//+
+                String thuongHieu = rs.getString("thuongHieu");
+                NHANVIEN nv = new NHANVIEN(maNV, tenNV, diaChi, sdt, thuongHieu);//+
                 dsnv.add(nv);//+
             }
         } catch (SQLException e) {

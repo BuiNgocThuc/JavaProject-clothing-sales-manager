@@ -10,14 +10,53 @@ package Back_End.CTPhieuNhap;
  */
 public class CTPhieuNhap {
 
-    private String maPN, maSP;
-    private double donGia, soLuong;
+	private String maPN, maSP;
+    private float donGia;
+    private int soLuong;
+    
+    public CTPhieuNhap()
+    {
+    	
+    }
 
-    public CTPhieuNhap(String maPN, String maSP, double donGia, double soLuong) {
+    public CTPhieuNhap(String maPN, String maSP, float donGia, int soLuong) {
         this.maPN = maPN;
         this.maSP = maSP;
         this.donGia = donGia;
         this.soLuong = soLuong;
     }
+
+	public String getMaPN() {
+		return maPN;
+	}
+
+	public void setMaPN(String maPN) {
+		this.maPN = maPN;
+	}
+
+	public String getMaSP() {
+		return maSP;
+	}
+
+	public void setMaSP(String maSP) {
+		this.maSP = maSP;
+	}
+
+	public float getDonGia() {
+		return donGia;
+	}
+
+	public void setDonGia(float donGia) {
+		this.donGia = donGia;
+	}
+
+	public int getSoLuong() {
+		return soLuong;
+	}
+
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
+    
 
 }

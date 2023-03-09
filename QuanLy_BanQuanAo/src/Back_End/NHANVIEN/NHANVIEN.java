@@ -11,61 +11,90 @@ package Back_End.NHANVIEN;
  */
 public class NHANVIEN {
 
-    private String maNV, tenNV, diaChi, sdt, thuongHieu;
+	private String maNV, tenNV, diaChi, sdt, maQuyen, gioiTinh;
+	 private int tuoiNV;
+	    
+	 public NHANVIEN() {
+	        maNV = null;
+	        tenNV = null;
+	        diaChi = null;
+	        sdt = null;
+	        maQuyen = null;
+	        tuoiNV = 0;
+	        gioiTinh = null;
+	  }
 
-    public NHANVIEN() {
-        maNV = null;
-        tenNV = null;
-        diaChi = null;
-        sdt = null;
-        thuongHieu = null;
-    }
+	 public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt, String maQuyen, int tuoi, String gioiTinh) {
+	        this.maNV = maNV;
+	        this.tenNV = tenNV;
+	        this.diaChi = diaChi;
+	        this.sdt = sdt;
+	        this.maQuyen = maQuyen;
+	        this.tuoiNV = tuoi;
+	        this.gioiTinh = gioiTinh;
+	  }
 
-    public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt, String thuongHieu) {
-        this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.diaChi = diaChi;
-        this.sdt = sdt;
-    }
+	public String getMaNV() {
+		return maNV;
+	}
 
-    public String getThuongHieu() {
-        return thuongHieu;
-    }
+	public void setMaNV(String maNV) {
+		this.maNV = maNV;
+	}
 
-    public void setThuongHieu(String thuongHieu) {
-        this.thuongHieu = thuongHieu;
-    }
+	public String getTenNV() {
+		return tenNV;
+	}
 
-    public String getMaNV() {
-        return maNV;
-    }
+	public void setTenNV(String tenNV) {
+		this.tenNV = tenNV;
+	}
 
-    public String getTenNV() {
-        return tenNV;
-    }
+	public String getDiaChi() {
+		return diaChi;
+	}
 
-    public String getDiaChi() {
-        return diaChi;
-    }
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
 
-    public String getSdt() {
-        return sdt;
-    }
+	public String getSdt() {
+		return sdt;
+	}
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
 
-    public void setTenNV(String tenNV) {
-        this.tenNV = tenNV;
-    }
+	public String getMaQuyen() {
+		return maQuyen;
+	}
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
+	public void setMaQuyen(String maQuyen) {
+		this.maQuyen = maQuyen;
+	}
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
+	public String getGioiTinh() {
+		return gioiTinh;
+	}
+
+	public void setGioiTinh(String gioiTinh) {
+		this.gioiTinh = gioiTinh;
+	}
+
+	public int getTuoiNV() {
+		return tuoiNV;
+	}
+
+	public void setTuoiNV(int tuoiNV) {
+		this.tuoiNV = tuoiNV;
+	}
+
+	@Override
+	public String toString() {
+		return "NHANVIEN [maNV=" + maNV + ", tenNV=" + tenNV + ", diaChi=" + diaChi + ", sdt=" + sdt + ", maQuyen="
+				+ maQuyen + ", gioiTinh=" + gioiTinh + ", tuoiNV=" + tuoiNV + "]";
+	}
+	 
 
 }

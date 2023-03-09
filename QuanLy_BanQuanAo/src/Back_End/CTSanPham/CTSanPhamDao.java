@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Back_End.CTPhanQuyen;
+package Back_End.CTSanPham;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,26 +9,21 @@ import java.util.ArrayList;
 import Connection.connec;
 import Dao.DAOInterface;
 
-
-/**
- *
- * @author NGOC THUC
- */
-public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
-	public static CTPhanQuyenDAO getInstance()
-	{
-		return new CTPhanQuyenDAO();
+public class CTSanPhamDao implements DAOInterface<CTSanPham> {
+	public static CTSanPhamDao getInstance() {
+		return new CTSanPhamDao();
 	}
 	@Override
-	public int insert(CTPhanQuyen t) {
+	public int insert(CTSanPham t) {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO CHITIETPHANQUYEN(CTPQ_MAQUYEN, CTPQ_TENCN) " +
-			             " VALUES(?,?)";
+			String sql = "INSERT INTO CHITIETSANPHAM(MASP, MASIZE, MAMAU) " +
+			            " VALUES(?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
-			pst.setString(1, t.getMaQuyen());
-			pst.setString(2, t.getTenChucNang());
+			pst.setString(1, t.getMaSP());
+			pst.setString(2, t.getMaSize());
+			pst.setString(3, t.getMaMau());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -43,18 +34,19 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+				
 		return 0;
 	}
 
 	@Override
-	public int delete(CTPhanQuyen t) {
+	public int delete(CTSanPham t) {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "DELETE FROM CHITIETPHANQUYEN " +
-			             " WHERE CTPQ_MAQUYEN=?";
+			String sql = "DELETE FROM CHITIETSANPHAM " +
+			            " WHERE MASP=?";
 			PreparedStatement pst = c.prepareStatement(sql);
-			pst.setString(1, t.getMaQuyen());
+			pst.setString(1, t.getMaSP());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -65,21 +57,23 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+				
 		return 0;
 	}
 
 	@Override
-	public int update(CTPhanQuyen t) {
+	public int update(CTSanPham t) {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "UPDATE CHITIETPHANQUYEN " +
-					     " SET CTPQ_TENCN=?" +
-			             " WHERE CTPQ_MAQUYEN=? ";
+			String sql = "UPDATE CHITIETSANPHAM(MASP, MASIZE, MAMAU) " +
+			            " SET MASIZE=?" +
+			            ", MAMAU=?" +
+					    " WHERE MASP=?";
 			PreparedStatement pst = c.prepareStatement(sql);
-			pst.setString(1, t.getTenChucNang());
-			pst.setString(2, t.getMaQuyen());
-
+			pst.setString(1, t.getMaSize());
+			pst.setString(2, t.getMaMau());
+			pst.setString(3, t.getMaSP());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -90,28 +84,28 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
-	}
+				
+		return 0;	}
 
 	@Override
-	public ArrayList<CTPhanQuyen> selectAll() {
-		ArrayList<CTPhanQuyen> ketQua = new ArrayList<>();
+	public ArrayList<CTSanPham> selectAll() {
+		ArrayList<CTSanPham> ketQua = new ArrayList<>();
 		try {
 			Connection c = connec.getConnection();
-			String sql = "SELECT * FROM CHITIETPHANQUYEN"; 
+			String sql = "SELECT * FROM CHITIETSANPHAM";
 			PreparedStatement pst = c.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				String maQuyen = rs.getString("CTPQ_MAQUYEN");
-				String tenChucNang = rs.getNString("CTPQ_TENCN");
+				String maSP = rs.getString("MASP");
+				String maSize = rs.getString("MASIZE");
+				String maMau = rs.getString("MAMAU");
 				
-				CTPhanQuyen a = new CTPhanQuyen(maQuyen, tenChucNang);
+				CTSanPham a = new CTSanPham(maSP, maMau, maSize);
 				ketQua.add(a);
 			}
 			connec.closeConnection(c);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -119,24 +113,24 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 	}
 
 	@Override
-	public CTPhanQuyen selectById(CTPhanQuyen t) {
-		CTPhanQuyen ketQua = null;
+	public CTSanPham selectById(CTSanPham t) {
+		CTSanPham ketQua = null;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "SELECT * FROM CHITIETPHANQUYEN WHERE CTPQ_MAQUYEN=?"; 
+			String sql = "SELECT * FROM CHITIETSANPHAM WHERE MASP=?";
 			PreparedStatement pst = c.prepareStatement(sql);
-			pst.setString(1, t.getMaQuyen());
+			pst.setString(1, t.getMaSP());
 			ResultSet rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				String maQuyen = rs.getString("CTPQ_MAQUYEN");
-				String tenChucNang = rs.getNString("CTPQ_TENCN");
+				String maSP = rs.getString("MASP");
+				String maSize = rs.getString("MASIZE");
+				String maMau = rs.getString("MAMAU");
 				
-				ketQua = new CTPhanQuyen(maQuyen, tenChucNang);
+				ketQua = new CTSanPham(maSP, maMau, maSize);
 			}
 			connec.closeConnection(c);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -144,27 +138,28 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 	}
 
 	@Override
-	public ArrayList<CTPhanQuyen> selectByCondition(String condition) {
-		ArrayList<CTPhanQuyen> ketQua = new ArrayList<>();
+	public ArrayList<CTSanPham> selectByCondition(String condition) {
+		ArrayList<CTSanPham> ketQua = new ArrayList<>();
 		try {
 			Connection c = connec.getConnection();
-			String sql = "SELECT * FROM CHITIETPHANQUYEN WHERE " + condition; 
+			String sql = "SELECT * FROM CHITIETSANPHAM WHERE " + condition;
 			PreparedStatement pst = c.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				String maQuyen = rs.getString("CTPQ_MAQUYEN");
-				String tenChucNang = rs.getNString("CTPQ_TENCN");
+				String maSP = rs.getString("MASP");
+				String maSize = rs.getString("MASIZE");
+				String maMau = rs.getString("MAMAU");
 				
-				CTPhanQuyen a = new CTPhanQuyen(maQuyen, tenChucNang);
+				CTSanPham a = new CTSanPham(maSP, maMau, maSize);
 				ketQua.add(a);
 			}
 			connec.closeConnection(c);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return ketQua;
 	}
+
 }

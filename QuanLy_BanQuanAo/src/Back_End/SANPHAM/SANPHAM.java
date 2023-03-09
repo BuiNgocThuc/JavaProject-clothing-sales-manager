@@ -20,5 +20,7 @@ public class SANPHAM {
         this.soLuongSP = soLuongSP;
         this.trangThai = trangThai;
     }
+    
+    
 
 }

@@ -8,9 +8,12 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 import javax.swing.JPanel;
 
 /**
@@ -18,14 +21,14 @@ import javax.swing.JPanel;
  * @author NGOC THUC
  */
 public class Event implements MouseListener {
-    
+
     private JPanel pnMainContent, pnComponent;
-    
-    public Event(JPanel pnM, JPanel pnC){
+    Font original;
+
+    public Event(JPanel pnM, JPanel pnC) {
         this.pnMainContent = pnM;
         this.pnComponent = pnC;
     }
-    
 
 //    private JPanel mainContent;
 //    private String order;
@@ -65,11 +68,17 @@ public class Event implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        original = e.getComponent().getFont();
+//        Map attributes = original.getAttributes();
+//        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+//        e.getComponent().setFont(original.deriveFont(attributes));
+            
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        e.getComponent().setFont(original);
     }
 
 }

@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="pnContainer" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="pnContainer" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="pnContainer">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="pnMenu" min="-2" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="pnMainContent" pref="1030" max="32767" attributes="0"/>
+                      <Component id="pnHeader" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="pnHeader" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="pnMenu" max="32767" attributes="0"/>
+                      <Component id="pnMainContent" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="pnHeader">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel4" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel1" pref="36" max="32767" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icon/icon_img/icons8-log-out-32 (3).png"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="X"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="36" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="-"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="11"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Icon/icon_img/icons8-menu-40.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel4MouseClicked"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="pnMenu">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="sbMenu" min="-2" pref="176" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="sbMenu" min="-2" pref="444" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="sbMenu">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="pnFunction">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lblLogo" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblCloseMenu" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblBanHang" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblNhapHang" pref="164" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblSanPham" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblThuongHieu" max="32767" attributes="0"/>
+                          <Component id="lblHoaDon" max="32767" attributes="0"/>
+                          <Component id="lblPhieuNhap" max="32767" attributes="0"/>
+                          <Component id="jSeparator3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblNhanVien" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblKhachHang" max="32767" attributes="0"/>
+                          <Component id="lblNhaCungCap" max="32767" attributes="0"/>
+                          <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblThongKe" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblKhuyenMai" max="32767" attributes="0"/>
+                          <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblTaiKhoan" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblPhanQuyen" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblLogo" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblCloseMenu" min="-2" pref="32" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblBanHang" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblNhapHang" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblSanPham" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblThuongHieu" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblHoaDon" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblPhieuNhap" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblNhanVien" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblKhachHang" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblNhaCungCap" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblThongKe" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblKhuyenMai" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblTaiKhoan" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="lblPhanQuyen" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblLogo">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="LOGO"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator1">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblBanHang">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="B&#xc1;N H&#xc0;NG"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblNhapHang">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="NH&#x1eac;P H&#xc0;NG"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator2">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblSanPham">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="S&#x1ea2;N PH&#x1ea8;M"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblThuongHieu">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="TH&#x1af;&#x1a0;NG HI&#x1ec6;U"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblHoaDon">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="H&#xd3;A &#x110;&#x1a0;N"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblPhieuNhap">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="PHI&#x1ebe;U NH&#x1eac;P"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator3">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblNhanVien">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="NH&#xc2;N VI&#xca;N"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblKhachHang">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="KH&#xc1;CH H&#xc0;NG"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblNhaCungCap">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="NH&#xc0; CUNG C&#x1ea4;P"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator4">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblThongKe">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="TH&#x1ed0;NG K&#xca;"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblKhuyenMai">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="KHUY&#x1ebe;N M&#x1ea0;I"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator5">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblTaiKhoan">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="T&#xc0;I  KHO&#x1ea2;N"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblPhanQuyen">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="PH&#xc2;N QUY&#x1ec0;N"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblCloseMenu">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="18" style="0"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="X"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblCloseMenuMouseClicked"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="pnMainContent">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="pnBanHang">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card2"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnNhapHang">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="99" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card3"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnSanPham">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="99" red="99" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card4"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnThuongHieu">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="99" red="cc" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card5"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnHoaDon">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="99" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card6"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnPhieuNhap">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="cc" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card7"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnNhanVien">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card8"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnKhachHang">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="ff" red="cc" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card9"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnNhaCungCap">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="ff" red="66" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card10"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnKhuyenMai">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card11"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnThongKe">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="0" red="0" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card12"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnTaiKhoan">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="99" red="99" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card13"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnPhanQuyen">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="33" red="0" type="rgb"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card14"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="1030" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="444" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

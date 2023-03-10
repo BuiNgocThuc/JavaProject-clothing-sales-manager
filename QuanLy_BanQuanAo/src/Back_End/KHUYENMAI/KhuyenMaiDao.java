@@ -31,7 +31,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
 			Date dateKT = Date.valueOf(ngayKT);
 			pst.setDate(4, dateBD);
 			pst.setDate(5, dateKT);
-			pst.setFloat(6, t.getPhamTramGiamGia());
+			pst.setDouble(6, t.getPhanTramGiamGia());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -88,7 +88,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
 			Date dateKT = Date.valueOf(ngayKT);
 			pst.setDate(3, dateBD);
 			pst.setDate(4, dateKT);
-			pst.setFloat(5, t.getPhamTramGiamGia());
+			pst.setDouble(5, t.getPhanTramGiamGia());
 			pst.setString(6, t.getMaKM());
 			
 			ketQua = pst.executeUpdate();

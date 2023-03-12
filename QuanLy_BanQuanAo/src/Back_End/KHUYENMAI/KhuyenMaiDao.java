@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import Connection.connec;
 import Dao.DAOInterface;
 
-public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
-	public static KhuyenMaiDao getInstance() {
-		return new KhuyenMaiDao();
+public class KHUYENMAIDAO implements DAOInterface<KHUYENMAI> {
+	public static KHUYENMAIDAO getInstance() {
+		return new KHUYENMAIDAO();
 	}
 	@Override
 	public int insert(KHUYENMAI t) {

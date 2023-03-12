@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import Connection.connec;
 import Dao.DAOInterface;
 
-public class CTSanPhamDao implements DAOInterface<CTSanPham> {
-	public static CTSanPhamDao getInstance() {
-		return new CTSanPhamDao();
+public class CTSanPhamDAO implements DAOInterface<CTSanPham> {
+	public static CTSanPhamDAO getInstance() {
+		return new CTSanPhamDAO();
 	}
 	@Override
 	public int insert(CTSanPham t) {

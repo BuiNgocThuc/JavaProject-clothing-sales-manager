@@ -3,10 +3,15 @@ package Connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.*;
 
 public class connec {
-	public static Connection getConnection()
-	{
+
+  
+
+
+    public static Connection getConnection() {
+
 		Connection connection = null;
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -16,17 +21,20 @@ public class connec {
 			e.printStackTrace();
 		}
 		return connection;
-	}
-	
-	public static void closeConnection(Connection c) {
-		try {
-			if(c!=null)
-			{
-				c.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    }
+
+    public static void closeConnection(Connection c) {
+        try {
+            if (c != null) {
+                c.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        getConnection();
+    }
 
 }

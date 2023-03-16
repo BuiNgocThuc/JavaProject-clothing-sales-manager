@@ -4,6 +4,10 @@
  */
 package Front_End.NHAPHANG;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,6 +27,10 @@ public class NHAPHANGGUI {
 	JTable table;
 	JTextField txtSoLuong;
 	JButton btnAdd;
+	private JTable table1;
+	private JButton btnDelete;
+	private JButton btnUpdate;
+	private JButton btnRefresh;
 	
     public NHAPHANGGUI(JFrame f) {
 		initComponent(f);
@@ -126,6 +135,64 @@ public class NHAPHANGGUI {
 		btnAdd = new JButton("THÊM");
 		btnAdd.setBounds(jPanel1.getWidth()+jPanel3.getWidth()+jPanel6.getWidth()+100, scrollPane.getHeight()+50, 72, 36);
 		panelNhapHang.add(btnAdd);
+		
+		// Chi tiết phiếu nhập
+				JPanel panelChiTiet_Top = new JPanel();
+				panelChiTiet_Top.setBounds(scrollPane.getWidth()+20, 10, 380, 150);
+				panelChiTiet_Top.setLayout(new FlowLayout(10,5,FlowLayout.LEFT));
+				panelChiTiet_Top.setBorder(new LineBorder(Color.BLACK));
+				
+				JPanel panelCT1 = new JPanel();
+				panelCT1.setBorder(new TitledBorder(null, "Mã PN", TitledBorder.LEADING, TitledBorder.TOP));
+				panelCT1.setPreferredSize(new Dimension(175, 44));
+				panelChiTiet_Top.add(panelCT1);
+				
+				JPanel panelCT2 = new JPanel();
+				panelCT2.setBorder(new TitledBorder(null, "Mã NCC", TitledBorder.LEADING, TitledBorder.TOP));
+				panelCT2.setPreferredSize(new Dimension(175, 44));
+				panelChiTiet_Top.add(panelCT2);
+				
+				JPanel panelCT3 = new JPanel();
+				panelCT3.setBorder(new TitledBorder(null, "Ngày nhập", TitledBorder.LEADING, TitledBorder.TOP));
+				panelCT3.setPreferredSize(new Dimension(175, 44));
+				panelChiTiet_Top.add(panelCT3);
+				
+				JPanel panelCT4 = new JPanel();
+				panelCT4.setBorder(new TitledBorder(null, "Nhân viên", TitledBorder.LEADING, TitledBorder.TOP));
+				panelCT4.setPreferredSize(new Dimension(175, 44));
+				panelChiTiet_Top.add(panelCT4);
+				
+				JPanel panelCT5 = new JPanel();
+				panelCT5.setBorder(new TitledBorder(null, "Tổng tiền", TitledBorder.LEADING, TitledBorder.TOP));
+				panelCT5.setPreferredSize(new Dimension(175, 44));
+				panelChiTiet_Top.add(panelCT5);
+				panelNhapHang.add(panelChiTiet_Top);
+				
+				
+				String columnNames1[] = {"Mã SP","Tên SP","Số lượng","Đơn giá","Thành tiền"};
+				String data1[][]= {};
+				DefaultTableModel dModel1 = new DefaultTableModel(data1, columnNames1);
+				table1 = new JTable(dModel1);
+				JScrollPane scrollPane1 = new JScrollPane(table1);
+				scrollPane1.setBounds(scrollPane.getWidth()+20, panelChiTiet_Top.getHeight()+20, 380,350);
+				panelNhapHang.add(scrollPane1);
+				
+				// Xóa, sửa, làm mới
+				btnDelete = new JButton("Xóa");
+				btnDelete.setBackground(Color.WHITE);
+				btnUpdate = new JButton("Sửa");
+				btnUpdate.setBackground(Color.WHITE);
+				btnRefresh = new JButton("Làm mới");
+				btnRefresh.setBackground(Color.WHITE);
+				
+				JPanel panelBtn = new JPanel();
+				panelBtn.setLayout(new FlowLayout(FlowLayout.CENTER));
+				panelBtn.setBounds(scrollPane.getWidth()+20, panelChiTiet_Top.getHeight()+20+scrollPane1.getHeight()+10, 380, 100);
+				panelBtn.add(btnDelete);
+				panelBtn.add(btnUpdate);
+				panelBtn.add(btnRefresh);
+				panelNhapHang.add(panelBtn);
+				
 		
 		
 		f.add(panelNhapHang);

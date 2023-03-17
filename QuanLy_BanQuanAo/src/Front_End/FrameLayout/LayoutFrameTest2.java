@@ -39,7 +39,7 @@ public class LayoutFrameTest2 extends JFrame {
     }
     
     void addJframe() {
-        pnNhapHang = new NHAPHANGGUI(this);
+        pnNhapHang.new NHAPHANGGUI(this);
         pnMainContent.add(pnNhapHang);
     }
 

@@ -39,8 +39,7 @@ public class LayoutFrameTest2 extends JFrame {
     }
     
     void addJframe() {
-        pnNhapHang.new NHAPHANGGUI(this);
-        pnMainContent.add(pnNhapHang);
+        
     }
 
     public LayoutFrameTest2() {
@@ -420,8 +419,6 @@ public class LayoutFrameTest2 extends JFrame {
             pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 444, Short.MAX_VALUE)
         );
-
-        pnNhapHang = new NHAPHANGGUI(this);
 
         pnMainContent.add(pnNhapHang, "card3");
 

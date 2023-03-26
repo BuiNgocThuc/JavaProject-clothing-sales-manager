@@ -1,4 +1,0 @@
-LOGIN_FrontEnd.LoginFormtest
-LOGIN_FrontEnd.LoginFormtest$GradientPanel
-LOGIN_FrontEnd.LoginFormtest$1
-LOGIN_FrontEnd.LoginFormtest$2

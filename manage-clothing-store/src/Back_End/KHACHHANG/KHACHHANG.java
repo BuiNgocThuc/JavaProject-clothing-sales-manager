@@ -2,20 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.KHACHHANG;
+package KHACHHANG;
 
 /**
  *
  * @author NGOC THUC
  */
 public class KHACHHANG {
-    private String maKH, tenKH, sdt, diaChi;
+    private String maKH, tenKH, sdt, diaChi, trangThai;
 
-    public KHACHHANG(String maKH, String tenKH, String sdt, String diaChi) {
+    public KHACHHANG(String maKH, String tenKH, String sdt, String diaChi, String trangThai) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.sdt = sdt;
         this.diaChi = diaChi;
+        this.trangThai = trangThai;
     }
 
     public String getMaKH() {
@@ -49,6 +50,14 @@ public class KHACHHANG {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
+
+	public String getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
+	}
     
     
     

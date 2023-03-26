@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.NHOMQUYEN;
+package NHOMQUYEN;
 
 /**
  *
@@ -10,17 +10,18 @@ package Back_End.NHOMQUYEN;
  */
 public class NHOMQUYEN {
 
-private String maQuyen, tenQuyen, moTaQuyen;
+private String maQuyen, tenQuyen, moTaQuyen, trangThai;
 	
 	public NHOMQUYEN()
 	{
 		
 	}
 
-    public NHOMQUYEN(String maQuyen, String tenQuyen, String moTaQuyen) {
+    public NHOMQUYEN(String maQuyen, String tenQuyen, String moTaQuyen, String trangThai) {
         this.maQuyen = maQuyen;
         this.tenQuyen = tenQuyen;
         this.moTaQuyen = moTaQuyen;
+        this.trangThai = trangThai;
     }
 
 	public String getMaQuyen() {
@@ -45,6 +46,14 @@ private String maQuyen, tenQuyen, moTaQuyen;
 
 	public void setMoTaQuyen(String moTaQuyen) {
 		this.moTaQuyen = moTaQuyen;
+	}
+
+	public String getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
 	}
     
     

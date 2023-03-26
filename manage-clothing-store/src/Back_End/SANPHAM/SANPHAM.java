@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.SANPHAM;
+package SANPHAM;
 
 /**
  *
  * @author NGOC THUC
  */
 public class SANPHAM {
-	private String maSP, tenSP, trangThai, mauSac, kichCo, maTH;
+	private String maSP, tenSP, trangThai, mauSac, kichCo, maTH, hinhAnh;
     private float giaSP;
     private int soLuongSP;
 
-    public SANPHAM(String maSP,String maTH, String tenSP, String kichCo, String mauSac, float giaSP, int soLuongSP, String trangThai) {
+    public SANPHAM(String maSP,String maTH, String tenSP, String kichCo, String mauSac, float giaSP, int soLuongSP, String trangThai, String hinhAnh) {
         this.maSP = maSP;
         this.maTH = maTH;
         this.tenSP = tenSP;
@@ -22,6 +22,7 @@ public class SANPHAM {
         this.giaSP = giaSP;
         this.soLuongSP = soLuongSP;
         this.trangThai = trangThai;
+        this.hinhAnh = hinhAnh;
        
     }
     
@@ -94,6 +95,14 @@ public class SANPHAM {
 
 	public void setMaTH(String maTH) {
 		this.maTH = maTH;
+	}
+
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
 	}
 
 	

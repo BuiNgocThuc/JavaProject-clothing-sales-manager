@@ -1,4 +1,4 @@
-package Back_End.KHUYENMAI;
+package KHUYENMAI;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import Connection.connec;
 import Dao.DAOInterface;
 
-public class KHUYENMAIDAO implements DAOInterface<KHUYENMAI> {
-	public static KHUYENMAIDAO getInstance() {
-		return new KHUYENMAIDAO();
+public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
+	public static KhuyenMaiDao getInstance() {
+		return new KhuyenMaiDao();
 	}
 	@Override
 	public int insert(KHUYENMAI t) {

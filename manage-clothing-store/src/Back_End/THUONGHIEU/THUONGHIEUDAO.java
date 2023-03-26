@@ -1,4 +1,4 @@
-package Back_End.THUONGHIEU;
+package THUONGHIEU;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

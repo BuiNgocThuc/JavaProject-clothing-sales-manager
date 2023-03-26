@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Back_End.NHANVIEN;
+package NHANVIEN;
 
 /**
  *
@@ -11,27 +11,23 @@ package Back_End.NHANVIEN;
  */
 public class NHANVIEN {
 
-	private String maNV, tenNV, diaChi, sdt, maQuyen, gioiTinh;
-	 private int tuoiNV;
+	private String maNV, tenNV,ngaySinh, diaChi, sdt, trangThai;
 	    
 	 public NHANVIEN() {
 	        maNV = null;
 	        tenNV = null;
 	        diaChi = null;
 	        sdt = null;
-	        maQuyen = null;
-	        tuoiNV = 0;
-	        gioiTinh = null;
+	        trangThai = null;
 	  }
 
-	 public NHANVIEN(String maNV, String tenNV, String diaChi, String sdt, String maQuyen, int tuoi, String gioiTinh) {
+	 public NHANVIEN(String maNV, String tenNV, String ngaySinh, String sdt, String diaChi, String trangThai) {
 	        this.maNV = maNV;
 	        this.tenNV = tenNV;
+	        this.ngaySinh = ngaySinh;
 	        this.diaChi = diaChi;
 	        this.sdt = sdt;
-	        this.maQuyen = maQuyen;
-	        this.tuoiNV = tuoi;
-	        this.gioiTinh = gioiTinh;
+	        this.trangThai = trangThai;
 	  }
 
 	public String getMaNV() {
@@ -66,35 +62,23 @@ public class NHANVIEN {
 		this.sdt = sdt;
 	}
 
-	public String getMaQuyen() {
-		return maQuyen;
+	public String getNgaySinh() {
+		return ngaySinh;
 	}
 
-	public void setMaQuyen(String maQuyen) {
-		this.maQuyen = maQuyen;
+	public void setNgaySinh(String ngaySinh) {
+		this.ngaySinh = ngaySinh;
 	}
 
-	public String getGioiTinh() {
-		return gioiTinh;
+	public String getTrangThai() {
+		return trangThai;
 	}
 
-	public void setGioiTinh(String gioiTinh) {
-		this.gioiTinh = gioiTinh;
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
 	}
 
-	public int getTuoiNV() {
-		return tuoiNV;
-	}
-
-	public void setTuoiNV(int tuoiNV) {
-		this.tuoiNV = tuoiNV;
-	}
-
-	@Override
-	public String toString() {
-		return "NHANVIEN [maNV=" + maNV + ", tenNV=" + tenNV + ", diaChi=" + diaChi + ", sdt=" + sdt + ", maQuyen="
-				+ maQuyen + ", gioiTinh=" + gioiTinh + ", tuoiNV=" + tuoiNV + "]";
-	}
+	
 	 
 
 }

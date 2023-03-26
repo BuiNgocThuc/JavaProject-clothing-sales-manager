@@ -1,4 +1,4 @@
-package Back_End.CTPhanQuyen;
+package CTPhanQuyen;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

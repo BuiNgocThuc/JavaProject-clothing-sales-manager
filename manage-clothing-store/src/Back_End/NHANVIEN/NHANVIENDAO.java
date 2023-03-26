@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.NHANVIEN;
+package NHANVIEN;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,16 +32,19 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "INSERT INTO NHANVIEN (MANV, NV_MAQUYEN, TENNV, SDTNV, DIACHINV, TUOI, GT) " +
-			             " VALUES (?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO NHANVIEN (MANV, TENNV, NGAYSINH, SDTNV, DIACHINV, TRANGTHAI) " +
+			             " VALUES (?,?,?,?,?,?)";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, t.getMaNV());
-			pst.setString(2, t.getMaQuyen());
-			pst.setString(3, t.getTenNV());
+			pst.setString(2, t.getTenNV());
+			
+			String ngay = t.getNgaySinh();
+			Date date = Date.valueOf(ngay);
+			pst.setDate(3, date);
+			
 			pst.setString(4, t.getSdt());
 			pst.setString(5, t.getDiaChi());
-			pst.setInt(6, t.getTuoiNV());
-			pst.setString(7, t.getGioiTinh());
+			pst.setString(6, t.getTrangThai());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -87,23 +91,25 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 			Connection conn = connec.getConnection();
 			
 			String sql = "UPDATE NHANVIEN " + 
-			             " SET NV_MAQUYEN=?" +
-					     ", TENNV=?" +
+					     " SET TENNV=?" +
+					     ", NGAYSINH=?" +
 			             ", SDTNV=?" +
 					     ", DIACHINV=?" +
-			             ", TUOI=?" +
-					     ", GT=?" +
+			             ", TRANGTHAI=?" +
 			             " WHERE MANV=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			
 			
-			pst.setString(1, t.getMaQuyen());
-			pst.setString(2, t.getTenNV());
+			pst.setString(1, t.getTenNV());
+			
+			String ngay = t.getNgaySinh();
+			Date date = Date.valueOf(ngay);
+			pst.setDate(2, date);
+			
 			pst.setString(3, t.getSdt());
 			pst.setString(4, t.getDiaChi());
-			pst.setString(5, t.getMaNV());
-			pst.setInt(6, t.getTuoiNV());
-			pst.setString(7, t.getGioiTinh());
+			pst.setString(5, t.getTrangThai());
+			pst.setString(6, t.getMaNV());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -133,14 +139,13 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 			while (rs.next()) {
 				String maNV = rs.getString("MANV");
 				String tenNV = rs.getNString("TENNV");
+				String ngaySinh = String.valueOf(rs.getDate("NGAYSINH"));
 				String diaChi = rs.getNString("DIACHINV");
 				String sdt = rs.getString("SDTNV");
-				String maQuyen = rs.getString("NV_MAQUYEN");
-				int tuoi = rs.getInt("TUOI");
-				String gioiTinh = rs.getNString("GT");
+				String trangThai = rs.getString("TRANGTHAI");
 				
 				
-				NHANVIEN a = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen, tuoi, gioiTinh);
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, ngaySinh, sdt, diaChi, trangThai);
 				ketQua.add(a);
 			}
 			
@@ -167,13 +172,13 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 			while (rs.next()) {
 				String maNV = rs.getString("MANV");
 				String tenNV = rs.getNString("TENNV");
+				String ngaySinh = String.valueOf(rs.getDate("NGAYSINH"));
 				String diaChi = rs.getNString("DIACHINV");
 				String sdt = rs.getString("SDTNV");
-				String maQuyen = rs.getString("NV_MAQUYEN");
-				int tuoi = rs.getInt("TUOI");
-				String gioiTinh = rs.getNString("GT");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				ketQua = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen,tuoi,gioiTinh);
+				
+				ketQua = new NHANVIEN(maNV, tenNV, ngaySinh, sdt, diaChi, trangThai);
 			}
 			
 			connec.closeConnection(conn);
@@ -197,13 +202,13 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 			while (rs.next()) {
 				String maNV = rs.getString("MANV");
 				String tenNV = rs.getNString("TENNV");
+				String ngaySinh = String.valueOf(rs.getDate("NGAYSINH"));
 				String diaChi = rs.getNString("DIACHINV");
 				String sdt = rs.getString("SDTNV");
-				String maQuyen = rs.getString("NV_MAQUYEN");
-				int tuoi = rs.getInt("TUOI");
-				String gioiTinh = rs.getNString("GT");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				NHANVIEN a = new NHANVIEN(maNV, tenNV, diaChi, sdt, maQuyen, tuoi, gioiTinh);
+				
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, ngaySinh, sdt, diaChi, trangThai);
 				ketQua.add(a);
 			}
 			

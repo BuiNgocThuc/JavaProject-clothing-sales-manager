@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.SANPHAM;
+package SANPHAM;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,17 +26,18 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO SANPHAM(MASP, SP_MATH, TENSP, SIZE, MAUSAC, SP_GIASP, SP_SOLUONGSP, TRANGTHAI) " +
-					      " VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO SANPHAM(MASP, SP_MATH, TENSP, SIZE, MAUSAC, HINHANH, SP_GIASP, SP_SOLUONGSP, TRANGTHAI) " +
+					      " VALUES(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaSP());
 			pst.setString(2, t.getMaTH());
 			pst.setString(3, t.getTenSP());
 			pst.setString(4, t.getKichCo());
 			pst.setString(5, t.getMauSac());
-			pst.setFloat(6,t.getGiaSP());
-			pst.setInt(7, t.getSoLuongSP());
-			pst.setString(8, t.getTrangThai());
+			pst.setString(6, t.getHinhAnh());
+			pst.setFloat(7,t.getGiaSP());
+			pst.setInt(8, t.getSoLuongSP());
+			pst.setString(9, t.getTrangThai());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -83,6 +84,7 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 					      ", TENSP=?" +
 					      ", SIZE=?" +
 					      ", MAUSAC=?" +
+					      ", HINHANH=?" +
 					      ", SP_GIASP=?" +
 					      ", SP_SOLUONGSP=?" +
 					      ", TRANGTHAI=?" +
@@ -93,10 +95,11 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 			pst.setString(2, t.getTenSP());
 			pst.setString(3, t.getKichCo());
 			pst.setString(4, t.getMauSac());
-			pst.setFloat(5,t.getGiaSP());
-			pst.setInt(6, t.getSoLuongSP());
-			pst.setString(7, t.getTrangThai());
-			pst.setString(8, t.getMaSP());
+			pst.setString(5, t.getHinhAnh());
+			pst.setFloat(6,t.getGiaSP());
+			pst.setInt(7, t.getSoLuongSP());
+			pst.setString(8, t.getTrangThai());
+			pst.setString(9, t.getMaSP());
 
 			
 			ketQua = pst.executeUpdate();
@@ -127,12 +130,13 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 				String tenSP = rs.getNString("TENSP");
 				String kichCo = rs.getString("SIZE");
 				String mauSac = rs.getNString("MAUSAC");
+				String hinhAnh = rs.getString("HINHANH");
 				Float giaSP = rs.getFloat("SP_GIASP");
 				int soLuong = rs.getInt("SP_SOLUONGSP");
 				String trangThai = rs.getString("TRANGTHAI");
 				
 				
-				 SANPHAM a = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai);
+				 SANPHAM a = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai,hinhAnh);
 				 ketQua.add(a);
 			}
 			connec.closeConnection(c);
@@ -158,12 +162,13 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 				String tenSP = rs.getNString("TENSP");
 				String kichCo = rs.getString("SIZE");
 				String mauSac = rs.getNString("MAUSAC");
+				String hinhAnh = rs.getString("HINHANH");
 				Float giaSP = rs.getFloat("SP_GIASP");
 				int soLuong = rs.getInt("SP_SOLUONGSP");
 				String trangThai = rs.getString("TRANGTHAI");
 				
 				
-				ketQua = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai);
+				ketQua = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai, hinhAnh);
 			}
 			connec.closeConnection(c);
 		} catch (SQLException e) {
@@ -187,12 +192,13 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 				String tenSP = rs.getNString("TENSP");
 				String kichCo = rs.getString("SIZE");
 				String mauSac = rs.getNString("MAUSAC");
+				String hinhAnh = rs.getString("HINHANH");
 				Float giaSP = rs.getFloat("SP_GIASP");
 				int soLuong = rs.getInt("SP_SOLUONGSP");
 				String trangThai = rs.getString("TRANGTHAI");
 				
 				
-				 SANPHAM a = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai);
+				 SANPHAM a = new SANPHAM(maSP, maTH, tenSP, kichCo, mauSac, giaSP, soLuong, trangThai,hinhAnh);
 				 ketQua.add(a);
 			}
 			connec.closeConnection(c);

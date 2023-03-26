@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.KHACHHANG;
+package KHACHHANG;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,13 +28,14 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 		try {
 			Connection c = connec.getConnection();
 			
-			String sql = "INSERT INTO KHACHHANG(MAKH, TENKH, SDTKH, DIACHIKH) " +
+			String sql = "INSERT INTO KHACHHANG(MAKH, TENKH, SDTKH, DIACHIKH, TRANGTHAI) " +
 			             " VALUES(?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaKH());
 			pst.setString(2, t.getTenKH());
 			pst.setString(3, t.getSdt());
 			pst.setString(4, t.getDiaChi());
+			pst.setString(5, t.getTrangThai());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -81,12 +82,14 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 			             " SET TENKH=?" +
 					     ", SDTKH=?" +
 			             ", DIACHIKH=?" +
+					     ", TRANGTHAI=?" +
 					     " WHERE MAKH=?";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getTenKH());
 			pst.setString(2, t.getSdt());
 			pst.setString(3, t.getDiaChi());
-			pst.setString(4, t.getMaKH());
+			pst.setString(4, t.getTrangThai());
+			pst.setString(5, t.getMaKH());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -115,8 +118,9 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 				String tenKH = rs.getNString("TENKH");
 				String sdt = rs.getString("SDTKH");
 				String diaChi = rs.getNString("DIACHIKH");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi);
+				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi, trangThai);
 				ketQua.add(a);
 			}
 			
@@ -144,8 +148,9 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 				String tenKH = rs.getNString("TENKH");
 				String sdt = rs.getString("SDTKH");
 				String diaChi = rs.getNString("DIACHIKH");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				ketQua = new KHACHHANG(maKH, tenKH, sdt, diaChi);
+				ketQua = new KHACHHANG(maKH, tenKH, sdt, diaChi, trangThai);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,8 +173,9 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 				String tenKH = rs.getNString("TENKH");
 				String sdt = rs.getString("SDTKH");
 				String diaChi = rs.getNString("DIACHIKH");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi);
+				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi, trangThai);
 				ketQua.add(a);
 			}
 			

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.NHACUNGCAP;
+package NHACUNGCAP;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,13 +28,14 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO NHACUNGCAP(MANCC, TENNCC, SDTNCC, DIACHINCC) " +
-			             " VALUES(?,?,?,?)";
+			String sql = "INSERT INTO NHACUNGCAP(MANCC, TENNCC, SDTNCC, DIACHINCC, TRANGTHAI) " +
+			             " VALUES(?,?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaNCC());
 			pst.setString(2, t.getTenNCC());
 			pst.setString(3, t.getSdt());
 			pst.setString(4, t.getDiaChi());
+			pst.setString(5, t.getTrangThai());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -79,12 +80,14 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 			             " SET TENNCC=?" +
 					     ", SDTNCC=?" +
 			             ", DIACHINCC=?" +
+					     ", TRANGTHAI=?" +
 					     " WHERE MANCC=?";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getTenNCC());
 			pst.setString(2, t.getSdt());
 			pst.setString(3, t.getDiaChi());
-			pst.setString(4, t.getMaNCC());
+			pst.setString(4, t.getTrangThai());
+			pst.setString(5, t.getMaNCC());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -112,8 +115,9 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 				String tenNCC = rs.getNString("TENNCC");
 				String sdtNCC = rs.getString("SDTNCC");
 				String diachiNCC = rs.getNString("DIACHINCC");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC);
+				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC,trangThai);
 				ketQua.add(a);
 			}
 			
@@ -139,8 +143,9 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 				String tenNCC = rs.getNString("TENNCC");
 				String sdtNCC = rs.getString("SDTNCC");
 				String diachiNCC = rs.getNString("DIACHINCC");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				ketQua = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC);
+				ketQua = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC,trangThai);
 			}
 			
 			connec.closeConnection(c);
@@ -164,8 +169,9 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 				String tenNCC = rs.getNString("TENNCC");
 				String sdtNCC = rs.getString("SDTNCC");
 				String diachiNCC = rs.getNString("DIACHINCC");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC);
+				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC,trangThai);
 				ketQua.add(a);
 			}
 			

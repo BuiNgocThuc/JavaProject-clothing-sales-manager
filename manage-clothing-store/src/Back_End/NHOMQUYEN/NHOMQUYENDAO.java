@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Back_End.NHOMQUYEN;
+package NHOMQUYEN;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,12 +27,13 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO NHOMQUYEN(MAQUYEN, TENQUYEN, MOTAQUYEN) " +
-			             " VALUES(?,?,?)";
+			String sql = "INSERT INTO NHOMQUYEN(MAQUYEN, TENQUYEN, MOTAQUYEN, TRANGTHAI) " +
+			             " VALUES(?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaQuyen());
 			pst.setString(2, t.getTenQuyen() );
 			pst.setString(3, t.getMoTaQuyen());
+			pst.setString(4, t.getTrangThai());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -76,11 +77,13 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
 			String sql = "UPDATE NHOMQUYEN " +
 			             " SET TENQUYEN=?" +
 					     ", MOTAQUYEN=?" +
+			             ", TRANGTHAI=?" +
 			             " WHERE MAQUYEN=?";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getTenQuyen() );
 			pst.setString(2, t.getMoTaQuyen());
-			pst.setString(3, t.getMaQuyen());
+			pst.setString(3, t.getTrangThai());
+			pst.setString(4, t.getMaQuyen());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -107,8 +110,9 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
 				String maQuyen = rs.getString("MAQUYEN");
 				String tenQuyen = rs.getNString("TENQUYEN");
 				String moTaQuyen = rs.getNString("MOTAQUYEN");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				NHOMQUYEN a = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen);
+				NHOMQUYEN a = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
 				ketQua.add(a);
 			}
 			
@@ -134,8 +138,9 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
 				String maQuyen = rs.getString("MAQUYEN");
 				String tenQuyen = rs.getNString("TENQUYEN");
 				String moTaQuyen = rs.getNString("MOTAQUYEN");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-			    ketQua = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen);
+			    ketQua = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
 			}
 			
 			connec.closeConnection(c);
@@ -159,8 +164,9 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
 				String maQuyen = rs.getString("MAQUYEN");
 				String tenQuyen = rs.getNString("TENQUYEN");
 				String moTaQuyen = rs.getNString("MOTAQUYEN");
+				String trangThai = rs.getString("TRANGTHAI");
 				
-				NHOMQUYEN a = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen);
+				NHOMQUYEN a = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
 				ketQua.add(a);
 			}
 			

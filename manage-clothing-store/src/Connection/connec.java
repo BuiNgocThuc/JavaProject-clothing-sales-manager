@@ -15,7 +15,7 @@ public class connec {
 		Connection connection = null;
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBQA;user=sa;password=1234567;encrypt=false");
+			connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QUANLY_BQA;user=sa;password=1234567;encrypt=false");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,9 +32,9 @@ public class connec {
             e.printStackTrace();
         }
     }
-
+    
     public static void main(String[] args) {
-        getConnection();
-    }
-
+		Connection c = getConnection();
+		closeConnection(c);
+	}
 }

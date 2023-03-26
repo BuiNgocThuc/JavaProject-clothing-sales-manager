@@ -1,4 +1,4 @@
-package Back_End.CTSanPham;
+package CTSanPham;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import Connection.connec;
 import Dao.DAOInterface;
 
-public class CTSanPhamDAO implements DAOInterface<CTSanPham> {
-	public static CTSanPhamDAO getInstance() {
-		return new CTSanPhamDAO();
+public class CTSanPhamDao implements DAOInterface<CTSanPham> {
+	public static CTSanPhamDao getInstance() {
+		return new CTSanPhamDao();
 	}
 	@Override
 	public int insert(CTSanPham t) {

@@ -23,15 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="pnContainer" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="pnContainer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnContainer" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Component id="pnContainer" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -41,8 +38,11 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="pnTool" alignment="0" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+              <Component id="pnTool" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -62,7 +62,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
                           <Component id="jLabel6" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -307,48 +307,35 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="4">
+                  <Table columnCount="5" rowCount="4">
                     <Column editable="true" title="STT" type="java.lang.Object">
                       <Data value="1"/>
                       <Data value="2"/>
                       <Data value="3"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="M&#xe3; " type="java.lang.Object">
-                      <Data value="KM1"/>
-                      <Data value="KM2"/>
-                      <Data value=" KM3 "/>
+                    <Column editable="true" title="T&#xea;n T&#xe0;i Kho&#x1ea3;n" type="java.lang.Object">
+                      <Data value="admin"/>
+                      <Data value="quanly"/>
+                      <Data value="nhanvien"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="T&#xea;n Khuy&#x1ebf;n M&#x1ea1;i" type="java.lang.Object">
-                      <Data value="Kh&#xf4;ng Khuy&#x1ebf;n M&#x1ea1;i"/>
-                      <Data value="Gi&#x1ea3;m Valentine"/>
-                      <Data value="Gi&#x1ea3;m 30/4"/>
+                    <Column editable="true" title="M&#x1ead;t Kh&#x1ea9;u" type="java.lang.Object">
+                      <Data value="admin"/>
+                      <Data value="quanly"/>
+                      <Data value="nhanvien"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="&#x110;i&#x1ec1;u Ki&#x1ec7;n" type="java.lang.Object">
-                      <Data value=" &gt;  0 &#x111;"/>
-                      <Data value="  &gt; 5"/>
-                      <Data value=" &gt; 12 &#x111;"/>
+                    <Column editable="true" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object">
+                      <Data value="NV1"/>
+                      <Data value="NV2"/>
+                      <Data value="NV3"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object">
-                      <Data value="0.0% "/>
-                      <Data value=" 5.0%"/>
-                      <Data value=".0%"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u" type="java.lang.Object">
-                      <Data value=""/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
-                    <Column editable="true" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c" type="java.lang.Object"/>
-                    <Column editable="true" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object">
-                      <Data value="ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
-                      <Data value="h&#x1ebf;t h&#x1ea1;n"/>
-                      <Data value="ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
+                    <Column editable="true" title="M&#xe3; Quy&#x1ec1;n" type="java.lang.Object">
+                      <Data value="Q1"/>
+                      <Data value=" Q2"/>
+                      <Data value=" Q3"/>
                       <Data value="null"/>
                     </Column>
                   </Table>

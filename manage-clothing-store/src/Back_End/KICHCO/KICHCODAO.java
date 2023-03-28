@@ -1,4 +1,4 @@
-package KICHCO;
+package Back_End.KICHCO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package MAUSAC;
+package Back_End.MAUSAC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -2,23 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package KHUYENMAI;
+package Back_End.KHUYENMAI;
 
 /**
  *
  * @author NGOC THUC
  */
 public class KHUYENMAI {
-    private String maKM, tenKM, dieuKien, ngayBD, ngayKT;
+
+    private String maKM, tenKM, dieuKien, ngayBD, ngayKT, trangThai;
     private double phanTramGiamGia;
 
-    public KHUYENMAI(String maKM, String tenKM, String dieuKien, String ngayBD, String ngayKT, double phanTramGiamGia) {
+    public KHUYENMAI(String maKM, String tenKM, String dieuKien, String ngayBD, String ngayKT, double phanTramGiamGia, String trangthai) {
+        this.trangThai = trangthai;
         this.maKM = maKM;
         this.tenKM = tenKM;
         this.dieuKien = dieuKien;
         this.ngayBD = ngayBD;
         this.ngayKT = ngayKT;
         this.phanTramGiamGia = phanTramGiamGia;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getMaKM() {
@@ -68,5 +78,5 @@ public class KHUYENMAI {
     public void setPhanTramGiamGia(double phanTramGiamGia) {
         this.phanTramGiamGia = phanTramGiamGia;
     }
-    
+
 }

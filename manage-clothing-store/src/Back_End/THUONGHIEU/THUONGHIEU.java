@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package THUONGHIEU;
+package Back_End.THUONGHIEU;
 
 /**
  *
@@ -10,16 +10,24 @@ package THUONGHIEU;
  */
 public class THUONGHIEU {
 
-    private String maTH, tenTH;
+    private String maTH, tenTH, trangthai;
 
     public THUONGHIEU() {
 
     }
 
-    public THUONGHIEU(String maTH, String tenTH) {
-        super();
+    public THUONGHIEU(String maTH, String tenTH, String trangthai) {
+        this.trangthai = trangthai;
         this.maTH = maTH;
         this.tenTH = tenTH;
+    }
+
+    public String getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
     }
 
     public String getMaTH() {

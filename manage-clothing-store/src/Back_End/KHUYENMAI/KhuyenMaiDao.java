@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import Connection.connec;
 import Dao.DAOInterface;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
 
@@ -26,15 +28,13 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKM());
             pst.setString(2, t.getTenKM());
-            pst.setString(3, t.getDieuKien());
+            pst.setDouble(3, t.getDieuKien());
             pst.setDouble(4, t.getPhanTramGiamGia());
-            String ngayBD = t.getNgayBD();
-            String ngayKT = t.getNgayKT();
-            Date dateBD = Date.valueOf(ngayBD);
-            Date dateKT = Date.valueOf(ngayKT);
-            pst.setDate(5, dateBD);
-            pst.setDate(6, dateKT);
-            pst.setString(7, t.getTrangThai());
+            LocalDate ngayBD = t.getNgayBD();
+            LocalDate ngayKT = t.getNgayKT();
+            pst.setDate(5, Date.valueOf(ngayBD));
+            pst.setDate(6, Date.valueOf(ngayKT));
+            pst.setNString(7, t.getTrangThai());
 
             ketQua = pst.executeUpdate();
 
@@ -43,9 +43,11 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
 
             connec.closeConnection(c);
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu xuống bảng KHUYENMAI");
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -53,7 +55,8 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "DELETE FROM KHUYENMAI "
+            String sql = "UPDATE KHUYENMAI "
+                    + "SET trangThai='Đã Khóa' "
                     + " WHERE MAKM=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKM());
@@ -66,8 +69,9 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -86,15 +90,13 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKM());
             pst.setString(2, t.getTenKM());
-            pst.setString(3, t.getDieuKien());
+            pst.setDouble(3, t.getDieuKien());
             pst.setDouble(4, t.getPhanTramGiamGia());
-            String ngayBD = t.getNgayBD();
-            String ngayKT = t.getNgayKT();
-            Date dateBD = Date.valueOf(ngayBD);
-            Date dateKT = Date.valueOf(ngayKT);
-            pst.setDate(5, dateBD);
-            pst.setDate(6, dateKT);
-            pst.setString(7, t.getTrangThai());
+            LocalDate ngayBD = t.getNgayBD();
+            LocalDate ngayKT = t.getNgayKT();
+            pst.setDate(5, Date.valueOf(ngayBD));
+            pst.setDate(6, Date.valueOf(ngayKT));
+            pst.setNString(7, t.getTrangThai());
 
             ketQua = pst.executeUpdate();
 
@@ -104,8 +106,9 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -120,10 +123,10 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             while (rs.next()) {
                 String maKM = rs.getString("MAKM");
                 String tenKM = rs.getNString("TENKM");
-                String dieuKien = rs.getString("DIEUKIEN");
-                String ngayBD = String.valueOf(rs.getDate("NGAY_BD"));
-                String ngayKT = String.valueOf(rs.getDate("NGAY_KT"));
-                Float phamTramGiamGia = rs.getFloat("GIAMGIA");
+                double dieuKien = rs.getDouble("DIEUKIEN");
+                LocalDate ngayBD = rs.getDate("NGAY_BD").toLocalDate();
+                LocalDate ngayKT = rs.getDate("NGAY_KT").toLocalDate();
+                double phamTramGiamGia = rs.getDouble("GIAMGIA");
                 String trangthai = rs.getNString("TRANGTHAI");
 
                 KHUYENMAI a = new KHUYENMAI(maKM, tenKM, dieuKien, ngayBD, ngayKT, phamTramGiamGia, trangthai);
@@ -149,9 +152,9 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             while (rs.next()) {
                 String maKM = rs.getString("MAKM");
                 String tenKM = rs.getNString("TENKM");
-                String dieuKien = rs.getString("DIEUKIEN");
-                String ngayBD = String.valueOf(rs.getDate("NGAY_BD"));
-                String ngayKT = String.valueOf(rs.getDate("NGAY_KT"));
+                double dieuKien = rs.getDouble("DIEUKIEN");
+                LocalDate ngayBD = rs.getDate("NGAY_BD").toLocalDate();
+                LocalDate ngayKT = rs.getDate("NGAY_KT").toLocalDate();
                 Float phamTramGiamGia = rs.getFloat("GIAMGIA");
                 String trangthai = rs.getNString("TRANGTHAI");
 
@@ -173,12 +176,12 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
-            while (rs.next()) {
+           while (rs.next()) {
                 String maKM = rs.getString("MAKM");
                 String tenKM = rs.getNString("TENKM");
-                String dieuKien = rs.getString("DIEUKIEN");
-                String ngayBD = String.valueOf(rs.getDate("NGAY_BD"));
-                String ngayKT = String.valueOf(rs.getDate("NGAY_KT"));
+                double dieuKien = rs.getDouble("DIEUKIEN");
+                LocalDate ngayBD = rs.getDate("NGAY_BD").toLocalDate();
+                LocalDate ngayKT = rs.getDate("NGAY_KT").toLocalDate();
                 Float phamTramGiamGia = rs.getFloat("GIAMGIA");
                 String trangthai = rs.getNString("TRANGTHAI");
 

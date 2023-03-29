@@ -4,16 +4,19 @@
  */
 package Back_End.KHUYENMAI;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author NGOC THUC
  */
 public class KHUYENMAI {
+    
+    private String maKM, tenKM, trangThai;
+    private double dieuKien,  phanTramGiamGia;
+    private LocalDate ngayBD, ngayKT;
 
-    private String maKM, tenKM, dieuKien, ngayBD, ngayKT, trangThai;
-    private double phanTramGiamGia;
-
-    public KHUYENMAI(String maKM, String tenKM, String dieuKien, String ngayBD, String ngayKT, double phanTramGiamGia, String trangthai) {
+    public KHUYENMAI(String maKM, String tenKM, double dieuKien, LocalDate ngayBD, LocalDate ngayKT, double phanTramGiamGia, String trangthai) {
         this.trangThai = trangthai;
         this.maKM = maKM;
         this.tenKM = tenKM;
@@ -47,27 +50,27 @@ public class KHUYENMAI {
         this.tenKM = tenKM;
     }
 
-    public String getDieuKien() {
+    public double getDieuKien() {
         return dieuKien;
     }
 
-    public void setDieuKien(String dieuKien) {
+    public void setDieuKien(double dieuKien) {
         this.dieuKien = dieuKien;
     }
 
-    public String getNgayBD() {
+    public LocalDate getNgayBD() {
         return ngayBD;
     }
 
-    public void setNgayBD(String ngayBD) {
+    public void setNgayBD(LocalDate ngayBD) {
         this.ngayBD = ngayBD;
     }
 
-    public String getNgayKT() {
+    public LocalDate getNgayKT() {
         return ngayKT;
     }
 
-    public void setNgayKT(String ngayKT) {
+    public void setNgayKT(LocalDate ngayKT) {
         this.ngayKT = ngayKT;
     }
 

@@ -23,12 +23,15 @@ import javax.swing.JPanel;
 public class EventInLabel implements MouseListener {
 
     private JPanel pnMainContent, pnComponent;
-    Font original;
+    boolean trangThai;
+    int width, height;
 
     public EventInLabel(JPanel pnM, JPanel pnC) {
         this.pnMainContent = pnM;
         this.pnComponent = pnC;
     }
+    
+    
 
 //    private JPanel mainContent;
 //    private String order;
@@ -53,6 +56,8 @@ public class EventInLabel implements MouseListener {
         pnMainContent.add(pnComponent);
         pnMainContent.repaint();
         pnMainContent.revalidate();
+        
+        
     }
 
     @Override

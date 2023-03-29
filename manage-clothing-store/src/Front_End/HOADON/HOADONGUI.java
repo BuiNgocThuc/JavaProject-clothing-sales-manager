@@ -24,10 +24,10 @@ import javax.swing.border.TitledBorder;
  * @author NGOC THUC
  */
 public class HOADONGUI {
-	private JPanel pnl, pnl1, pnl2, pnl3;
+	private JPanel pnl, pnl1, pnl2;
 	private JTable tbl;
 	private JLabel lbl1, lbl2, lbl3, lbl4;
-	private JButton btn1, btn2;
+	private JButton btn1;
 	private JTextField txt1, txt2, txt3, txt4;
 	
 	public HOADONGUI(JFrame f) {
@@ -36,37 +36,33 @@ public class HOADONGUI {
 	
 	private void innit(JFrame f) {
 		pnl = new JPanel(new BorderLayout());
-		pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
 		
 		pnl2 = new JPanel(null);
 		pnl2.setBorder(new TitledBorder(new LineBorder(Color.black), "Tìm kiếm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnl2.setPreferredSize(new Dimension(350,100));
-		
-		pnl3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-		
+		pnl2.setPreferredSize(new Dimension(600,100));
+				
 		lbl1 = new JLabel("Mã: ");
-		lbl1.setBounds(50, 14, 40, 20);
+		lbl1.setBounds(40, 20, 40, 20);
 		lbl2 = new JLabel("KH: ");
-		lbl2.setBounds(50, 34, 40, 20);
+		lbl2.setBounds(310, 20, 40, 20);
 		lbl3 = new JLabel("NV: ");
-		lbl3.setBounds(50, 54, 40, 20);
+		lbl3.setBounds(40, 60, 40, 20);
 		lbl4 = new JLabel("Ngày: ");
-		lbl4.setBounds(50, 74, 40, 20);
+		lbl4.setBounds(310, 60, 40, 20);
 		
 		txt1 = new JTextField();
-		txt1.setBounds(90, 14, 210, 20);
+		txt1.setBounds(80, 20, 210, 20);
 		txt2 = new JTextField();
-		txt2.setBounds(90, 34, 210, 20);
+		txt2.setBounds(350, 20, 210, 20);
 		txt3 = new JTextField();
-		txt3.setBounds(90, 54, 210, 20);
+		txt3.setBounds(80, 60, 210, 20);
 		txt4 = new JTextField();
-		txt4.setBounds(90, 74, 210, 20);
+		txt4.setBounds(350, 60, 210, 20);
 		
 		btn1 = new JButton("Tìm kiếm");
 		btn1.setPreferredSize(new Dimension(100, 30));
-		btn2 = new JButton("Xem chi tiết");
-		btn2.setPreferredSize(new Dimension(100, 30));
-				
+		
 		String[][] data = {
 				{"2", "KH2", "Nguyễn Văn A", "17/8/2022", "17000000vnđ"},
 				{"3", "KH3", "Nguyễn Văn B", "20/2/2023", "15000000vnđ"},
@@ -77,9 +73,7 @@ public class HOADONGUI {
 		tbl.setAutoCreateRowSorter(true);
 		
 		JScrollPane sp = new JScrollPane(tbl);
-		
-		pnl3.add(btn2);
-		
+				
 		pnl2.add(lbl1);
 		pnl2.add(lbl2);
 		pnl2.add(lbl3);
@@ -94,7 +88,6 @@ public class HOADONGUI {
 		
 		pnl.add(pnl1, BorderLayout.NORTH);
 		pnl.add(sp, BorderLayout.CENTER);
-		pnl.add(pnl3, BorderLayout.SOUTH);
 		
 		f.add(pnl);
 	}

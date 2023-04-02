@@ -89,8 +89,8 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getPassWord());
             pst.setString(2, t.getMaQuyen());
-            pst.setString(3, t.getUserName());
-            pst.setString(4, t.getTrangthai());
+            pst.setString(3, t.getTrangthai());
+            pst.setString(4, t.getUserName());
 
             ketQua = pst.executeUpdate();
 

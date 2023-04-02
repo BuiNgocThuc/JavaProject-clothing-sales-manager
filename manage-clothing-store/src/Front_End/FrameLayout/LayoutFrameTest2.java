@@ -55,8 +55,6 @@ public class LayoutFrameTest2 extends JFrame {
         lblLogo.addMouseListener(new EventInLabel(pnMainContent, pnKhuyenMai));
         
         System.out.println(trangThai + " " + width);
-
-// 
 //            lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang, trangThai, width, height));
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang, trangThai, width, height));
 //        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham, trangThai, width, height));

@@ -24,7 +24,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
         try {
             Connection c = connec.getConnection();
             String sql = "INSERT INTO KHUYENMAI(MAKM, TENKM, DIEUKIEN, GIAMGIA, NGAY_BD, NGAY_KT, TRANGTHAI) "
-                    + " VALUES(?,?,?,?,?,?)";
+                    + " VALUES(?,?,?,?,?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKM());
             pst.setString(2, t.getTenKM());
@@ -79,7 +79,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "INSERT INTO KHUYENMAI(MAKM, TENKM, DIEUKIEN, GIAMGIA, NGAY_BD, NGAY_KT, TRANGTHAI) "
+            String sql = "UPDATE KHUYENMAI "
                     + " SET TENKM=?"
                     + ", DIEUKIEN=?"
                     + ", GIAMGIA=?"
@@ -88,15 +88,15 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
                     + ", TRANGTHAI=?"
                     + " WHERE MAKM=?";
             PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(1, t.getMaKM());
-            pst.setString(2, t.getTenKM());
-            pst.setDouble(3, t.getDieuKien());
-            pst.setDouble(4, t.getPhanTramGiamGia());
+            pst.setString(7, t.getMaKM());
+            pst.setString(1, t.getTenKM());
+            pst.setDouble(2, t.getDieuKien());
+            pst.setDouble(3, t.getPhanTramGiamGia());
             LocalDate ngayBD = t.getNgayBD();
             LocalDate ngayKT = t.getNgayKT();
-            pst.setDate(5, Date.valueOf(ngayBD));
-            pst.setDate(6, Date.valueOf(ngayKT));
-            pst.setNString(7, t.getTrangThai());
+            pst.setDate(4, Date.valueOf(ngayBD));
+            pst.setDate(5, Date.valueOf(ngayKT));
+            pst.setNString(6, t.getTrangThai());
 
             ketQua = pst.executeUpdate();
 

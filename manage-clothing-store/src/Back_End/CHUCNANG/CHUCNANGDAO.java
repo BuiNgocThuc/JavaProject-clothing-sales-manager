@@ -31,7 +31,7 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
         try {
             Connection c = connec.getConnection();
             String sql = "INSERT INTO CHUCNANG(MACN, TENCN, MOTA) "
-                    + " VALUES(?,?)";
+                    + " VALUES(?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaCN());
             pst.setString(2, t.getTenCN());
@@ -108,8 +108,9 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                 String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
+                String trangThai = rs.getNString("TRANGTHAI");
 
-                CHUCNANG a = new CHUCNANG(maCN, tenCN, moTa);
+                CHUCNANG a = new CHUCNANG(maCN, tenCN, moTa, trangThai);
                 ketQua.add(a);
             }
 
@@ -136,8 +137,9 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                  String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
+                String trangThai = rs.getNString("TRANGTHAI");
 
-                ketQua = new CHUCNANG(maCN, tenCN, moTa);
+                ketQua = new CHUCNANG(maCN, tenCN, moTa, trangThai);
             }
             connec.closeConnection(c);
         } catch (SQLException e) {
@@ -160,8 +162,9 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                  String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
+                String trangThai = rs.getNString("TRANGTHAI");
 
-                CHUCNANG a = new CHUCNANG(maCN,tenCN, moTa);
+                CHUCNANG a = new CHUCNANG(maCN,tenCN, moTa ,trangThai);
                 ketQua.add(a);
             }
 

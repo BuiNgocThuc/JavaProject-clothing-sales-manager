@@ -28,11 +28,11 @@ public class NHOMQUYENBUS {
     }
 
     public String[] getTitle() {
-        return new String[]{"Mã Quyền", "Tên Quyền", "Mô Tả Quyền", "Trạng thái"};
+        return new String[]{"Mã Quyền", "Tên Quyền", "Mô Tả Quyền"};
     }
 
     public String getNextID() {
-        return "NV" + String.valueOf(this.dsnq.size() + 1);
+        return "NQ" + String.valueOf(this.dsnq.size() + 1);
     }
 
     public ArrayList<NHOMQUYEN> search(String value, String type) {
@@ -42,7 +42,7 @@ public class NHOMQUYENBUS {
             if (type.equals("Tất cả")) {
                 if (nq.getMaQuyen().toLowerCase().contains(value.toLowerCase())
                         || nq.getTenQuyen().toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(nq.getMaQuyen()).toLowerCase().contains(value.toLowerCase())) {
+                        || String.valueOf(nq.getMoTaQuyen()).toLowerCase().contains(value.toLowerCase())) {
                     result.add(nq);
                 }
             } else {
@@ -54,11 +54,6 @@ public class NHOMQUYENBUS {
                         break;
                     case "Tên Quyền":
                         if (nq.getTenQuyen().toLowerCase().contains(value.toLowerCase())) {
-                            result.add(nq);
-                        }
-                        break;
-                    case "Trạng thái":
-                        if (String.valueOf(nq.getTrangThai()).toLowerCase().contains(value.toLowerCase())) {
                             result.add(nq);
                         }
                         break;

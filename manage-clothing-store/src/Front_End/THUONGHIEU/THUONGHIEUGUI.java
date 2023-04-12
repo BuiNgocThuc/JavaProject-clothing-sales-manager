@@ -34,15 +34,13 @@ public class THUONGHIEUGUI extends JPanel {
     private JTextField txt1, txt2;
     JFrame f = new JFrame();
 
-    public THUONGHIEUGUI(int width) {
+    public THUONGHIEUGUI() {
         this.setLayout(new BorderLayout());
-        
-        this.setPreferredSize(new Dimension(width, 444));
 
         innit();
-//        f.add(this);
-//        f.setSize(new Dimension(width, 500));
-//        f.setVisible(true);
+        f.add(this);
+        f.setSize(new Dimension(500, 500));
+        f.setVisible(true);
     }
 
     private void innit() {
@@ -109,6 +107,6 @@ public class THUONGHIEUGUI extends JPanel {
 
     public static void main(String[] args) {
 
-        new THUONGHIEUGUI(1010);
+        new THUONGHIEUGUI();
     }
 }

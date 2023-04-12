@@ -23,8 +23,6 @@ import javax.swing.JPanel;
 public class EventInLabel implements MouseListener {
 
     private JPanel pnMainContent, pnComponent;
-    boolean trangThai;
-    int width, height;
 
     public EventInLabel(JPanel pnM, JPanel pnC) {
         this.pnMainContent = pnM;

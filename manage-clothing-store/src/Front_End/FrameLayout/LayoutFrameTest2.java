@@ -7,7 +7,10 @@ package Front_End.FrameLayout;
 import Front_End.THONGKE.ThongKe;
 import Front_End.THUONGHIEU.THUONGHIEUGUI;
 import Front_End.HandleEvent.EventInLabel;
+import Front_End.KHUYENMAI.KHUYENMAIGUI;
 import Front_End.NHAPHANG.NHAPHANGGUI;
+import Front_End.TAIKHOAN.TAIKHOANGUI;
+import Front_End.TAIKHOAN.TaiKhoan;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 /**
  *
@@ -27,34 +31,24 @@ public class LayoutFrameTest2 extends JFrame {
     /**
      * Creates new form LayoutFrameTest2
      */
-    
-    boolean trangThai = true;
-    int width;
-    
-    String action;
-    
+    int widthBar = 170, heightBar = 444;
+    int widthMainPN = 840, heightMainPN = 444;
+
     void solveActionMenu() {
-       
-        if(trangThai == true){
-            width = 840;
-        }else {
-            width = 1010;
-        }
         lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang));
         lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
         lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham));
-        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI(width)));
+        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, pnHoaDon));
         lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, pnPhieuNhap));
         lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, pnKhachHang));
         lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, pnNhanVien));
         lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, pnNhaCungCap));
-        lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, pnTaiKhoan));
-        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, pnPhanQuyen));
+        lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, new TAIKHOANGUI()));
+//        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, pnPhanQuyen));
         lblThongKe.addMouseListener(new EventInLabel(pnMainContent, new ThongKe()));
-        lblLogo.addMouseListener(new EventInLabel(pnMainContent, pnKhuyenMai));
-        
-        System.out.println(trangThai + " " + width);
+//        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, new KHUYENMAIGUI(widthMainPN, heightMainPN)));
+
 //            lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang, trangThai, width, height));
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang, trangThai, width, height));
 //        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham, trangThai, width, height));
@@ -78,7 +72,7 @@ public class LayoutFrameTest2 extends JFrame {
 //        this.components = pnMainContent.getComponents();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setUndecorated(true);
+//        this.setUndecorated(true);
 
         initComponents();
         solveActionMenu();
@@ -99,7 +93,9 @@ public class LayoutFrameTest2 extends JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        btnMenu = new javax.swing.JPanel();
+        closeMenu = new javax.swing.JLabel();
+        openMenu = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
         sbMenu = new javax.swing.JScrollPane();
         pnFunction = new javax.swing.JPanel();
@@ -122,7 +118,6 @@ public class LayoutFrameTest2 extends JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         lblTaiKhoan = new javax.swing.JLabel();
         lblPhanQuyen = new javax.swing.JLabel();
-        lblCloseMenu = new javax.swing.JLabel();
         pnMainContent = new javax.swing.JPanel();
         pnNhapHang = new javax.swing.JPanel();
         pnSanPham = new javax.swing.JPanel();
@@ -131,9 +126,6 @@ public class LayoutFrameTest2 extends JFrame {
         pnNhanVien = new javax.swing.JPanel();
         pnKhachHang = new javax.swing.JPanel();
         pnNhaCungCap = new javax.swing.JPanel();
-        pnKhuyenMai = new javax.swing.JPanel();
-        pnThongKe = new javax.swing.JPanel();
-        pnTaiKhoan = new javax.swing.JPanel();
         pnPhanQuyen = new javax.swing.JPanel();
         pnBanHang = new javax.swing.JPanel();
 
@@ -166,20 +158,33 @@ public class LayoutFrameTest2 extends JFrame {
             }
         });
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-menu-40.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMenu.setBackground(new java.awt.Color(0, 0, 0));
+        btnMenu.setLayout(new java.awt.CardLayout());
+
+        closeMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-40.png"))); // NOI18N
+        closeMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                closeMenuMouseClicked(evt);
             }
         });
+        btnMenu.add(closeMenu, "card3");
+
+        openMenu.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        openMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-menu-40.png"))); // NOI18N
+        openMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                openMenuMouseClicked(evt);
+            }
+        });
+        btnMenu.add(openMenu, "card2");
 
         javax.swing.GroupLayout pnHeaderLayout = new javax.swing.GroupLayout(pnHeader);
         pnHeader.setLayout(pnHeaderLayout);
         pnHeaderLayout.setHorizontalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHeaderLayout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -191,16 +196,14 @@ public class LayoutFrameTest2 extends JFrame {
         pnHeaderLayout.setVerticalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnHeaderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnHeaderLayout.createSequentialGroup()
-                        .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(13, 13, 13)
+                .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pnMenu.setBackground(new java.awt.Color(0, 0, 0));
@@ -244,6 +247,11 @@ public class LayoutFrameTest2 extends JFrame {
         lblPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         lblPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-receipt-32.png"))); // NOI18N
         lblPhieuNhap.setText("PHIẾU NHẬP");
+        lblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPhieuNhapMouseClicked(evt);
+            }
+        });
 
         jSeparator3.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
@@ -282,16 +290,6 @@ public class LayoutFrameTest2 extends JFrame {
         lblPhanQuyen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-decentralization-32.png"))); // NOI18N
         lblPhanQuyen.setText("PHÂN QUYỀN");
 
-        lblCloseMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblCloseMenu.setForeground(new java.awt.Color(255, 255, 255));
-        lblCloseMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCloseMenu.setText("X");
-        lblCloseMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCloseMenuMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnFunctionLayout = new javax.swing.GroupLayout(pnFunction);
         pnFunction.setLayout(pnFunctionLayout);
         pnFunctionLayout.setHorizontalGroup(
@@ -314,22 +312,16 @@ public class LayoutFrameTest2 extends JFrame {
             .addGroup(pnFunctionLayout.createSequentialGroup()
                 .addGroup(pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNhapHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnFunctionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCloseMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnFunctionLayout.setVerticalGroup(
             pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnFunctionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnFunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCloseMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -493,53 +485,6 @@ public class LayoutFrameTest2 extends JFrame {
 
         pnMainContent.add(pnNhaCungCap, "card10");
 
-        pnKhuyenMai.setBackground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout pnKhuyenMaiLayout = new javax.swing.GroupLayout(pnKhuyenMai);
-        pnKhuyenMai.setLayout(pnKhuyenMaiLayout);
-        pnKhuyenMaiLayout.setHorizontalGroup(
-            pnKhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        pnKhuyenMaiLayout.setVerticalGroup(
-            pnKhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
-
-        pnMainContent.add(pnKhuyenMai, "card11");
-
-        pnThongKe.setBackground(new java.awt.Color(0, 0, 153));
-
-        javax.swing.GroupLayout pnThongKeLayout = new javax.swing.GroupLayout(pnThongKe);
-        pnThongKe.setLayout(pnThongKeLayout);
-        pnThongKeLayout.setHorizontalGroup(
-            pnThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        pnThongKeLayout.setVerticalGroup(
-            pnThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
-
-        pnThongKe = new ThongKe();
-
-        pnMainContent.add(pnThongKe, "card12");
-
-        pnTaiKhoan.setBackground(new java.awt.Color(153, 153, 0));
-
-        javax.swing.GroupLayout pnTaiKhoanLayout = new javax.swing.GroupLayout(pnTaiKhoan);
-        pnTaiKhoan.setLayout(pnTaiKhoanLayout);
-        pnTaiKhoanLayout.setHorizontalGroup(
-            pnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        pnTaiKhoanLayout.setVerticalGroup(
-            pnTaiKhoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
-
-        pnMainContent.add(pnTaiKhoan, "card13");
-
         pnPhanQuyen.setBackground(new java.awt.Color(0, 51, 51));
 
         javax.swing.GroupLayout pnPhanQuyenLayout = new javax.swing.GroupLayout(pnPhanQuyen);
@@ -575,112 +520,44 @@ public class LayoutFrameTest2 extends JFrame {
         pnContainerLayout.setHorizontalGroup(
             pnContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(pnContainerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(pnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(pnMainContent, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(pnHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnMainContent, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE))
+            .addComponent(pnHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
         pnContainerLayout.setVerticalGroup(
             pnContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnContainerLayout.createSequentialGroup()
-                .addComponent(pnHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnMainContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(pnContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    Component[] components;
 
-    void openMenuBar() {
-        
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                components = pnMainContent.getComponents();
-//                for(int y = 0; y < components.length; y++){
-//                    System.out.println(components[y].getName());
-//                }
-               
-                for (Component component : components) {
-                    if (component.isVisible() == true) {
-                        for (int i = 0, j = 1010; i < 170 && j > 840; i++, j--) {
-
-                            pnMenu.setSize(i, 444);
-                            pnMainContent.setBounds(i, 55, j, 444);
-                            component.setBounds(0, 0, j, 444);
-                            try {
-                                Thread.sleep(2);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(LayoutFrameTest2.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-                        }
-                    }
-                    System.out.println(component.getName());
-//                            component = new THUONGHIEUGUI(840);
-                    return;
-                }
-            }
-        }).start();
-
-    }
-
-    void closeMenuBar() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                components = pnMainContent.getComponents();
-                for (Component component : components) {
-                    if (component.isVisible() == true) {
-                        for (int i = 170, j = 840; i > 0 && j < 1010; i--, j++) {
-
-                            pnMenu.setSize(i, 444);
-                            pnMainContent.setBounds(i, 55, j, 444);
-                            component.setBounds(0, 0, j, 444);
-                            try {
-                                Thread.sleep(2);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(LayoutFrameTest2.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-
-                        }
-                    }
-//                    component = new THUONGHIEUGUI(1010);
-                    return;
-                }
-            }
-        }).start();
-
-    }
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        openMenuBar();
-        trangThai = true;
-        solveActionMenu();
-    }//GEN-LAST:event_jLabel4MouseClicked
-
-    private void lblCloseMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMenuMouseClicked
-        closeMenuBar();
-        trangThai = false;
-        solveActionMenu();
-        pnMainContent.add(new THUONGHIEUGUI(1010));
-    }//GEN-LAST:event_lblCloseMenuMouseClicked
+    private void openMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openMenuMouseClicked
+        btnMenu.removeAll();
+        btnMenu.add(closeMenu);
+        btnMenu.repaint();
+        btnMenu.revalidate();
+        pnMenu.setPreferredSize(new Dimension(widthBar, heightBar));
+    }//GEN-LAST:event_openMenuMouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         int result = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thoát chương trình?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION);
@@ -693,6 +570,19 @@ public class LayoutFrameTest2 extends JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         this.setExtendedState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void closeMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMenuMouseClicked
+        // TODO add your handling code here:
+        btnMenu.removeAll();
+        btnMenu.add(openMenu);
+        btnMenu.repaint();
+        btnMenu.revalidate();
+        pnMenu.setPreferredSize(new Dimension(0, heightBar));
+    }//GEN-LAST:event_closeMenuMouseClicked
+
+    private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPhieuNhapMouseClicked
 
     /**
      * @param args the command line arguments
@@ -743,17 +633,17 @@ public class LayoutFrameTest2 extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btnMenu;
+    private javax.swing.JLabel closeMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblBanHang;
-    private javax.swing.JLabel lblCloseMenu;
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JLabel lblKhachHang;
     private javax.swing.JLabel lblKhuyenMai;
@@ -767,13 +657,13 @@ public class LayoutFrameTest2 extends JFrame {
     private javax.swing.JLabel lblTaiKhoan;
     private javax.swing.JLabel lblThongKe;
     private javax.swing.JLabel lblThuongHieu;
+    private javax.swing.JLabel openMenu;
     private javax.swing.JPanel pnBanHang;
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnFunction;
     private javax.swing.JPanel pnHeader;
     private javax.swing.JPanel pnHoaDon;
     private javax.swing.JPanel pnKhachHang;
-    private javax.swing.JPanel pnKhuyenMai;
     private javax.swing.JPanel pnMainContent;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel pnNhaCungCap;
@@ -782,8 +672,6 @@ public class LayoutFrameTest2 extends JFrame {
     private javax.swing.JPanel pnPhanQuyen;
     private javax.swing.JPanel pnPhieuNhap;
     private javax.swing.JPanel pnSanPham;
-    private javax.swing.JPanel pnTaiKhoan;
-    private javax.swing.JPanel pnThongKe;
     private javax.swing.JScrollPane sbMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,7 +21,7 @@ public class THUONGHIEUDAO implements DAOInterface<THUONGHIEU> {
         try {
             Connection c = connec.getConnection();
             String sql = "INSERT INTO THUONGHIEU(MATH, TENTH, TRANGTHAI) "
-                    + " VALUES(?,?)";
+                    + " VALUES(?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaTH());
             pst.setString(2, t.getTenTH());
@@ -71,9 +71,9 @@ public class THUONGHIEUDAO implements DAOInterface<THUONGHIEU> {
                     + ", TRANGTHAI=?"
                     + " WHERE MATH=?";
             PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(2, t.getTenTH());
-            pst.setString(1, t.getMaTH());
-            pst.setString(3, t.getTrangthai());
+            pst.setString(1, t.getTenTH());
+            pst.setString(3, t.getMaTH());
+            pst.setString(2, t.getTrangthai());
 
             ketQua = pst.executeUpdate();
 

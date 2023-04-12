@@ -4,10 +4,15 @@
  */
 package Back_End.HOADON;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author NGOC THUC
  */
 public class HOADONBUS {
+    public static ArrayList<HOADON> arrHD;
     
+    public void uploadData() {
+	}
 }

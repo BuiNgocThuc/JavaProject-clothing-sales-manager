@@ -11,7 +11,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,9 +25,8 @@ import javax.swing.border.TitledBorder;
 public class PHIEUNHAPGUI {
 	private JPanel pnl, pnl1, pnl2;
 	private JTable tbl;
-	private JLabel lbl1, lbl2, lbl3, lbl4;
 	private JButton btn1;
-	private JTextField txt1, txt2, txt3, txt4;
+	private JTextField txt1;
 	
 	public PHIEUNHAPGUI(JFrame f) {
 		innit(f);
@@ -40,28 +38,13 @@ public class PHIEUNHAPGUI {
 		
 		pnl2 = new JPanel(null);
 		pnl2.setBorder(new TitledBorder(new LineBorder(Color.black), "Tìm kiếm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnl2.setPreferredSize(new Dimension(600,100));
+		pnl2.setPreferredSize(new Dimension(800,100));
 				
-		lbl1 = new JLabel("Mã: ");
-		lbl1.setBounds(40, 20, 40, 20);
-		lbl2 = new JLabel("NCC: ");
-		lbl2.setBounds(310, 20, 40, 20);
-		lbl3 = new JLabel("NV: ");
-		lbl3.setBounds(40, 60, 40, 20);
-		lbl4 = new JLabel("Ngày: ");
-		lbl4.setBounds(310, 60, 40, 20);
-		
 		txt1 = new JTextField();
-		txt1.setBounds(80, 20, 210, 20);
-		txt2 = new JTextField();
-		txt2.setBounds(350, 20, 210, 20);
-		txt3 = new JTextField();
-		txt3.setBounds(80, 60, 210, 20);
-		txt4 = new JTextField();
-		txt4.setBounds(350, 60, 210, 20);
+		txt1.setBounds(50, 35, 555, 35);
 		
-		btn1 = new JButton("Tìm kiếm");
-		btn1.setPreferredSize(new Dimension(100, 30));
+		btn1 = new JButton("Làm mới");
+		btn1.setBounds(645, 35, 105, 35);
 				
 		String[][] data = {
 				{"2", "NNC2", "Nguyễn Văn A", "17/8/2022", "17000000vnđ"},
@@ -74,17 +57,10 @@ public class PHIEUNHAPGUI {
 		
 		JScrollPane sp = new JScrollPane(tbl);
 				
-		pnl2.add(lbl1);
-		pnl2.add(lbl2);
-		pnl2.add(lbl3);
-		pnl2.add(lbl4);
 		pnl2.add(txt1);
-		pnl2.add(txt2);
-		pnl2.add(txt3);
-		pnl2.add(txt4);
+		pnl2.add(btn1);
 		
 		pnl1.add(pnl2);
-		pnl1.add(btn1);
 		
 		pnl.add(pnl1, BorderLayout.NORTH);
 		pnl.add(sp, BorderLayout.CENTER);

@@ -11,13 +11,14 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,9 +27,8 @@ import javax.swing.border.TitledBorder;
 public class HOADONGUI {
 	private JPanel pnl, pnl1, pnl2;
 	private JTable tbl;
-	private JLabel lbl1, lbl2, lbl3, lbl4;
 	private JButton btn1;
-	private JTextField txt1, txt2, txt3, txt4;
+	private JTextField txt1;
 	
 	public HOADONGUI(JFrame f) {
 		innit(f);
@@ -40,55 +40,45 @@ public class HOADONGUI {
 		
 		pnl2 = new JPanel(null);
 		pnl2.setBorder(new TitledBorder(new LineBorder(Color.black), "Tìm kiếm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnl2.setPreferredSize(new Dimension(600,100));
-				
-		lbl1 = new JLabel("Mã: ");
-		lbl1.setBounds(40, 20, 40, 20);
-		lbl2 = new JLabel("KH: ");
-		lbl2.setBounds(310, 20, 40, 20);
-		lbl3 = new JLabel("NV: ");
-		lbl3.setBounds(40, 60, 40, 20);
-		lbl4 = new JLabel("Ngày: ");
-		lbl4.setBounds(310, 60, 40, 20);
-		
+		pnl2.setPreferredSize(new Dimension(800,100));
+						
 		txt1 = new JTextField();
-		txt1.setBounds(80, 20, 210, 20);
-		txt2 = new JTextField();
-		txt2.setBounds(350, 20, 210, 20);
-		txt3 = new JTextField();
-		txt3.setBounds(80, 60, 210, 20);
-		txt4 = new JTextField();
-		txt4.setBounds(350, 60, 210, 20);
+		txt1.setBounds(50, 35, 555, 35);
 		
-		btn1 = new JButton("Tìm kiếm");
-		btn1.setPreferredSize(new Dimension(100, 30));
-		
-		String[][] data = {
-				{"2", "KH2", "Nguyễn Văn A", "17/8/2022", "17000000vnđ"},
-				{"3", "KH3", "Nguyễn Văn B", "20/2/2023", "15000000vnđ"},
-				{"1", "KH1", "Nguyễn Văn B", "15/6/2022", "10000000vnđ"}
+		btn1 = new JButton("Làm mới");
+		btn1.setBounds(645, 35, 105, 35);
+
+		tbl = new JTable();
+		DefaultTableModel dtm = new DefaultTableModel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
-		String[] columnNames = {"Mã hóa đơn", "Khách hàng", "Nhân viên lập hóa đơn", "Ngày nhập", "Tổng tiền"};
-		tbl = new JTable(data, columnNames);
+		dtm.addColumn("Mã hóa đơn");
+		dtm.addColumn("Khách hàng");
+		dtm.addColumn("Nhân viên lập hóa đơn");
+		dtm.addColumn("Ngày nhập");
+		dtm.addColumn("Tổng tiền");
+		tbl.setModel(dtm);
 		tbl.setAutoCreateRowSorter(true);
 		
 		JScrollPane sp = new JScrollPane(tbl);
 				
-		pnl2.add(lbl1);
-		pnl2.add(lbl2);
-		pnl2.add(lbl3);
-		pnl2.add(lbl4);
 		pnl2.add(txt1);
-		pnl2.add(txt2);
-		pnl2.add(txt3);
-		pnl2.add(txt4);
+		pnl2.add(btn1);
 		
 		pnl1.add(pnl2);
-		pnl1.add(btn1);
 		
 		pnl.add(pnl1, BorderLayout.NORTH);
 		pnl.add(sp, BorderLayout.CENTER);
 		
+		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.add(pnl);
 	}
 	

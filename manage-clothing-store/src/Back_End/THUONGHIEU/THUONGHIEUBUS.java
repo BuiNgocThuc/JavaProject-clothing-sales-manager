@@ -9,12 +9,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -101,7 +104,7 @@ public class THUONGHIEUBUS {
 				tmp.setVisible(false);
 				pnl.remove(tmp);
 				JPanel pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
-				pnl1.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Thêm thương hiệu", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 15), null));
+				pnl1.setBorder(new TitledBorder(BorderFactory.createRaisedBevelBorder(), "Thêm thương hiệu", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 15), null));
 				pnl1.setPreferredSize(new Dimension(0, 90));
 				
 				JLabel lbl = new JLabel("Tên thương hiệu:");
@@ -113,6 +116,10 @@ public class THUONGHIEUBUS {
 				
 				JButton btnThem = new JButton("Thêm");
 				btnThem.setPreferredSize(new Dimension(100, 30));
+				btnThem.setBackground(Color.WHITE);
+				btnThem.setMargin(new Insets(0, 0, 0, 0));
+				btnThem.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-add-new-32 (1).png")));
+				
 				btnThem.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -136,6 +143,10 @@ public class THUONGHIEUBUS {
 				
 				JButton btnHuy = new JButton("Hủy");
 				btnHuy.setPreferredSize(new Dimension(100, 30));
+				btnHuy.setBackground(Color.WHITE);
+				btnHuy.setMargin(new Insets(0, 0, 0, 0));
+				btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-30.png")));
+				
 				btnHuy.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -167,7 +178,7 @@ public class THUONGHIEUBUS {
 					tmp.setVisible(false);
 					pnl.remove(tmp);
 					JPanel pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
-					pnl1.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Sửa thương hiệu", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 15), null));
+					pnl1.setBorder(new TitledBorder(BorderFactory.createRaisedBevelBorder(), "Sửa thương hiệu", TitledBorder.LEADING, TitledBorder.TOP, new Font(null, Font.BOLD, 15), null));
 					pnl1.setPreferredSize(new Dimension(0, 90));
 					
 					JLabel lbl = new JLabel("Tên thương hiệu:");
@@ -180,6 +191,10 @@ public class THUONGHIEUBUS {
 					
 					JButton btnSua = new JButton("Sửa");
 					btnSua.setPreferredSize(new Dimension(100, 30));
+					btnSua.setBackground(Color.WHITE);
+					btnSua.setMargin(new Insets(0, 0, 0, 0));
+					btnSua.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-tools-28.png")));
+					
 					btnSua.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -211,6 +226,10 @@ public class THUONGHIEUBUS {
 					
 					JButton btnHuy = new JButton("Hủy");
 					btnHuy.setPreferredSize(new Dimension(100, 30));
+					btnHuy.setBackground(Color.WHITE);
+					btnHuy.setMargin(new Insets(0, 0, 0, 0));
+					btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-30.png")));
+					
 					btnHuy.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {

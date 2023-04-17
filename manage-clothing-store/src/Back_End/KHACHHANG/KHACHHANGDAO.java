@@ -29,7 +29,7 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 			Connection c = connec.getConnection();
 			
 			String sql = "INSERT INTO KHACHHANG(MAKH, TENKH, SDTKH, DIACHIKH, TRANGTHAI) " +
-			             " VALUES(?,?,?,?)";
+			             " VALUES(?,?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaKH());
 			pst.setString(2, t.getTenKH());
@@ -185,4 +185,60 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 		}
 		return ketQua;
 	}
+        
+        public ArrayList<KHACHHANG> selectByID(String id) {
+		ArrayList<KHACHHANG> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM KHACHHANG WHERE MAKH='" + id + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maKH = rs.getString("MAKH");
+				String tenKH = rs.getNString("TENKH");
+				String sdt = rs.getString("SDTKH");
+				String diaChi = rs.getNString("DIACHIKH");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi, trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+        
+        public ArrayList<KHACHHANG> selectByName(String name) {
+            ArrayList<KHACHHANG> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM KHACHHANG WHERE TENKH='" + name + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maKH = rs.getString("MAKH");
+				String tenKH = rs.getNString("TENKH");
+				String sdt = rs.getString("SDTKH");
+				String diaChi = rs.getNString("DIACHIKH");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				KHACHHANG a = new KHACHHANG(maKH, tenKH, sdt, diaChi, trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+        }
 }

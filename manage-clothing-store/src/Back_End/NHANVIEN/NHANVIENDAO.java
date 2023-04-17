@@ -218,6 +218,66 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 		}
 		return ketQua;
 	}
+        
+        public ArrayList<NHANVIEN> selectByID(String id) {
+		ArrayList<NHANVIEN> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHANVIEN WHERE MANV='" + id + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNV = rs.getString("MANV");
+				String tenNV = rs.getNString("TENNV");
+				String ngaySinh = String.valueOf(rs.getDate("NGAYSINH"));
+				String diaChi = rs.getNString("DIACHINV");
+				String sdt = rs.getString("SDTNV");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, ngaySinh, sdt, diaChi, trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+        
+        public ArrayList<NHANVIEN> selectByName(String name) {
+            ArrayList<NHANVIEN> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHANVIEN WHERE TENNV='" + name + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNV = rs.getString("MANV");
+				String tenNV = rs.getNString("TENNV");
+				String ngaySinh = String.valueOf(rs.getDate("NGAYSINH"));
+				String diaChi = rs.getNString("DIACHINV");
+				String sdt = rs.getString("SDTNV");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				
+				NHANVIEN a = new NHANVIEN(maNV, tenNV, ngaySinh, sdt, diaChi, trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+        }
 	
 
   

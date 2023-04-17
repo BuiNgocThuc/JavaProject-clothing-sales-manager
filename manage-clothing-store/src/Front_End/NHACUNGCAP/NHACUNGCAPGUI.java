@@ -1,15 +1,13 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
 package Front_End.NHACUNGCAP;
 
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Color;
-
+import Back_End.NHACUNGCAP.NHACUNGCAPBUS;
+import Back_End.NHACUNGCAP.NHACUNGCAPDAO;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -17,84 +15,260 @@ import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class NHACUNGCAPGUI {
-    private JPanel jp,jp1;
-    private JLabel l1,l2,l3,l4;
-    private JTextField tf1,tf2,tf3;
-    private JButton bt1,bt2,bt3,bt4;
-    private JTable tb;
+
+    NHACUNGCAPBUS nccb = new NHACUNGCAPBUS();
+
+    private JPanel jp, jp1, jp2;
+    private JLabel labelMaNCC, labelTenNCC, labelPhone, labelAddress, labelStatus;
+    public static JTextField textMaNCC, textTenNCC, textPhone, textAddress, textStatus, textFind;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
+    public static JTable tb;
     private JScrollPane jsp;
-    
-    public NHACUNGCAPGUI(JFrame f){
+    private JComboBox choose;
+
+    public NHACUNGCAPGUI(JFrame f) {
         init(f);
+
+        nccb.loadData();
+
+        nccb.showConsole();
     }
-    
-    private void init(JFrame f){
+
+    private void init(JFrame f) {
         jp = new JPanel();
-        
+
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(400,250));
+        jp1.setPreferredSize(new Dimension(400, 480));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin nhà cung cấp"));
-        
-        l1 = new JLabel("Mã nhà cung cấp: ");
-        l1.setBounds(10, 10, 50, 30);
-        jp1.add(l1);
-        
-        tf1 = new JTextField(33);
-        jp1.add(tf1);
-        
-        l2 = new JLabel("Tên nhà cung cấp");
-        l2.setBounds(10, 70, 50, 30);
-        jp1.add(l2);
-        
-        tf2 = new JTextField(33);
-        jp1.add(tf2);
-        
-        l3 = new JLabel("Số điện thoại");
-        l3.setBounds(10,240,50,30);
-        jp1.add(l3);
-        
-        tf3 = new JTextField(33);
-        jp1.add(tf3);
-        
-        l4 = new JLabel("Địa chỉ");
-        l4.setBounds(10,270, 50 , 30);
-        jp1.add(l4);
-        
-        tf3 = new JTextField(33);
-        jp1.add(tf3);
-        
-        bt1 = new JButton("Thêm");
-        bt1.setPreferredSize(new Dimension(70, 30));
-	jp1.add(bt1);
-        
-        bt2 = new JButton("Sửa");
-	bt2.setPreferredSize(new Dimension(70, 30));
-	jp1.add(bt2);	
-        
-        bt3 = new JButton("Xóa");
-	bt3.setPreferredSize(new Dimension(70, 30));
-        jp1.add(bt3);
-        
-        bt4 = new JButton("Tìm kiếm");
-	bt4.setPreferredSize(new Dimension(100, 30));
-        jp1.add(bt4);
-            
-        String [][] data = {
-                {" "," "," "," "},
-            {" "," "," "," "},
-            {" "," "," "," "}
-        };
-        
-        String [] column = {"Mã nhà cung cấp","Tên nhà cung cấp","Số điện thoại","Địa chỉ"};
-        tb = new JTable(data,column);
+        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin"));
+
+        labelMaNCC = new JLabel("Mã khách hàng: ");
+        labelMaNCC.setBounds(10, 10, 50, 30);
+        jp1.add(labelMaNCC);
+
+        textMaNCC = new JTextField(33);
+
+        jp1.add(textMaNCC);
+
+        labelTenNCC = new JLabel("Họ và tên: ");
+        labelTenNCC.setBounds(10, 70, 50, 30);
+        jp1.add(labelTenNCC);
+
+        textTenNCC = new JTextField(33);
+        jp1.add(textTenNCC);
+
+        labelPhone = new JLabel("Số điện thoại: ");
+        labelPhone.setBounds(10, 240, 50, 30);
+        jp1.add(labelPhone);
+
+        textPhone = new JTextField(33);
+        jp1.add(textPhone);
+
+        labelAddress = new JLabel("Địa chỉ");
+        labelAddress.setBounds(10, 270, 50, 30);
+        jp1.add(labelAddress);
+
+        textAddress = new JTextField(33);
+        jp1.add(textAddress);
+
+        labelStatus = new JLabel("Trạng thái");
+        labelStatus.setBounds(10, 300, 50, 30);
+        jp1.add(labelStatus);
+
+        textStatus = new JTextField(33);
+        jp1.add(textStatus);
+
+        addBtn = new JButton("Thêm");
+        addBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(addBtn);
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addBtnActionPerformed(e);
+            }
+        });
+
+        editBtn = new JButton("Sửa");
+        editBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(editBtn);
+
+        editBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editBtnActionPerformed(e);
+            }
+        });
+
+        deleteBtn = new JButton("Xóa");
+        deleteBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(deleteBtn);
+
+        deleteBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteBtnActionPerformed(e);
+            }
+        });
+
+        importBtn = new JButton("Import");
+        importBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(importBtn);
+
+        exportBtn = new JButton("Export");
+        exportBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(exportBtn);
+
+        pdfBtn = new JButton("PDF");
+        pdfBtn.setPreferredSize(new Dimension(70, 30));
+        jp1.add(pdfBtn);
+
+        jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jp2.setPreferredSize(new Dimension(350, 100));
+        jp2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm theo tên"));
+
+        textFind = new JTextField(29);
+        jp2.add(textFind);
+
+        searchBtn = new JButton("Tìm kiếm");
+        searchBtn.setPreferredSize(new Dimension(100, 30));
+        choose = new JComboBox<String>();
+        choose.addItem("Tìm kiếm theo tên");
+        choose.addItem("Tìm kiếm theo mã");
+        jp2.add(searchBtn);
+        jp2.add(choose);
+        searchBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchBtnActionPerformed(e);
+            }
+        });
+
+        jp1.add(jp2);
+
+        tb = new JTable();
+        tb.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Mã NCC", "Tên NCC", "Số điện thoại", "Địa chỉ", "Trạng thái"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        tb.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tableMouseCliked(e);
+            }
+        });
+
         jsp = new JScrollPane(tb);
         tb.setFillsViewportHeight(true);
-        
+
         jp.add(jp1, BorderLayout.NORTH);
         jp.add(jsp, BorderLayout.SOUTH);
         f.add(jp);
+    }
+
+    private void addBtnActionPerformed(ActionEvent e) {
+        String id = textMaNCC.getText();
+        String name = textTenNCC.getText();
+        String phone = textPhone.getText();
+        String address = textAddress.getText();
+        String status = textStatus.getText();
+
+        if (nccb.add(id, name, phone, address, status)) {
+            JOptionPane.showMessageDialog(tb, "Thêm thành công");
+        }
+
+        nccb.reset();
+
+        nccb.loadData();
+    }
+
+    private void tableMouseCliked(MouseEvent e) {
+        int selectedRow = tb.getSelectedRow();
+        String mancc = tb.getModel().getValueAt(selectedRow, 0).toString();
+        String tenncc = tb.getModel().getValueAt(selectedRow, 1).toString();
+        String sdt = tb.getModel().getValueAt(selectedRow, 2).toString();
+        String diachi = tb.getModel().getValueAt(selectedRow, 3).toString();
+        String trangthai = tb.getModel().getValueAt(selectedRow, 4).toString();
+        textMaNCC.setText(mancc);
+        textTenNCC.setText(tenncc);
+        textPhone.setText(sdt);
+        textAddress.setText(diachi);
+        textStatus.setText(trangthai);
+    }
+
+    private void editBtnActionPerformed(ActionEvent e) {
+        String id = textMaNCC.getText();
+        String name = textTenNCC.getText();
+        String phone = textPhone.getText();
+        String address = textAddress.getText();
+        String status = textStatus.getText();
+        
+        if (nccb.edit(id, name, phone, address, status)) {
+            JOptionPane.showMessageDialog(tb, "Sửa thành công");
+        }
+
+        nccb.reset();
+
+        nccb.loadData();
+    }
+
+    private void deleteBtnActionPerformed(ActionEvent e) {
+        int selectedIndex = tb.getSelectedRow();
+        if (selectedIndex >= 0) {
+            int option = JOptionPane.showConfirmDialog(tb, "Xóa nhà cung cấp này?");
+            if (option == 0) {
+                nccb.delete(selectedIndex);
+                nccb.loadData();
+                nccb.reset();
+            }
+        }
+    }
+
+    private void searchBtnActionPerformed(ActionEvent e) {
+        String input = textFind.getText();
+        String selectedValue = (String) choose.getSelectedItem();
+        if (input.trim().length() == 0) {
+            NHACUNGCAPBUS.dsncc = NHACUNGCAPDAO.getInstance().selectAll();
+        } else {
+            if (selectedValue == "Tìm kiếm theo tên") {
+                NHACUNGCAPBUS.dsncc = NHACUNGCAPDAO.getInstance().selectByName(input);
+            }
+            if (selectedValue == "Tìm kiếm theo mã") {
+                NHACUNGCAPBUS.dsncc = NHACUNGCAPDAO.getInstance().selectByID(input);
+            }
+        }
+
+        NHACUNGCAPBUS.model.setRowCount(0);
+        NHACUNGCAPBUS.dsncc.forEach((ncc) -> {
+            NHACUNGCAPBUS.model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSdt(), ncc.getDiaChi(), ncc.getTrangThai()});
+        });
+        
+    }
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(1200, 600);
+        new NHACUNGCAPGUI(f);
+        f.setVisible(true);
     }
 }

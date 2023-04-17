@@ -181,4 +181,60 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 		}
 		return ketQua;
 	}
+        
+        public ArrayList<NHACUNGCAP> selectByID(String id) {
+		ArrayList<NHACUNGCAP> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHACUNGCAP WHERE MANCC='" + id + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNCC = rs.getString("MANCC");
+				String tenNCC = rs.getNString("TENNCC");
+				String sdtNCC = rs.getString("SDTNCC");
+				String diachiNCC = rs.getNString("DIACHINCC");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC,trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+	}
+        
+        public ArrayList<NHACUNGCAP> selectByName(String name) {
+            ArrayList<NHACUNGCAP> ketQua = new ArrayList<>();
+		try {
+			Connection conn = connec.getConnection();
+			
+			String sql = "SELECT * FROM NHACUNGCAP WHERE TENNCC='" + name + "'";
+			
+			Statement st = conn.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String maNCC = rs.getString("MANCC");
+				String tenNCC = rs.getNString("TENNCC");
+				String sdtNCC = rs.getString("SDTNCC");
+				String diachiNCC = rs.getNString("DIACHINCC");
+				String trangThai = rs.getString("TRANGTHAI");
+				
+				NHACUNGCAP a = new NHACUNGCAP(maNCC, tenNCC, sdtNCC, diachiNCC,trangThai);
+				ketQua.add(a);
+			}
+			
+			connec.closeConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ketQua;
+        }
 }

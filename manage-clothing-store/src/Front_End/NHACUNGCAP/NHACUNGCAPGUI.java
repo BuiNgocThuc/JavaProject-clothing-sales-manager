@@ -52,7 +52,7 @@ public class NHACUNGCAPGUI {
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp1.setBorder(BorderFactory.createTitledBorder("Thông tin"));
 
-        labelMaNCC = new JLabel("Mã khách hàng: ");
+        labelMaNCC = new JLabel("Mã nhà cung cấp: ");
         labelMaNCC.setBounds(10, 10, 50, 30);
         jp1.add(labelMaNCC);
 
@@ -60,7 +60,7 @@ public class NHACUNGCAPGUI {
 
         jp1.add(textMaNCC);
 
-        labelTenNCC = new JLabel("Họ và tên: ");
+        labelTenNCC = new JLabel("Tên nhà cung cấp: ");
         labelTenNCC.setBounds(10, 70, 50, 30);
         jp1.add(labelTenNCC);
 

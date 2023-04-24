@@ -61,20 +61,18 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     JPanel pnGeneralStatistic = new JPanel();
     JPanel pnTongKet = new JPanel();
 
-    
-
 //    JComboBox<String> cb_thongKe = new JComboBox<>();
     JFrame jf = new JFrame();
 
     public THONGKEGUI() {
         initComponents();
 
-        jf.setSize(800, 500);
-        jf.setLayout(new BorderLayout());
-        jf.add(paneStatistic(), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(paneStatistic(), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents() {
@@ -200,7 +198,7 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
         DefaultTableModel model = new DefaultTableModel(product, title);
 
         JScrollPane spnSta = new JScrollPane();
-    JTable tblList = new JTable();
+        JTable tblList = new JTable();
         tblList.setModel(model);
 
         spnSta.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -229,19 +227,31 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     }
 
     public JPanel panelCustomer() {
-
+        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+        String[] title = new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Mã Hóa Đơn", "Tổng Tiền"};
+        pnKhachHang.setPreferredSize(new Dimension(800, 500));
+        pnKhachHang.setLayout(new BorderLayout());
+        pnKhachHang.add(panelTools(itemsPro), BorderLayout.NORTH);
+        pnKhachHang.add(spStatistic(title), BorderLayout.CENTER);
         return pnKhachHang;
     }
 
     public JPanel panelProvider() {
-
+        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+        String[] title = new String[]{"Mã Khách Hàng", "Tên Nhà Cung Cấp", "Mã Phiếu Nhập", "Tổng Tiền"};
+        pnNhaCungCap.setPreferredSize(new Dimension(800, 500));
+        pnNhaCungCap.setLayout(new BorderLayout());
+        pnNhaCungCap.add(panelTools(itemsPro), BorderLayout.NORTH);
+        pnNhaCungCap.add(spStatistic(title), BorderLayout.CENTER);
         return pnNhaCungCap;
+
     }
 
     public JTabbedPane paneStatistic() {
         tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
         tpStatistic.addTab("Sản Phẩm", panelProduct());
-        
+        tpStatistic.addTab("Khách Hàng", panelCustomer());
+        tpStatistic.addTab("Nhà Cung Cấp", panelProvider());
 
         return tpStatistic;
     }

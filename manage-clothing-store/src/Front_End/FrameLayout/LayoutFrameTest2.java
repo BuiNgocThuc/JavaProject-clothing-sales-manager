@@ -4,13 +4,14 @@
  */
 package Front_End.FrameLayout;
 
-import Front_End.THONGKE.ThongKe;
-import Front_End.THUONGHIEU.THUONGHIEUGUI;
+
 import Front_End.HandleEvent.EventInLabel;
 import Front_End.KHUYENMAI.KHUYENMAIGUI;
 import Front_End.NHAPHANG.NHAPHANGGUI;
+import Front_End.PHANQUYEN.PHANQUYENGUI;
 import Front_End.TAIKHOAN.TAIKHOANGUI;
 import Front_End.TAIKHOAN.TaiKhoan;
+import Front_End.THONGKE.THONGKEGUI;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,16 +39,16 @@ public class LayoutFrameTest2 extends JFrame {
         lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang));
         lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
         lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham));
-        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
+//        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, pnHoaDon));
         lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, pnPhieuNhap));
         lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, pnKhachHang));
         lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, pnNhanVien));
         lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, pnNhaCungCap));
         lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, new TAIKHOANGUI()));
-//        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, pnPhanQuyen));
-        lblThongKe.addMouseListener(new EventInLabel(pnMainContent, new ThongKe()));
-//        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, new KHUYENMAIGUI(widthMainPN, heightMainPN)));
+        lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent,  new KHUYENMAIGUI()));
+        lblThongKe.addMouseListener(new EventInLabel(pnMainContent, new THONGKEGUI()));
+        lblPhanQuyen.addMouseListener(new EventInLabel(pnMainContent,  new PHANQUYENGUI()));
 
 //            lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang, trangThai, width, height));
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang, trangThai, width, height));

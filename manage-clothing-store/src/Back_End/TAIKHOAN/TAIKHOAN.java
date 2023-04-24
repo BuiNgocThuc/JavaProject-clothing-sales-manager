@@ -16,12 +16,17 @@ public class TAIKHOAN {
 
     }
 
-    public TAIKHOAN(String userName, String passWord, String maQuyen, String trangthai) {
-        this.trangthai = trangthai;
+    public TAIKHOAN(String userName, String passWord, String maQuyen) {
         this.userName = userName;
         this.passWord = passWord;
         this.maQuyen = maQuyen;
     }
+    
+    public TAIKHOAN (String trangthai){
+        this.trangthai = trangthai;
+    }
+    
+    
 
     public String getTrangthai() {
         return trangthai;

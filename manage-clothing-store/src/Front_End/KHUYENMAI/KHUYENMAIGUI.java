@@ -4,10 +4,12 @@
  */
 package Front_End.KHUYENMAI;
 
+import Back_End.KHUYENMAI.KHUYENMAIBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,7 +32,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author NGOC THUC
  */
-public class KHUYENMAIGUI extends JPanel implements  MouseListener{
+public class KHUYENMAIGUI extends JPanel implements MouseListener {
+
     JPanel pnTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
     JTable tblList = new JTable();
@@ -53,16 +56,16 @@ public class KHUYENMAIGUI extends JPanel implements  MouseListener{
 
     public KHUYENMAIGUI() {
         initComponents();
-        
-        
+        KHUYENMAIBUS kmBUS = new  KHUYENMAIBUS();
+       kmBUS.showConsole();
 
-       jf.setSize(800,500);
-        jf.setLayout(new BorderLayout());
-        jf.add(panelTool(), BorderLayout.NORTH);
-        jf.add(tableList(), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(panelTool(), BorderLayout.NORTH);
+//        jf.add(tableList(), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents() {
@@ -70,7 +73,7 @@ public class KHUYENMAIGUI extends JPanel implements  MouseListener{
         this.add(panelTool(), BorderLayout.NORTH);
         this.add(tableList(), BorderLayout.CENTER);
         this.setVisible(true);
-        
+
         lblAdd.addMouseListener(this);
     }
 
@@ -179,51 +182,52 @@ public class KHUYENMAIGUI extends JPanel implements  MouseListener{
 
         tblList.setModel(new DefaultTableModel(
                 new Object[][]{
-//                    {"1", "admin", "admin", "NV1", "Q1"},
-//                    {"2", "quanly", "quanly", "NV2", " Q2"},
-//                    {"3", "nhanvien", "nhanvien", "NV3", " Q3"},
+                    //                    {"1", "admin", "admin", "NV1", "Q1"},
+                    //                    {"2", "quanly", "quanly", "NV2", " Q2"},
+                    //                    {"3", "nhanvien", "nhanvien", "NV3", " Q3"},
                     {null, null, null, null, null}
                 },
                 new String[]{
-                    "STT",  "Mã Khuyến Mại", "Tên Khuyến Mại", "Điều Kiện", "Phần Trăm Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc"
+                    "STT", "Mã Khuyến Mại", "Tên Khuyến Mại", "Điều Kiện", "Phần Trăm Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc"
                 }
         ));
-        
+
         spnList.setBorder(BorderFactory.createLineBorder(Color.black));
         spnList.setViewportView(tblList);
         return spnList;
     }
-    
+
     public static void main(String[] args) {
-        new KHUYENMAIGUI();
+//        new KHUYENMAIGUI();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       if(e.getSource() == lblAdd) {
-           
-           new createKMform();
-       }
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (e.getSource() == lblAdd) {
+
+          new createKMform();
+            
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-    //       throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //       throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

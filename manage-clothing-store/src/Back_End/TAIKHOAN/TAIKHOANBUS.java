@@ -4,8 +4,16 @@
  */
 package Back_End.TAIKHOAN;
 
+import Back_End.CTPhanQuyen.CTPhanQuyen;
+import Back_End.CTPhanQuyen.CTPhanQuyenBUS;
+import Back_End.NHANVIEN.NHANVIENBUS;
+import Front_End.FrameLayout.LayoutFrame;
+import Front_End.LoginForm.LoginFormtest;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -18,6 +26,93 @@ public class TAIKHOANBUS {
 
     public TAIKHOANBUS() {
         dstk = tkDAO.selectAll();
+    }
+
+    public static TAIKHOAN curentLogin = new TAIKHOANBUS().getByUsername("3121410482");
+
+    public static void login(LoginFormtest lg) {
+        String tenTK = lg.getUsername().getText();
+        String matkhau = lg.getPassword().getText();
+        TAIKHOANBUS qltk = new TAIKHOANBUS();
+        curentLogin = qltk.getByUsername(tenTK);
+        if (curentLogin != null) {
+            String trangThai = qltk.getTrangThai(tenTK);
+            if (trangThai == "ngừng hoạt động") {
+                JOptionPane.showMessageDialog(null, "Tài khoản bị vô hiệu hóa ");
+                return;
+            }
+            if (curentLogin.getPassWord().equals(matkhau)) {
+                ArrayList<String> dsq = new CTPhanQuyenBUS().getListCTQByNQuyen(curentLogin.getMaQuyen());
+                try {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ignored) {
+
+                }
+                new TAIKHOANBUS().phanQuyen(dsq);
+                lg.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Sai mật khẩu");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Sai tên đăng nhập");
+        }
+    }
+
+public void phanQuyen(ArrayList<String> dsq) {
+        LayoutFrame lf = new LayoutFrame();
+        lf.getLblBanHang().setVisible(false);
+        lf.getLblNhapHang().setVisible(false);
+        lf.getLblSanPham().setVisible(false);
+        lf.getLblThuongHieu().setVisible(false);
+        lf.getLblHoaDon().setVisible(false);
+        lf.getLblHoaDon().setVisible(false);
+        lf.getLblNhanVien().setVisible(false);
+        lf.getLblKhachHang().setVisible(false);
+        lf.getLblNhaCungCap().setVisible(false);
+        lf.getLblThongKe().setVisible(false);
+        lf.getLblKhuyenMai().setVisible(false);
+        lf.getLblTaiKhoan().setVisible(false);
+        lf.getLblPhanQuyen().setVisible(false);
+
+        for (String q : dsq) {
+            switch (q) {
+                case "1" ->
+                    lf.getLblBanHang().setVisible(true);
+                case "2" ->
+                    lf.getLblNhapHang().setVisible(true);
+                case "3" ->
+                    lf.getLblSanPham().setVisible(true);
+                case "4" ->
+                    lf.getLblThuongHieu().setVisible(true);
+                case "5" ->
+                    lf.getLblHoaDon().setVisible(true);
+                case "6" ->
+                    lf.getLblPhieuNhap().setVisible(true);
+                case "7" ->
+                    lf.getLblNhanVien().setVisible(true);
+                case "8" ->
+                    lf.getLblKhachHang().setVisible(true);
+                case "9" ->
+                    lf.getLblNhaCungCap().setVisible(true);
+                case "10" ->
+                    lf.getLblThongKe().setVisible(true);
+                case "11" ->
+                    lf.getLblKhuyenMai().setVisible(true);
+                case "12" ->
+                    lf.getLblTaiKhoan().setVisible(true);
+                case "13" ->
+                    lf.getLblPhanQuyen().setVisible(true);
+            }
+        }
+    }
+
+    public String getTrangThai(String username) {
+        return tkDAO.getTrangThaiByMaTk(username);
+    }
+
+    public TAIKHOAN getByUsername(String tentk) {
+        return tkDAO.getByUserName(tentk);
     }
 
     public void showConsole() {
@@ -76,7 +171,7 @@ public class TAIKHOANBUS {
     }
 
     public boolean add(String userName, String passWord, String maQuyen, String trangthai) {
-        TAIKHOAN accouunt = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+        TAIKHOAN accouunt = new TAIKHOAN(userName, passWord, maQuyen);
         int add = tkDAO.insert(accouunt);
         if (add == 1) {
             dstk.add(accouunt);
@@ -88,7 +183,7 @@ public class TAIKHOANBUS {
 
     public boolean delete(String userName) {
         for (TAIKHOAN account : dstk) {
-            if (account.getUserName()== userName) {
+            if (account.getUserName() == userName) {
                 int delete = tkDAO.delete(account);
                 if (delete == 1) {
                     dstk.remove(account); // đang phân vân có nên xóa khỏi giao diện không ? 
@@ -102,7 +197,7 @@ public class TAIKHOANBUS {
     }
 
     public boolean update(String userName, String passWord, String maQuyen, String trangthai) {
-        TAIKHOAN account = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+        TAIKHOAN account = new TAIKHOAN(userName, passWord, maQuyen);
         int update = tkDAO.update(account);
         if (update == 1) {
             dstk.forEach((km) -> {

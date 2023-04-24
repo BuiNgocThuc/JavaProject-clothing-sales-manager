@@ -35,9 +35,12 @@ import Front_End.THUONGHIEU.THUONGHIEUGUI;
  */
 public class THUONGHIEUBUS {
 	public static ArrayList<THUONGHIEU> arrTH;
-	
+                      public void print() {
+                          System.out.println("HelloWord!!");
+                      }
 	public void uploadData() {
-		arrTH = THUONGHIEUDAO.getInstance().selectAll();
+                                    arrTH = new THUONGHIEUDAO().selectAll();
+//		arrTH = THUONGHIEUDAO.getInstance().selectAll();
 		DefaultTableModel dtm = (DefaultTableModel) THUONGHIEUGUI.tbl.getModel();
 
 		if(arrTH.size() == 0) {

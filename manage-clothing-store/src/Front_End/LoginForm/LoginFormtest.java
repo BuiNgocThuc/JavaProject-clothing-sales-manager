@@ -4,12 +4,15 @@
  */
 package Front_End.LoginForm;
 
+import Back_End.TAIKHOAN.TAIKHOANBUS;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -27,6 +30,24 @@ public class LoginFormtest extends javax.swing.JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public JPasswordField getPassword() {
+        return txtPassword;
+    }
+
+    public void setTxtPassword(JPasswordField txtPassword) {
+        this.txtPassword = txtPassword;
+    }
+
+    public JTextField getUsername() {
+        return txtUsername;
+    }
+
+    public void setTxtUsername(JTextField txtUsername) {
+        this.txtUsername = txtUsername;
+    }
+    
+    
+
     class GradientPanel extends JPanel {
 
         @Override
@@ -38,7 +59,7 @@ public class LoginFormtest extends javax.swing.JFrame {
             int h = getHeight();
 
             // Tạo GradientPaint từ màu đầu và màu cuối
-//            GradientPaint gradient = new GradientPaint(0, 0, Color.decode("#5ffbf1"), w, h, Color.decode("#C74898"));
+
                 GradientPaint gradient = new GradientPaint(0, 0, Color.decode("#fca5f1"), w, h, Color.decode("#b5ffff"));
 
             // Vẽ GradientPaint trên JPanel
@@ -68,7 +89,6 @@ public class LoginFormtest extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        btnLogin1 = new javax.swing.JButton();
         btnExit1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,16 +124,15 @@ public class LoginFormtest extends javax.swing.JFrame {
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Đăng Nhập");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-
-        btnLogin1.setBackground(new java.awt.Color(0, 0, 0));
-        btnLogin1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin1.setText("Đăng Ký");
-        btnLogin1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnExit1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         btnExit1.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,9 +150,15 @@ public class LoginFormtest extends javax.swing.JFrame {
         pnContanerLayout.setHorizontalGroup(
             pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnContanerLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnExit1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pnContanerLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnContanerLayout.createSequentialGroup()
                         .addGroup(pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblUsername1)
@@ -143,17 +168,8 @@ public class LoginFormtest extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addGroup(pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUserIcon)
-                            .addComponent(lblUserIcon1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnContanerLayout.createSequentialGroup()
-                        .addComponent(btnLogin1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblUserIcon1))))
                 .addContainerGap(43, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnContanerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExit1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnContanerLayout.setVerticalGroup(
             pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,11 +194,9 @@ public class LoginFormtest extends javax.swing.JFrame {
                         .addComponent(lblUsername1)
                         .addGap(18, 18, 18)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(78, 78, 78)
-                .addGroup(pnContanerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78))
+                .addGap(79, 79, 79)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
 
         txtUsername.setBackground(new Color(0,0,0,0));
@@ -209,6 +223,10 @@ public class LoginFormtest extends javax.swing.JFrame {
     private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_btnExit1MouseClicked
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        new TAIKHOANBUS().login(this);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,7 +267,6 @@ public class LoginFormtest extends javax.swing.JFrame {
     private javax.swing.JLabel btnExit;
     private javax.swing.JLabel btnExit1;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblUserIcon;
     private javax.swing.JLabel lblUserIcon1;

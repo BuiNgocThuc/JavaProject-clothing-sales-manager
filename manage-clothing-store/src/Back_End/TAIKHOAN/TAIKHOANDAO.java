@@ -18,13 +18,56 @@ import Dao.DAOInterface;
  *
  * @author NGOC THUC
  */
-public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
+public class TAIKHOANDAO  {
+    
+     PreparedStatement pstm = null;
 
     public static TAIKHOANDAO getInstance() {
         return new TAIKHOANDAO();
     }
 
-    @Override
+     public TAIKHOAN getByUserName(String username) {
+        Connection con = connec.getConnection();
+        try {
+            String query = "select * from TAIKHOAN where Username = ?";//+
+            pstm = con.prepareStatement(query);
+            pstm.setString(1, username);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String tenTaiKhoan = rs.getString("Username");//+
+                String matKhau = rs.getString("matKhau");//+
+                String maNhomQuyen = rs.getString("maQuyen");//+
+                TAIKHOAN tk = new TAIKHOAN(tenTaiKhoan, matKhau, maNhomQuyen);
+                return tk;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+           connec.closeConnection(con);
+        }
+        return null;
+    }
+     
+     public String getTrangThaiByMaTk(String Username) {
+        Connection con = connec.getConnection();
+        try {
+            String query = "select TRANGTHAI from TAIKHOAN where Username = ?";//+
+            pstm = con.prepareStatement(query);
+            pstm.setString(1,  Username);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String trangThai = rs.getString("TRANGTHAI");
+                TAIKHOAN tk = new TAIKHOAN(trangThai);
+                return tk.getTrangthai();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            connec.closeConnection(con);
+        }
+        return null;
+    }
+    
     public int insert(TAIKHOAN t) {
         int ketQua = 0;
         try {
@@ -51,7 +94,6 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
         return 0;
     }
 
-    @Override
     public int delete(TAIKHOAN t) {
         int ketQua = 0;
         try {
@@ -75,7 +117,6 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
         return 0;
     }
 
-    @Override
     public int update(TAIKHOAN t) {
         int ketQua = 0;
         try {
@@ -104,8 +145,7 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
 
         return 0;
     }
-
-    @Override
+    
     public ArrayList<TAIKHOAN> selectAll() {
         ArrayList<TAIKHOAN> ketQua = new ArrayList<>();
         try {
@@ -120,7 +160,7 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
                 String maQuyen = rs.getString("MaQuyen");
                 String trangthai = rs.getString("TRANGTHAI");
 
-                TAIKHOAN a = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+                TAIKHOAN a = new TAIKHOAN(userName, passWord, maQuyen);
                 ketQua.add(a);
             }
 
@@ -131,7 +171,6 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
         return ketQua;
     }
 
-    @Override
     public TAIKHOAN selectById(TAIKHOAN t) {
         TAIKHOAN ketQua = null;
         try {
@@ -147,7 +186,7 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
                 String maQuyen = rs.getString("MaQuyen");
                 String trangthai = rs.getString("TRANGTHAI");
 
-                ketQua = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+                ketQua = new TAIKHOAN(userName, passWord, maQuyen);
             }
 
         } catch (SQLException e) {
@@ -158,7 +197,6 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
         return ketQua;
     }
 
-    @Override
     public ArrayList<TAIKHOAN> selectByCondition(String condition) {
         ArrayList<TAIKHOAN> ketQua = new ArrayList<>();
         try {
@@ -173,7 +211,7 @@ public class TAIKHOANDAO implements DAOInterface<TAIKHOAN> {
                 String maQuyen = rs.getString("MaQuyen");
                 String trangthai = rs.getString("TRANGTHAI");
 
-                TAIKHOAN a = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+                TAIKHOAN a = new TAIKHOAN(userName, passWord, maQuyen);
                 ketQua.add(a);
             }
 

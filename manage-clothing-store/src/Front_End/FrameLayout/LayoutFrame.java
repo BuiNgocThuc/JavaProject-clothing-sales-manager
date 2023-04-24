@@ -11,17 +11,24 @@ import Front_End.TAIKHOAN.TAIKHOANGUI;
 import Front_End.THONGKE.THONGKEGUI;
 import Front_End.THONGKE.ThongKe;
 import Front_End.THUONGHIEU.THUONGHIEUGUI;
+import Back_End.THUONGHIEU.THUONGHIEUDAO;
+import Back_End.THUONGHIEU.THUONGHIEUBUS;
+import Front_End.LoginForm.LoginForm;
+import Front_End.LoginForm.LoginFormtest;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -88,10 +95,10 @@ public class LayoutFrame extends JFrame {
 //        lblBanHang.addMouseListener(new EventInLabel(pnMainContent, pnBanHang));
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
 //        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham));
-//        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
+        lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
 //        lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, pnHoaDon));
 //        lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, pnPhieuNhap));
-//        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, pnKhachHang));
+//        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, new KHACHHANG));
 //        lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, pnNhanVien));
 //        lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, pnNhaCungCap));
         lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, new KHUYENMAIGUI()));
@@ -112,6 +119,120 @@ public class LayoutFrame extends JFrame {
         return pnContainer;
     }
 
+    public JPanel getPnContainer() {
+        return pnContainer;
+    }
+
+    public void setPnContainer(JPanel pnContainer) {
+        this.pnContainer = pnContainer;
+    }
+
+    public JLabel getLblBanHang() {
+        return lblBanHang;
+    }
+
+    public void setLblBanHang(JLabel lblBanHang) {
+        this.lblBanHang = lblBanHang;
+    }
+
+    public JLabel getLblNhapHang() {
+        return lblNhapHang;
+    }
+
+    public void setLblNhapHang(JLabel lblNhapHang) {
+        this.lblNhapHang = lblNhapHang;
+    }
+
+    public JLabel getLblSanPham() {
+        return lblSanPham;
+    }
+
+    public void setLblSanPham(JLabel lblSanPham) {
+        this.lblSanPham = lblSanPham;
+    }
+
+    public JLabel getLblThuongHieu() {
+        return lblThuongHieu;
+    }
+
+    public void setLblThuongHieu(JLabel lblThuongHieu) {
+        this.lblThuongHieu = lblThuongHieu;
+    }
+
+    public JLabel getLblHoaDon() {
+        return lblHoaDon;
+    }
+
+    public void setLblHoaDon(JLabel lblHoaDon) {
+        this.lblHoaDon = lblHoaDon;
+    }
+
+    public JLabel getLblPhieuNhap() {
+        return lblPhieuNhap;
+    }
+
+    public void setLblPhieuNhap(JLabel lblPhieuNhap) {
+        this.lblPhieuNhap = lblPhieuNhap;
+    }
+
+    public JLabel getLblNhanVien() {
+        return lblNhanVien;
+    }
+
+    public void setLblNhanVien(JLabel lblNhanVien) {
+        this.lblNhanVien = lblNhanVien;
+    }
+
+    public JLabel getLblKhachHang() {
+        return lblKhachHang;
+    }
+
+    public void setLblKhachHang(JLabel lblKhachHang) {
+        this.lblKhachHang = lblKhachHang;
+    }
+
+    public JLabel getLblNhaCungCap() {
+        return lblNhaCungCap;
+    }
+
+    public void setLblNhaCungCap(JLabel lblNhaCungCap) {
+        this.lblNhaCungCap = lblNhaCungCap;
+    }
+
+    public JLabel getLblThongKe() {
+        return lblThongKe;
+    }
+
+    public void setLblThongKe(JLabel lblThongKe) {
+        this.lblThongKe = lblThongKe;
+    }
+
+    public JLabel getLblKhuyenMai() {
+        return lblKhuyenMai;
+    }
+
+    public void setLblKhuyenMai(JLabel lblKhuyenMai) {
+        this.lblKhuyenMai = lblKhuyenMai;
+    }
+
+    public JLabel getLblTaiKhoan() {
+        return lblTaiKhoan;
+    }
+
+    public void setLblTaiKhoan(JLabel lblTaiKhoan) {
+        this.lblTaiKhoan = lblTaiKhoan;
+    }
+
+    public JLabel getLblPhanQuyen() {
+        return lblPhanQuyen;
+    }
+
+    public void setLblPhanQuyen(JLabel lblPhanQuyen) {
+        this.lblPhanQuyen = lblPhanQuyen;
+    }
+    
+    
+
     public JPanel navbar() {
         pnHeader.setBackground(Color.BLACK);
         pnHeader.setOpaque(true);
@@ -121,6 +242,22 @@ public class LayoutFrame extends JFrame {
 
         lblLogOut.setBounds(930, 15, 50, 50);
         lblLogOut.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-log-out-32 (3).png"));
+        lblLogOut.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Thực hiện các xử lý khi người dùng click vào nút logout ở đây
+        // Ví dụ: hiển thị dialog xác nhận đăng xuất
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            
+            // Đóng form hiện tại
+            dispose();
+            // Thực hiện đăng xuất
+            // Ví dụ: chuyển đến form đăng nhập
+            new LoginForm();
+        }
+    }
+});
 
         lblClose.setBounds(870, 15, 50, 50);
         lblClose.setBackground(Color.BLACK);

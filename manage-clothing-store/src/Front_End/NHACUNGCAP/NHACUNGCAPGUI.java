@@ -8,7 +8,6 @@ import Back_End.NHACUNGCAP.NHACUNGCAPBUS;
 import Back_End.NHACUNGCAP.NHACUNGCAPDAO;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -24,11 +23,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class NHACUNGCAPGUI {
+public class NHACUNGCAPGUI extends JPanel {
 
     NHACUNGCAPBUS nccb = new NHACUNGCAPBUS();
 
-    private JPanel jp, jp1, jp2;
+    private JPanel jp1, jp2;
     private JLabel labelMaNCC, labelTenNCC, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaNCC, textTenNCC, textPhone, textAddress, textStatus, textFind;
     private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
@@ -36,16 +35,15 @@ public class NHACUNGCAPGUI {
     private JScrollPane jsp;
     private JComboBox choose;
 
-    public NHACUNGCAPGUI(JFrame f) {
-        init(f);
+    public NHACUNGCAPGUI() {
+        init();
 
         nccb.loadData();
 
         nccb.showConsole();
     }
 
-    private void init(JFrame f) {
-        jp = new JPanel();
+    private void init() {
 
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jp1.setPreferredSize(new Dimension(400, 480));
@@ -90,6 +88,7 @@ public class NHACUNGCAPGUI {
 
         addBtn = new JButton("Thêm");
         addBtn.setPreferredSize(new Dimension(70, 30));
+        addBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icon8-add-new-32.png")));
         jp1.add(addBtn);
         addBtn.addActionListener(new ActionListener() {
             @Override
@@ -100,6 +99,7 @@ public class NHACUNGCAPGUI {
 
         editBtn = new JButton("Sửa");
         editBtn.setPreferredSize(new Dimension(70, 30));
+        editBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-tools-28.png")));
         jp1.add(editBtn);
 
         editBtn.addActionListener(new ActionListener() {
@@ -111,6 +111,7 @@ public class NHACUNGCAPGUI {
 
         deleteBtn = new JButton("Xóa");
         deleteBtn.setPreferredSize(new Dimension(70, 30));
+        deleteBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-remove-28.png")));
         jp1.add(deleteBtn);
 
         deleteBtn.addActionListener(new ActionListener() {
@@ -122,14 +123,17 @@ public class NHACUNGCAPGUI {
 
         importBtn = new JButton("Import");
         importBtn.setPreferredSize(new Dimension(70, 30));
+        importBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(importBtn);
 
         exportBtn = new JButton("Export");
         exportBtn.setPreferredSize(new Dimension(70, 30));
+        exportBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(exportBtn);
 
         pdfBtn = new JButton("PDF");
         pdfBtn.setPreferredSize(new Dimension(70, 30));
+        pdfBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
         jp1.add(pdfBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -182,9 +186,8 @@ public class NHACUNGCAPGUI {
         jsp = new JScrollPane(tb);
         tb.setFillsViewportHeight(true);
 
-        jp.add(jp1, BorderLayout.NORTH);
-        jp.add(jsp, BorderLayout.SOUTH);
-        f.add(jp);
+        this.add(jp1, BorderLayout.NORTH);
+        this.add(jsp, BorderLayout.SOUTH);
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
@@ -223,7 +226,7 @@ public class NHACUNGCAPGUI {
         String phone = textPhone.getText();
         String address = textAddress.getText();
         String status = textStatus.getText();
-        
+
         if (nccb.edit(id, name, phone, address, status)) {
             JOptionPane.showMessageDialog(tb, "Sửa thành công");
         }
@@ -263,12 +266,6 @@ public class NHACUNGCAPGUI {
         NHACUNGCAPBUS.dsncc.forEach((ncc) -> {
             NHACUNGCAPBUS.model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSdt(), ncc.getDiaChi(), ncc.getTrangThai()});
         });
-        
-    }
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(1200, 600);
-        new NHACUNGCAPGUI(f);
-        f.setVisible(true);
+
     }
 }

@@ -24,11 +24,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class KHACHHANGGUI {
+public class KHACHHANGGUI extends JPanel {
 
     KHACHHANGBUS khb = new KHACHHANGBUS();
 
-    private JPanel jp, jp1, jp2;
+    private JPanel jp1, jp2;
     private JLabel labelMaKH, labelHoTen, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaKH, textHoTen, textPhone, textAddress, textStatus, textFind;
     private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
@@ -37,15 +37,14 @@ public class KHACHHANGGUI {
     private JComboBox choose;
 
     public KHACHHANGGUI(JFrame f) {
-        init(f);
+        init();
 
         khb.loadData();
 
         khb.showConsole();
     }
 
-    private void init(JFrame f) {
-        jp = new JPanel();
+    private void init() {
 
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jp1.setPreferredSize(new Dimension(400, 480));
@@ -90,6 +89,7 @@ public class KHACHHANGGUI {
 
         addBtn = new JButton("Thêm");
         addBtn.setPreferredSize(new Dimension(70, 30));
+        addBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icon8-add-new-32.png")));
         jp1.add(addBtn);
         addBtn.addActionListener(new ActionListener() {
             @Override
@@ -100,6 +100,7 @@ public class KHACHHANGGUI {
 
         editBtn = new JButton("Sửa");
         editBtn.setPreferredSize(new Dimension(70, 30));
+        editBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-tools-28.png")));
         jp1.add(editBtn);
 
         editBtn.addActionListener(new ActionListener() {
@@ -111,6 +112,7 @@ public class KHACHHANGGUI {
 
         deleteBtn = new JButton("Xóa");
         deleteBtn.setPreferredSize(new Dimension(70, 30));
+        deleteBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-remove-28.png")));
         jp1.add(deleteBtn);
 
         deleteBtn.addActionListener(new ActionListener() {
@@ -122,14 +124,17 @@ public class KHACHHANGGUI {
 
         importBtn = new JButton("Import");
         importBtn.setPreferredSize(new Dimension(70, 30));
+        importBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(importBtn);
 
         exportBtn = new JButton("Export");
         exportBtn.setPreferredSize(new Dimension(70, 30));
+        exportBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(exportBtn);
 
         pdfBtn = new JButton("PDF");
         pdfBtn.setPreferredSize(new Dimension(70, 30));
+        pdfBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
         jp1.add(pdfBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -182,9 +187,8 @@ public class KHACHHANGGUI {
         jsp = new JScrollPane(tb);
         tb.setFillsViewportHeight(true);
 
-        jp.add(jp1, BorderLayout.NORTH);
-        jp.add(jsp, BorderLayout.SOUTH);
-        f.add(jp);
+        this.add(jp1, BorderLayout.NORTH);
+        this.add(jsp, BorderLayout.SOUTH);
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
@@ -223,7 +227,7 @@ public class KHACHHANGGUI {
         String phone = textPhone.getText();
         String address = textAddress.getText();
         String status = textStatus.getText();
-        
+
         if (khb.edit(id, fullname, phone, address, status)) {
             JOptionPane.showMessageDialog(tb, "Sửa thành công");
         }

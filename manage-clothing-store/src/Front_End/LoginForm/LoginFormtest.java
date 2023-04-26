@@ -225,7 +225,7 @@ public class LoginFormtest extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit1MouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new TAIKHOANBUS().login(this);
+//        new TAIKHOANBUS().login(t);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

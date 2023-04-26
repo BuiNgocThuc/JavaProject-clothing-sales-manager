@@ -13,8 +13,13 @@ import Front_End.THONGKE.ThongKe;
 import Front_End.THUONGHIEU.THUONGHIEUGUI;
 import Back_End.THUONGHIEU.THUONGHIEUDAO;
 import Back_End.THUONGHIEU.THUONGHIEUBUS;
+import Front_End.HOADON.HOADONGUI;
+import Front_End.KHACHHANG.KHACHHANGGUI;
 import Front_End.LoginForm.LoginForm;
 import Front_End.LoginForm.LoginFormtest;
+import Front_End.NHACUNGCAP.NHACUNGCAPGUI;
+import Front_End.NHANVIEN.NHANVIENGUI;
+import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -96,11 +101,11 @@ public class LayoutFrame extends JFrame {
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
 //        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, pnSanPham));
         lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
-//        lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, pnHoaDon));
-//        lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, pnPhieuNhap));
-//        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, new KHACHHANG));
-//        lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, pnNhanVien));
-//        lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, pnNhaCungCap));
+        lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, new HOADONGUI()));
+        lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, new PHIEUNHAPGUI()));
+//        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, new KHACHHANGGUI()));
+//        lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, new NHANVIENGUI()));
+//        lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, new NHACUNGCAPGUI()));
         lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, new KHUYENMAIGUI()));
         lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, new TAIKHOANGUI()));
         lblPhanQuyen.addMouseListener(new EventInLabel(pnMainContent, new PHANQUYENGUI()));
@@ -254,7 +259,8 @@ public class LayoutFrame extends JFrame {
             dispose();
             // Thực hiện đăng xuất
             // Ví dụ: chuyển đến form đăng nhập
-            new LoginForm();
+            LoginForm lgF = new LoginForm();
+            lgF.setVisible(true);
         }
     }
 });

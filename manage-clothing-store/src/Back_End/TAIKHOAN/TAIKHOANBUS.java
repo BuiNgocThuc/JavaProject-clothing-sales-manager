@@ -8,6 +8,7 @@ import Back_End.CTPhanQuyen.CTPhanQuyen;
 import Back_End.CTPhanQuyen.CTPhanQuyenBUS;
 import Back_End.NHANVIEN.NHANVIENBUS;
 import Front_End.FrameLayout.LayoutFrame;
+import Front_End.LoginForm.LoginForm;
 import Front_End.LoginForm.LoginFormtest;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class TAIKHOANBUS {
 
     public static TAIKHOAN curentLogin = new TAIKHOANBUS().getByUsername("3121410482");
 
-    public static void login(LoginFormtest lg) {
+    public static void login(LoginForm lg) {
         String tenTK = lg.getUsername().getText();
         String matkhau = lg.getPassword().getText();
         TAIKHOANBUS qltk = new TAIKHOANBUS();

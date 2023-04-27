@@ -1,4 +1,4 @@
-package Back_End.MAUSAC;
+﻿package Back_End.MAUSAC;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class MAUSACDAO implements DAOInterface<MAUSAC>{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return ketQua;
 	}
 
 	@Override

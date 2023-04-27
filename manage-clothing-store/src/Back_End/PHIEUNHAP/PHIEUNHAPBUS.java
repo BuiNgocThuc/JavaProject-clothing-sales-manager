@@ -6,18 +6,23 @@ package Back_End.PHIEUNHAP;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import Back_End.THUONGHIEU.THUONGHIEU;
-import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
-import Front_End.THUONGHIEU.THUONGHIEUGUI;
+import com.toedter.calendar.JDateChooser;
 
+import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
 /**
  *
  * @author NGOC THUC
@@ -35,11 +40,13 @@ public class PHIEUNHAPBUS {
 		}
 	}
 	
-	public void timKiem(JTextField txt, JButton btn) {
+	public void timKiem(JTextField txt, JButton btn, JDateChooser dc, JComboBox<String> cb) {
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				txt.setText(null);
+				cb.setSelectedIndex(0);
+				dc.setDate(null);
 				uploadData();
 			}
 		});
@@ -51,25 +58,96 @@ public class PHIEUNHAPBUS {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-//				ArrayList<THUONGHIEU> arrTimKiem = new ArrayList<>();
-//				DefaultTableModel dtm = (DefaultTableModel) THUONGHIEUGUI.tbl.getModel();
-//				String text;
-//				text = txt.getText().toLowerCase();
-//				
-//				for (THUONGHIEU thuonghieu : arrTH) {
-//					if((((thuonghieu.getMaTH()).toLowerCase().contains(text) || (thuonghieu.getTenTH()).toLowerCase().contains(text))) && (thuonghieu.getTrangthai().equals("Còn"))) {
-//						arrTimKiem.add(thuonghieu);
-//					}
-//				}
-//
-//				dtm.setRowCount(0);
-//				for (THUONGHIEU thuonghieu : arrTimKiem) {
-//					dtm.addRow(new Object[] {thuonghieu.getMaTH(), thuonghieu.getTenTH()});
-//				}
+				ArrayList<PHIEUNHAP> arrTimKiem = new ArrayList<>();
+				DefaultTableModel dtm = (DefaultTableModel) PHIEUNHAPGUI.tbl.getModel();
+				String text;
+				text = txt.getText().toLowerCase();
+				
+				for (PHIEUNHAP phieunhap : arrPN) {
+					if((phieunhap.getMaPN()).toLowerCase().contains(text) || (phieunhap.getMaNCC()).toLowerCase().contains(text) || (phieunhap.getMaNV()).toLowerCase().contains(text)) {
+						arrTimKiem.add(phieunhap);
+					}
+				}
+
+				dtm.setRowCount(0);
+				for (PHIEUNHAP phieunhap : arrTimKiem) {
+					dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+				}
 			}
 			
 			@Override
 			public void keyPressed(KeyEvent e) {				
+			}
+		});
+		
+		cb.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				ArrayList<PHIEUNHAP> arrTimKiem = new ArrayList<>();
+				DefaultTableModel dtm = (DefaultTableModel) PHIEUNHAPGUI.tbl.getModel();
+				if(e.getItem() == "Dưới 1.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() <= 1000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else if(e.getItem() == "1.000.000 - 5.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() >= 1000000 && phieunhap.getTongTien() <= 5000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else if(e.getItem() == "5.000.000 - 10.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() >= 5000000 && phieunhap.getTongTien() <= 10000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else if(e.getItem() == "10.000.000 - 15.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() >= 10000000 && phieunhap.getTongTien() <= 15000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else if(e.getItem() == "15.000.000 - 20.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() >= 15000000 && phieunhap.getTongTien() <= 20000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else if(e.getItem() == "Trên 20.000.000") {
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(phieunhap.getTongTien() >= 20000000) {
+							arrTimKiem.add(phieunhap);
+						}
+					}
+				}else {
+					arrTimKiem = arrPN;
+				}
+				dtm.setRowCount(0);
+				for (PHIEUNHAP phieunhap : arrTimKiem) {
+					dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+				}
+			}
+		});
+		
+		dc.getDateEditor().getUiComponent().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(dc.getDate() == null) {
+				}else {
+					DefaultTableModel dtm = (DefaultTableModel) PHIEUNHAPGUI.tbl.getModel();
+
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String date = sdf.format(dc.getDate());
+					
+					dtm.setRowCount(0);
+					for (PHIEUNHAP phieunhap : arrPN) {
+						if(date.equals(phieunhap.getNgayNhap())) {
+							dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+						}
+					}
+				}
 			}
 		});
 	}

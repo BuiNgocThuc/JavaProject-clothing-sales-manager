@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -35,19 +36,16 @@ import Front_End.THUONGHIEU.THUONGHIEUGUI;
  */
 public class THUONGHIEUBUS {
 	public static ArrayList<THUONGHIEU> arrTH;
-                      public void print() {
-                          System.out.println("HelloWord!!");
-                      }
+	
 	public void uploadData() {
-                                    arrTH = new THUONGHIEUDAO().selectAll();
-//		arrTH = THUONGHIEUDAO.getInstance().selectAll();
+		arrTH = THUONGHIEUDAO.getInstance().selectAll();
 		DefaultTableModel dtm = (DefaultTableModel) THUONGHIEUGUI.tbl.getModel();
 
 		if(arrTH.size() == 0) {
 			String[] arrStr = {"Louis Vuitton", "Hermès", "Prada", "Chanel", "Gucci", "Versace", "Christian Dior", "Burberry"};
 			
 			for(int i=1; i<9; i++) {
-				THUONGHIEU thuonghieu = new THUONGHIEU("TH" + i, arrStr[i-1], "Còn");
+				THUONGHIEU thuonghieu = new THUONGHIEU("TH" + (i+1000), arrStr[i-1], "Còn");
 				THUONGHIEUDAO.getInstance().insert(thuonghieu);
 			}
 			arrTH = THUONGHIEUDAO.getInstance().selectAll();
@@ -67,6 +65,7 @@ public class THUONGHIEUBUS {
 			public void actionPerformed(ActionEvent e) {
 				txt.setText(null);
 				uploadData();
+				txt.requestFocus();
 			}
 		});
 		
@@ -117,6 +116,40 @@ public class THUONGHIEUBUS {
 				JTextField txt = new JTextField();
 				txt.setPreferredSize(new Dimension(200, 30));
 				
+				txt.addKeyListener(new KeyListener() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						// TODO Auto-generated method stub
+					}
+					
+					@Override
+					public void keyReleased(KeyEvent e) {
+						// TODO Auto-generated method stub
+					}
+					
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							if(txt.getText().equals("")) {
+								JOptionPane.showMessageDialog(THUONGHIEUGUI.tbl, "Vui lòng nhập tên thương hiệu.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+							}else {
+								DefaultTableModel dtm = (DefaultTableModel) THUONGHIEUGUI.tbl.getModel();
+								THUONGHIEU thuonghieu = new THUONGHIEU("TH" + (arrTH.size()+1+1000), txt.getText(), "Còn");
+								THUONGHIEUDAO.getInstance().insert(thuonghieu);
+								arrTH.add(thuonghieu);
+								dtm.setRowCount(dtm.getRowCount());
+								dtm.addRow(new Object[] {thuonghieu.getMaTH(), thuonghieu.getTenTH()});
+								
+								pnl1.setVisible(false);
+								pnl.remove(pnl1);
+		 						pnl.add(tmp, BorderLayout.NORTH);
+		 						tmp.setVisible(true);
+							}
+						}
+					}
+				});
+
+				
 				JButton btnThem = new JButton("Thêm");
 				btnThem.setPreferredSize(new Dimension(100, 30));
 				btnThem.setBackground(Color.WHITE);
@@ -130,7 +163,7 @@ public class THUONGHIEUBUS {
 							JOptionPane.showMessageDialog(THUONGHIEUGUI.tbl, "Vui lòng nhập tên thương hiệu.", "Thông báo", JOptionPane.WARNING_MESSAGE);
 						}else {
 							DefaultTableModel dtm = (DefaultTableModel) THUONGHIEUGUI.tbl.getModel();
-							THUONGHIEU thuonghieu = new THUONGHIEU("TH" + (arrTH.size()+1), txt.getText(), "Còn");
+							THUONGHIEU thuonghieu = new THUONGHIEU("TH" + (arrTH.size()+1+1000), txt.getText(), "Còn");
 							THUONGHIEUDAO.getInstance().insert(thuonghieu);
 							arrTH.add(thuonghieu);
 							dtm.setRowCount(dtm.getRowCount());
@@ -148,7 +181,7 @@ public class THUONGHIEUBUS {
 				btnHuy.setPreferredSize(new Dimension(100, 30));
 				btnHuy.setBackground(Color.WHITE);
 				btnHuy.setMargin(new Insets(0, 0, 0, 0));
-				btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-30.png")));
+				btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-window-32.png")));
 				
 				btnHuy.addActionListener(new ActionListener() {
 					@Override
@@ -165,6 +198,7 @@ public class THUONGHIEUBUS {
 				pnl1.add(btnThem);
 				pnl1.add(btnHuy);
 				pnl.add(pnl1, BorderLayout.NORTH);
+				txt.requestFocus();
 			}
 		});
 	}
@@ -191,6 +225,47 @@ public class THUONGHIEUBUS {
 					JTextField txt = new JTextField();
 					txt.setPreferredSize(new Dimension(200, 30));
 					txt.setText(ten);
+					
+					txt.addKeyListener(new KeyListener() {
+						@Override
+						public void keyTyped(KeyEvent e) {
+							// TODO Auto-generated method stub
+						}
+						
+						@Override
+						public void keyReleased(KeyEvent e) {
+							// TODO Auto-generated method stub
+						}
+						
+						@Override
+						public void keyPressed(KeyEvent e) {
+							if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+								if(txt.getText().equals("")) {
+									JOptionPane.showMessageDialog(THUONGHIEUGUI.tbl, "Không được để trống tên thương hiệu.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+								}else {
+									THUONGHIEU thuonghieu = new THUONGHIEU(ma, txt.getText(), "Còn");
+									THUONGHIEUDAO.getInstance().update(thuonghieu);
+									for (THUONGHIEU thuonghieu2 : arrTH) {
+										if(thuonghieu2.getMaTH().equals(ma)) {
+											thuonghieu2.setTenTH(txt.getText());
+										}
+									}
+									
+									dtm.setRowCount(0);
+									for (THUONGHIEU thuonghieu3 : arrTH) {
+										if((thuonghieu3.getTrangthai()).equals("Còn")) {
+											dtm.addRow(new Object[] {thuonghieu3.getMaTH(), thuonghieu3.getTenTH()});
+										}
+									}
+									
+									pnl1.setVisible(false);
+									pnl.remove(pnl1);
+			 						pnl.add(tmp, BorderLayout.NORTH);
+			 						tmp.setVisible(true);
+								}
+							}
+						}
+					});
 					
 					JButton btnSua = new JButton("Sửa");
 					btnSua.setPreferredSize(new Dimension(100, 30));
@@ -231,7 +306,7 @@ public class THUONGHIEUBUS {
 					btnHuy.setPreferredSize(new Dimension(100, 30));
 					btnHuy.setBackground(Color.WHITE);
 					btnHuy.setMargin(new Insets(0, 0, 0, 0));
-					btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-30.png")));
+					btnHuy.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-window-32.png")));
 					
 					btnHuy.addActionListener(new ActionListener() {
 						@Override
@@ -248,6 +323,7 @@ public class THUONGHIEUBUS {
 					pnl1.add(btnSua);
 					pnl1.add(btnHuy);
 					pnl.add(pnl1, BorderLayout.NORTH);
+					txt.requestFocus();
 				}catch(Exception e2) {
 					JOptionPane.showMessageDialog(THUONGHIEUGUI.tbl, "Vui lòng chọn thương hiệu cần sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
 				}

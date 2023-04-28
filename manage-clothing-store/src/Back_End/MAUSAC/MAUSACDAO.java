@@ -33,7 +33,7 @@ public class MAUSACDAO implements DAOInterface<MAUSAC>{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return ketQua;
 	}
 
 	@Override

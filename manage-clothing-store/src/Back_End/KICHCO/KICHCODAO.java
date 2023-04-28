@@ -1,5 +1,6 @@
 package Back_End.KICHCO;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +34,7 @@ public class KICHCODAO implements DAOInterface<KICHCO>{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return ketQua;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ package Back_End.HOADON;
  */
 public class HOADON {
 
-	private String maHD, maNV, maKH, ngayNhap;
+	private String maHD, maNV, maKH, ngayNhap, tinhTrang;
     private float tongTien;
     
     public HOADON()
@@ -18,12 +18,13 @@ public class HOADON {
     	
     }
 
-    public HOADON(String maHD, String maNV, String maKH, String ngayNhap, Float tongTien) {
+    public HOADON(String maHD, String maNV, String maKH, String ngayNhap, Float tongTien, String tinhTrang) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.maKH = maKH;
         this.ngayNhap = ngayNhap;
         this.tongTien = tongTien;
+        this.tinhTrang = tinhTrang;
     }
 
 	public String getMaHD() {
@@ -65,7 +66,13 @@ public class HOADON {
 	public void setTongTien(float tongTien) {
 		this.tongTien = tongTien;
 	}
-    
-    
 
+	public String getTinhTrang() {
+		return tinhTrang;
+	}
+
+	public void setTinhTrang(String tinhTrang) {
+		this.tinhTrang = tinhTrang;
+	}
+	
 }

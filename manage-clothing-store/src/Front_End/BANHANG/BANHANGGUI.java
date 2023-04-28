@@ -47,7 +47,7 @@ public class BANHANGGUI {
 		panel.add(txtDiaChi);
 		
 		SANPHAMGUI a = new SANPHAMGUI();
-		a.createTbale(f);
+		a.createTable(f);
 		
 		
 		f.add(panel);

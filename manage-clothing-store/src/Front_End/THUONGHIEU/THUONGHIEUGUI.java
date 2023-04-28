@@ -4,7 +4,6 @@
  */
 package Front_End.THUONGHIEU;
 
-import Back_End.THUONGHIEU.THUONGHIEUBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +23,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import Back_End.THUONGHIEU.THUONGHIEUBUS;
+
 /**
  *
  * @author NGOC THUC
@@ -35,9 +36,8 @@ public class THUONGHIEUGUI extends JPanel {
 	private JTextField txt;
 	
 	public THUONGHIEUGUI() {
-                                        innit();
-		 THUONGHIEUBUS a = new THUONGHIEUBUS();
-//                 a.print();
+		THUONGHIEUBUS a = new THUONGHIEUBUS();
+		innit();
 		a.uploadData();
 		a.timKiem(txt, btn1);
 		a.them(btn2, this, pnl1);
@@ -150,8 +150,13 @@ public class THUONGHIEUGUI extends JPanel {
 		this.add(pnl1, BorderLayout.NORTH);
 		this.add(sp, BorderLayout.CENTER);
 		this.add(pnl4, BorderLayout.SOUTH);
+		txt.requestFocus();
 	}
+
         public static void main(String[] args) {
-//        new THUONGHIEUGUI();
+        new THUONGHIEUGUI();
     }
 }
+
+
+

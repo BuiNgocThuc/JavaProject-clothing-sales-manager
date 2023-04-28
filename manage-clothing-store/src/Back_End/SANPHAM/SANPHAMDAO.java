@@ -124,7 +124,7 @@ public class SANPHAMDAO implements DAOInterface<SANPHAM> {
 				String maTH = rs.getString("SP_MATH");
 				String tenSP = rs.getNString("TENSP");
 				String kichCo = rs.getString("SIZE");
-				String mauSac = rs.getNString("MAUSAC");
+				String mauSac = rs.getString("MAUSAC");
 				String hinhAnh = rs.getString("HINHANH");
 				Float giaSP = rs.getFloat("SP_GIASP");
 				int soLuong = rs.getInt("SP_SOLUONGSP");

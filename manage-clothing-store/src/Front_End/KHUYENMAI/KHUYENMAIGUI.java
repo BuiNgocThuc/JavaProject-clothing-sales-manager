@@ -64,13 +64,13 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         ArrayList<KHUYENMAI> dskm = km.getDskm();
         String[] titles = km.getTitle();
         initComponents(titles, dskm);
-        jf.setSize(800, 500);
-        jf.setLayout(new BorderLayout());
-        jf.add(panelTool(), BorderLayout.NORTH);
-        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(panelTool(), BorderLayout.NORTH);
+//        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<KHUYENMAI> dskm) {

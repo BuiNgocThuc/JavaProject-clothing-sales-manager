@@ -86,7 +86,7 @@ public class MAUSACDAO implements DAOInterface<MAUSAC>{
 		ArrayList<MAUSAC> ketQua = new ArrayList<>();
 		try {
 			Connection c = connec.getConnection();
-			String sql = "SELECT * FROM KICHCO"; 
+			String sql = "SELECT * FROM MAUSAC"; 
 			PreparedStatement pst = c.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			

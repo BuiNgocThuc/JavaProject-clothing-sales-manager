@@ -131,20 +131,7 @@ select * from CHUCNANG
 ALTER TABLE CHUCNANG
 DROP COLUMN TRANGTHAI
 
-INSERT INTO CHUCNANG(MACN, TENCN, MOTA)
-VALUES ('1', 'bán hàng','bán hàng'),
-		('2', 'Nhập Hàng', 'Nhập Hàng'), 
-('3', 'Sản Phẩm', 'Sản Phẩm'), 
-('4', 'Thương Hiệu', 'Thương Hiệu'), 
-('5', 'Hóa Đơn', 'Hóa Đơn'), 
-('6', 'Phiếu Nhập', 'Phiếu Nhập'), 
-('7', 'Nhân Viên', 'Nhân Viên'), 
-('8', 'Khách Hàng', 'Khách Hàng'), 
-('9', 'Nhà Cung Cấp', 'Nhà Cung Cấp'), 
-('10', 'Thống Kê', 'Thống Kê'), 
-('11', 'Khuyến Mại', 'Khuyến Mại'), 
-('12', 'Tài Khoản', 'Tài Khoản'), 
-('13', 'Phân Quyền', 'Phân Quyền');
+
 
 ALTER TABLE [CHUCNANG]
 ADD TRANGTHAI varchar(100);
@@ -222,6 +209,8 @@ VALUES
 ('NV006',N'Đỗ Thị Thùy','2003-12-22','0776123098',N'Thành phố Thủ Đức',N'Đang làm việc'),
 ('NV007',N'Lê Tấn Kiệt','2002-12-18','0798553121',N'Quận 5',N'Đang làm việc');
 
+select * FROM NHANVIEN
+
 INSERT INTO KHACHHANG (MAKH, TENKH, SDTKH, DIACHIKH, TRANGTHAI)
 VALUES 
 ('KH001',N'Ngô Lan Hương','0987456710',N'Quận Tân Bình',N'Khách hàng'),
@@ -231,6 +220,8 @@ VALUES
 ('KH005',N'Nguyễn Văn Tuấn','0933009331',N'Quận 5',N'Khách hàng'),
 ('KH006',N'Nguyễn Văn Linh','0786765123',N'Quận 8',N'Khách hàng'),
 ('KH007',N'Văn Mai Linh','0122345075',N'Quận Tân Phú',N'Khách hàng');
+
+select * from KHACHHANG
 
 INSERT INTO NHACUNGCAP (MANCC, TENNCC, SDTNCC, DIACHINCC, TRANGTHAI)
 VALUES 
@@ -242,6 +233,8 @@ VALUES
 ('NCC006',N'Công ty Thành Công','0835130333',N'Quận 1',N'Đang hoạt động'),
 ('NCC007',N'Đồng phục Coloury','0986597079',N'Q. Bình Tân',N'Đang hoạt động');
 
+select * from NHACUNGCAP
+
 INSERT INTO KHUYENMAI (MAKM, TENKM, DIEUKIEN, GIAMGIA, NGAY_BD, NGAY_KT, TRANGTHAI)
 VALUES 
 ('KM1', N'Giảm giá 20% cho bộ sưu tập áo khoác', 500000, 20, '2023-04-01', '2023-04-30', N'Đang hoạt động'),
@@ -252,6 +245,8 @@ VALUES
 ('KM6', N'Mua 3 tặng 1 cho bộ sưu tập quần áo trẻ em', 600000, 25, '2023-09-01', '2023-09-30', N'Đang hoạt động'),
 ('KM7', N'Giảm giá 25% cho bộ sưu tập áo len', 1500000, 100, '2023-10-01', '2023-10-15', N'Đang hoạt động');
 
+select * from KHUYENMAI
+
 INSERT INTO KICHCO(MASIZE,TENSIZE)
 VALUES
 ('S1','S'),
@@ -259,6 +254,8 @@ VALUES
 ('S3','L'),
 ('S4','XL'),
 ('S5','XXL')
+
+select * from KICHCO
 
 INSERT INTO MAUSAC(MAMAU,TENMAU)
 VALUES
@@ -271,6 +268,8 @@ VALUES
 ('M7', N'Cam'),
 ('M8', N'Tím'),
 ('M9', N'Hồng')
+
+select * from MAUSAC
 
 INSERT INTO SANPHAM(MASP, SP_MATH, TENSP, SIZE, MAUSAC,HINHANH,GIA_NHAP,SP_GIASP,SP_SOLUONGSP,TRANGTHAI)
 VALUES
@@ -300,25 +299,47 @@ VALUES
 ('SP024','TH3',N'Sơ mi','S4','M5','/Icon/icon_img/prada_product10.jpg',200000,315000,10,N'Còn'),
 ('SP025','TH2',N'Áo','S2','M6','/Icon/icon_img/hermes_product11.jpg',200000,350000,30,N'Còn')
 
+select * FROM SANPHAM
+
+select * from THUONGHIEU
+
 INSERT INTO NHOMQUYEN (MAQUYEN, TENQUYEN, MOTAQUYEN, TRANGTHAI)
 VALUES 
-	('Q1', 'QUẢN LÝ', 'TOÀN QUYỀN', 'ĐANG HOẠT ĐỘNG'),
-	('Q2', 'NHÂN VIÊN BÁN HÀNG', 'THAO TÁC BÁN HÀNG', 'ĐANG HOẠT ĐỘNG'),
-	('Q3', 'NHÂN VIÊN NHẬP HÀNG', 'THAO TÁC NHẬP HÀNG', 'ĐANG HOẠT ĐỘNG'),
-	('Q4', 'QUẢN TRỊ', 'TOÀN QUYỀN', 'ĐANG HOẠT ĐỘNG');
+	('Q1', N'QUẢN LÝ', N'TOÀN QUYỀN', N'ĐANG HOẠT ĐỘNG'),
+	('Q2', N'NHÂN VIÊN BÁN HÀNG', N'THAO TÁC BÁN HÀNG', N'ĐANG HOẠT ĐỘNG'),
+	('Q3', N'NHÂN VIÊN NHẬP HÀNG', N'THAO TÁC NHẬP HÀNG', N'ĐANG HOẠT ĐỘNG'),
+	('Q4', N'QUẢN TRỊ', N'TOÀN QUYỀN', N'ĐANG HOẠT ĐỘNG');
 
-select * from TAIKHOAN
+select * from NHOMQUYEN
+
+INSERT INTO CHUCNANG(MACN, TENCN, MOTA)
+VALUES ('1', N'bán hàng', N'bán hàng'),
+		('2', N'Nhập Hàng', N'Nhập Hàng'), 
+('3', N'Sản Phẩm', N'Sản Phẩm'), 
+('4', N'Thương Hiệu', N'Thương Hiệu'), 
+('5', N'Hóa Đơn', N'Hóa Đơn'), 
+('6', N'Phiếu Nhập', N'Phiếu Nhập'), 
+('7', N'Nhân Viên', N'Nhân Viên'), 
+('8', N'Khách Hàng', N'Khách Hàng'), 
+('9', N'Nhà Cung Cấp', N'Nhà Cung Cấp'), 
+('10', N'Thống Kê', N'Thống Kê'), 
+('11', N'Khuyến Mại', N'Khuyến Mại'), 
+('12', N'Tài Khoản', N'Tài Khoản'), 
+('13', N'Phân Quyền', N'Phân Quyền');
+
+SELECT * FROM CHUCNANG
 
 INSERT INTO TAIKHOAN (Username, matKhau, MaQuyen, TRANGTHAI)
 VALUES
-('NV001', 'pass1', 'Q4', 'Đang hoạt động'),
-('NV002', 'pass2', 'Q1', 'Đang hoạt động'),
-('NV003', 'pass3', 'Q2', 'Đang hoạt động'),
-('NV004', 'pass4', 'Q3', 'Đang hoạt động'),
-('NV005', 'pass5', 'Q2', 'Đang hoạt động'),
-('NV006', 'pass6', 'Q3', 'Đang hoạt động'),
-('NV007', 'pass7', 'Q2', 'Đang hoạt động');
+('NV001', 'pass1', 'Q4', N'Đang hoạt động'),
+('NV002', 'pass2', 'Q1', N'Đang hoạt động'),
+('NV003', 'pass3', 'Q2', N'Đang hoạt động'),
+('NV004', 'pass4', 'Q3', N'Đang hoạt động'),
+('NV005', 'pass5', 'Q2', N'Đang hoạt động'),
+('NV006', 'pass6', 'Q3', N'Đang hoạt động'),
+('NV007', 'pass7', 'Q2', N'Đang hoạt động');
 
+SELECT * FROM TAIKHOAN
 
 INSERT INTO CHITIETPHANQUYEN (CTPQ_MAQUYEN, CTPQ_MACN)
 VALUES ('Q1','1'),
@@ -349,3 +370,5 @@ VALUES ('Q1','1'),
   ('Q4','13'),
   ('Q2', '1'),
   ('Q3','2');
+
+  SELECT * FROM CHITIETPHANQUYEN

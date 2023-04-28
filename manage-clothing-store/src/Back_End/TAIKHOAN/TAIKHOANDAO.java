@@ -18,15 +18,34 @@ import Dao.DAOInterface;
  *
  * @author NGOC THUC
  */
-public class TAIKHOANDAO  {
-    
-     PreparedStatement pstm = null;
+public class TAIKHOANDAO {
+
+    PreparedStatement pstm = null;
 
     public static TAIKHOANDAO getInstance() {
         return new TAIKHOANDAO();
     }
 
-     public TAIKHOAN getByUserName(String username) {
+    public String getNameByUsername(String Username) {
+        String name = new String();
+        Connection con = connec.getConnection();
+        try {
+            String query = "select * from NHANVIEN where MANV = ?";//+
+            pstm = con.prepareStatement(query);
+            pstm.setString(1, Username);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()) {
+                name = rs.getString("TENNV");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connec.closeConnection(con);
+        }
+        return name;
+    }
+
+    public TAIKHOAN getByUserName(String username) {
         Connection con = connec.getConnection();
         try {
             String query = "select * from TAIKHOAN where Username = ?";//+
@@ -43,17 +62,17 @@ public class TAIKHOANDAO  {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-           connec.closeConnection(con);
+            connec.closeConnection(con);
         }
         return null;
     }
-     
-     public String getTrangThaiByMaTk(String Username) {
+
+    public String getTrangThaiByMaTk(String Username) {
         Connection con = connec.getConnection();
         try {
             String query = "select TRANGTHAI from TAIKHOAN where Username = ?";//+
             pstm = con.prepareStatement(query);
-            pstm.setString(1,  Username);
+            pstm.setString(1, Username);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 String trangThai = rs.getString("TRANGTHAI");
@@ -67,7 +86,7 @@ public class TAIKHOANDAO  {
         }
         return null;
     }
-    
+
     public int insert(TAIKHOAN t) {
         int ketQua = 0;
         try {
@@ -145,7 +164,7 @@ public class TAIKHOANDAO  {
 
         return 0;
     }
-    
+
     public ArrayList<TAIKHOAN> selectAll() {
         ArrayList<TAIKHOAN> ketQua = new ArrayList<>();
         try {

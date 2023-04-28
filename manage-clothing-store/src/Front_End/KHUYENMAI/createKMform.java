@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -43,12 +45,12 @@ public class createKMform extends JFrame {
     ArrayList<JTextField> txtList = new ArrayList<>();
 
     public createKMform() {
+        this.setUndecorated(true);
         initComponents();
 
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
     }
 
     public void initComponents() {
@@ -124,6 +126,11 @@ public class createKMform extends JFrame {
         lblCancel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         lblCancel.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-close-window-32.png"));
         lblCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblCancel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                createKMform.this.setVisible(false);
+            }
+        });
 
         pnTool.setPreferredSize(new Dimension(0, 100));
         pnTool.setBackground(Color.white);

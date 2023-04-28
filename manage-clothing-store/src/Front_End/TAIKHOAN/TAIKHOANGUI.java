@@ -4,6 +4,8 @@
  */
 package Front_End.TAIKHOAN;
 
+import Back_End.TAIKHOAN.TAIKHOANBUS;
+import Back_End.TAIKHOAN.TAIKHOAN;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -12,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -32,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author NGOC THUC
  */
-public class TAIKHOANGUI extends JPanel implements MouseListener{
+public class TAIKHOANGUI extends JPanel implements MouseListener {
 
     JPanel pnTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
@@ -53,22 +56,26 @@ public class TAIKHOANGUI extends JPanel implements MouseListener{
     JFrame jf = new JFrame();
 
     public TAIKHOANGUI() {
-        initComponents();
+        TAIKHOANBUS tk = new TAIKHOANBUS();
+        ArrayList<TAIKHOAN> dstk = tk.getDstk();
+        String[] titles = tk.getTitle();
+
+        initComponents(titles, dstk);
 
 //        jf.setSize(800, 500);
 //        jf.setLayout(new BorderLayout());
 //        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(), BorderLayout.CENTER);
+//        jf.add(tableList(titles, dstk), BorderLayout.CENTER);
 //        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 //        jf.setLocationRelativeTo(null);
 //        jf.setVisible(true);
     }
 
-    void initComponents() {
+    void initComponents(String[] titles, ArrayList<TAIKHOAN> dstk) {
         this.setSize(800, 500);
         this.setLayout(new BorderLayout());
         this.add(panelTool(), BorderLayout.NORTH);
-        this.add(tableList(), BorderLayout.CENTER);
+        this.add(tableList(titles, dstk), BorderLayout.CENTER);
     }
 
     public JPanel panelTool() {
@@ -172,20 +179,19 @@ public class TAIKHOANGUI extends JPanel implements MouseListener{
         return pnTool;
     }
 
-    public JScrollPane tableList() {
+    public JScrollPane tableList(String[] titles, ArrayList<TAIKHOAN> dstk) {
+        Object[][] data = new Object[dstk.size()][];
+        int i = 0;
+        for (TAIKHOAN tk : dstk) {
+            data[i++] = new Object[]{
+                i, // số thứ tự tài khoản
+                tk.getUserName(), // tên đăng nhập
+                tk.getPassWord(), // mật khẩu
+                tk.getMaQuyen(), // mã quyền
+            };
+        }
 
-        tblList.setModel(new DefaultTableModel(
-                new Object[][]{
-                    {"1", "admin", "admin", "NV1", "Q1"},
-                    {"2", "quanly", "quanly", "NV2", " Q2"},
-                    {"3", "nhanvien", "nhanvien", "NV3", " Q3"},
-                    {null, null, null, null, null}
-                },
-                new String[]{
-                    "STT", "Tên Tài Khoản", "Mật Khẩu", "Mã Nhân Viên", "Mã Quyền"
-                }
-        ));
-        
+        tblList.setModel(new DefaultTableModel(data,  titles));
         spnList.setBorder(BorderFactory.createLineBorder(Color.black));
         spnList.setViewportView(tblList);
         return spnList;

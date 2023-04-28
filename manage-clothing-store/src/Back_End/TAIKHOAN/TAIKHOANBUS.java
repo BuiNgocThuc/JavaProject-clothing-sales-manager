@@ -49,7 +49,10 @@ public class TAIKHOANBUS {
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ignored) {
 
                 }
-                new TAIKHOANBUS().phanQuyen(dsq);
+                LayoutFrame lf  = new LayoutFrame();
+                String name = qltk.getNameByUsername(tenTK);
+                qltk.phanQuyen(dsq, lf);
+                qltk.currentUser(name, lf);
                 lg.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Sai mật khẩu");
@@ -60,8 +63,7 @@ public class TAIKHOANBUS {
         }
     }
 
-public void phanQuyen(ArrayList<String> dsq) {
-        LayoutFrame lf = new LayoutFrame();
+public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
         lf.getLblBanHang().setVisible(false);
         lf.getLblNhapHang().setVisible(false);
         lf.getLblSanPham().setVisible(false);
@@ -108,12 +110,20 @@ public void phanQuyen(ArrayList<String> dsq) {
         }
     }
 
+    public void currentUser(String name, LayoutFrame lf) {
+        lf.getInfoUser().setText("Xin chào, " + name);
+    }
+
     public String getTrangThai(String username) {
         return tkDAO.getTrangThaiByMaTk(username);
     }
 
     public TAIKHOAN getByUsername(String tentk) {
         return tkDAO.getByUserName(tentk);
+    }
+    
+    public String getNameByUsername(String Username) {
+        return tkDAO.getNameByUsername(Username);
     }
 
     public void showConsole() {
@@ -126,7 +136,7 @@ public void phanQuyen(ArrayList<String> dsq) {
     }
 
     public String[] getTitle() {
-        return new String[]{"Tên tài khoản", "Mật khẩu", "Mã Quyền", "Trạng thái"};
+        return new String[]{"Số Thứ Tự","Tên tài khoản", "Mật khẩu", "Mã Quyền"};
     }
 
     public String getNextID() {
@@ -214,7 +224,7 @@ public void phanQuyen(ArrayList<String> dsq) {
         }
     }
 
-    public ArrayList<TAIKHOAN> getDskm() {
+    public ArrayList<TAIKHOAN> getDstk() {
         return dstk;
     }
 

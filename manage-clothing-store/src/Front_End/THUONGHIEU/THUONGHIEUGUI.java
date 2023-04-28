@@ -152,6 +152,6 @@ public class THUONGHIEUGUI extends JPanel {
 		this.add(pnl4, BorderLayout.SOUTH);
 	}
         public static void main(String[] args) {
-        new THUONGHIEUGUI();
+//        new THUONGHIEUGUI();
     }
 }

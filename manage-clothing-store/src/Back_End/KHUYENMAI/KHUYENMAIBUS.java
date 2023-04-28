@@ -34,7 +34,7 @@ public class KHUYENMAIBUS {
     }
 
     public String[] getTitle() {
-        return new String[]{"Mã khuyến mãi", "Tên khuyến mãi", "Điều kiện khuyến mãi", "Phần trăm khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc", "Tình Trạng"};
+        return new String[]{"Số thứ tự","Mã khuyến mãi", "Tên khuyến mãi", "Điều kiện khuyến mãi", "Phần trăm khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc"};
     }
 
     public String getNextID() {

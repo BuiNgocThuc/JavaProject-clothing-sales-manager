@@ -5,6 +5,7 @@
 package Front_End.KHUYENMAI;
 
 import Back_End.KHUYENMAI.KHUYENMAIBUS;
+import Back_End.KHUYENMAI.KHUYENMAI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,6 +14,7 @@ import java.awt.FileDialog;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -26,7 +28,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -55,23 +59,24 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     JFrame jf = new JFrame();
 
     public KHUYENMAIGUI() {
-        initComponents();
-        KHUYENMAIBUS kmBUS = new  KHUYENMAIBUS();
-       kmBUS.showConsole();
-
-//        jf.setSize(800, 500);
-//        jf.setLayout(new BorderLayout());
-//        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(), BorderLayout.CENTER);
-//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        jf.setLocationRelativeTo(null);
-//        jf.setVisible(true);
+        KHUYENMAIBUS km = new KHUYENMAIBUS();
+        km.getDskm();
+        ArrayList<KHUYENMAI> dskm = km.getDskm();
+        String[] titles = km.getTitle();
+        initComponents(titles, dskm);
+        jf.setSize(800, 500);
+        jf.setLayout(new BorderLayout());
+        jf.add(panelTool(), BorderLayout.NORTH);
+        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
+        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
-    void initComponents() {
+    void initComponents(String[] titles, ArrayList<KHUYENMAI> dskm) {
         this.setLayout(new BorderLayout());
         this.add(panelTool(), BorderLayout.NORTH);
-        this.add(tableList(), BorderLayout.CENTER);
+        this.add(tableList(titles, dskm), BorderLayout.CENTER);
         this.setVisible(true);
 
         lblAdd.addMouseListener(this);
@@ -178,19 +183,32 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         return pnTool;
     }
 
-    public JScrollPane tableList() {
-
+    public JScrollPane tableList(String[] titles, ArrayList<KHUYENMAI> dskm) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Object[][] data = new Object[dskm.size()][];
+        int i = 0;
+        for (KHUYENMAI km : dskm) {
+            data[i++] = new Object[]{
+                i, // số thứ tự tkhuyến mại
+                km.getMaKM(),
+                km.getTenKM(),
+                km.getDieuKien(),
+                km.getPhanTramGiamGia(),
+                km.getNgayBD(),
+                km.getNgayKT(),};
+        }
         tblList.setModel(new DefaultTableModel(
-                new Object[][]{
-                    //                    {"1", "admin", "admin", "NV1", "Q1"},
-                    //                    {"2", "quanly", "quanly", "NV2", " Q2"},
-                    //                    {"3", "nhanvien", "nhanvien", "NV3", " Q3"},
-                    {null, null, null, null, null}
-                },
-                new String[]{
-                    "STT", "Mã Khuyến Mại", "Tên Khuyến Mại", "Điều Kiện", "Phần Trăm Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc"
-                }
+                data,
+                titles
         ));
+
+        for (int j = 0; j < tblList.getColumnCount(); j++) {
+            tblList.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+        }
+
+        TableColumn column = tblList.getColumnModel().getColumn(2); // Lấy cột thứ 3
+        column.setPreferredWidth(220); // Thiết lập chiều rộng ưu tiên là 200
 
         spnList.setBorder(BorderFactory.createLineBorder(Color.black));
         spnList.setViewportView(tblList);
@@ -198,7 +216,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     }
 
     public static void main(String[] args) {
-//        new KHUYENMAIGUI();
+        new KHUYENMAIGUI();
     }
 
     @Override
@@ -206,8 +224,8 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (e.getSource() == lblAdd) {
 
-          new createKMform();
-            
+            new createKMform();
+
         }
     }
 

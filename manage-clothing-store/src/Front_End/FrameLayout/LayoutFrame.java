@@ -39,6 +39,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import javax.swing.border.Border;
 
 /**
  *
@@ -46,10 +47,14 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 public class LayoutFrame extends JFrame {
 
+    int widthBar = 180, heightBar = 0;
+    int widthMainPN = 820, heightMainPN = 0;
+
     JPanel pnContainer = new JPanel();
     JPanel pnHeader = new JPanel();
     JPanel pnMenu = new JPanel();
     JPanel pnMainContent = new JPanel();
+    JLabel lblInfoUser = new JLabel("Xin Chào, Bùi Ngọc Thức", JLabel.CENTER);
 
     JLabel lblMinimize = new JLabel();
     JLabel lblClose = new JLabel("X", JLabel.CENTER);
@@ -80,8 +85,10 @@ public class LayoutFrame extends JFrame {
     ArrayList<JLabel> dslbl = new ArrayList<>();
 
     Font font = new Font("Arial", Font.ITALIC, 18);
+    Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.WHITE);
 
     public LayoutFrame() {
+        this.setUndecorated(true);
         initComponents();
     }
 
@@ -122,6 +129,14 @@ public class LayoutFrame extends JFrame {
         pnContainer.add(mainContent(), BorderLayout.CENTER);
 
         return pnContainer;
+    }
+
+    public JLabel getInfoUser() {
+        return lblInfoUser;
+    }
+
+    public void setLblInfoUser(JLabel lblInfoUser) {
+        this.lblInfoUser = lblInfoUser;
     }
 
     public JPanel getPnContainer() {
@@ -235,8 +250,6 @@ public class LayoutFrame extends JFrame {
     public void setLblPhanQuyen(JLabel lblPhanQuyen) {
         this.lblPhanQuyen = lblPhanQuyen;
     }
-    
-    
 
     public JPanel navbar() {
         pnHeader.setBackground(Color.BLACK);
@@ -248,32 +261,42 @@ public class LayoutFrame extends JFrame {
         lblLogOut.setBounds(930, 15, 50, 50);
         lblLogOut.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-log-out-32 (3).png"));
         lblLogOut.addMouseListener(new MouseAdapter() {
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // Thực hiện các xử lý khi người dùng click vào nút logout ở đây
-        // Ví dụ: hiển thị dialog xác nhận đăng xuất
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            
-            // Đóng form hiện tại
-            dispose();
-            // Thực hiện đăng xuất
-            // Ví dụ: chuyển đến form đăng nhập
-            LoginForm lgF = new LoginForm();
-            lgF.setVisible(true);
-        }
-    }
-});
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Thực hiện các xử lý khi người dùng click vào nút logout ở đây
+                // Ví dụ: hiển thị dialog xác nhận đăng xuất
+                int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Xác nhận đăng xuất", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+
+                    // Đóng form hiện tại
+                    dispose();
+                    // Thực hiện đăng xuất
+                    // Ví dụ: chuyển đến form đăng nhập
+                    LoginForm lgF = new LoginForm();
+                    lgF.setVisible(true);
+                }
+            }
+        });
 
         lblClose.setBounds(870, 15, 50, 50);
         lblClose.setBackground(Color.BLACK);
         lblClose.setOpaque(true);
         lblClose.setForeground(Color.WHITE);
         lblClose.setFont(new Font("Arial", Font.BOLD, 25));
+        lblClose.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+        });
 
         lblMinimize.setBounds(810, 15, 50, 50);
         lblMinimize.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-subtract-50.png"));
-
+         lblMinimize.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+               LayoutFrame.this.setState(JFrame.ICONIFIED);
+            }
+        });
+        
         btnMenu.setBounds(20, 15, 50, 50);
         btnMenu.setBackground(Color.black);
         btnMenu.setOpaque(true);
@@ -281,13 +304,39 @@ public class LayoutFrame extends JFrame {
 
         closeMenu.setPreferredSize(new Dimension(50, 50));
         closeMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-close-40.png"));
+        closeMenu.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                btnMenu.removeAll();
+                btnMenu.add(openMenu);
+                btnMenu.repaint();
+                btnMenu.revalidate();
+                pnMenu.setPreferredSize(new Dimension(0, 0));
+            }
+        });
 
         openMenu.setPreferredSize(new Dimension(50, 50));
         openMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-menu-40.png"));
+        openMenu.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                btnMenu.removeAll();
+                btnMenu.add(closeMenu);
+                btnMenu.repaint();
+                btnMenu.revalidate();
+                pnMenu.setPreferredSize(new Dimension(180, 0));
+            }
+        });
+        
+        lblInfoUser.setBounds(80, 15, 250, 50 );
+        lblInfoUser.setForeground(Color.white);
+//        lblInfoUser.setBackground(Color.red);
+//        lblInfoUser.setOpaque(true);
+        lblInfoUser.setFont(font);
+        lblInfoUser.setBorder(border);
 
         btnMenu.add(closeMenu, "close");
         btnMenu.add(openMenu, "open");
 
+        pnHeader.add(lblInfoUser);
         pnHeader.add(btnMenu);
         pnHeader.add(lblClose);
         pnHeader.add(lblMinimize);

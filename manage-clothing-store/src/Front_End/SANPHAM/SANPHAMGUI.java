@@ -1,4 +1,4 @@
-package Front_End.SANPHAM;
+﻿package Front_End.SANPHAM;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -189,18 +189,18 @@ public class SANPHAMGUI extends JPanel {
 		
 		// Panel top
 		panelTop = new JPanel();
-		panelTop.setBounds(0,menu.getHeight()+10,this.getWidth(), 100);
+		panelTop.setBounds(0,menu.getHeight()+10,this.getWidth(), 50);
 		panelTop.setLayout(null);
 		
 		// Table
 		tableSP = new JTable();
-		this.add(createTable(0, panelTop.getHeight()+20+menu.getHeight(), this.getWidth(), (this.getHeight())/4+100, tableSP));
+		this.add(createTable(0, panelTop.getHeight()+20+menu.getHeight(), this.getWidth(), (this.getHeight())/4, tableSP));
 		a.loadDataToTable(tableSP); // đổ dữ liệu lên table
 		
 		// Bộ lọc sản phẩm
 		pannelBoLocSP = new JPanel();
-		pannelBoLocSP.setBounds(0, 0, this.getWidth(), 80);
-		pannelBoLocSP.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+		pannelBoLocSP.setBounds(0, 0, this.getWidth(), 50);
+		pannelBoLocSP.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
 		
 		tenSP = new JLabel("Tên sản phẩm", JLabel.CENTER);
 		tenTH = new JLabel("Thương hiệu", JLabel.CENTER);
@@ -278,7 +278,7 @@ public class SANPHAMGUI extends JPanel {
 		// Panel sửa sản phẩm , hiển thị hình ảnh
 		panelBottom = new JPanel();
 		panelBottom.setLayout(null);
-		panelBottom.setBounds(0,pannelBoLocSP.getHeight()+this.getHeight()/4+150,this.getWidth(),200);
+		panelBottom.setBounds(0,pannelBoLocSP.getHeight()+this.getHeight()/4+150,this.getWidth(),150);
 		panelBottom.setBorder(new LineBorder(Color.black));
 		
 		// --Img
@@ -569,7 +569,7 @@ public class SANPHAMGUI extends JPanel {
 		this.add(panelBottom);
 		// Button chức năng
 		panelChucNang = new JPanel();
-		panelChucNang.setBounds(this.getWidth()/4, pannelBoLocSP.getHeight()+this.getHeight()/4+panelBottom.getHeight()+150, this.getWidth()/2, 150);
+		panelChucNang.setBounds(10, 450, this.getWidth(), 50);
 		panelChucNang.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 		
 		Icon iconDelete = new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-remove-28.png"));

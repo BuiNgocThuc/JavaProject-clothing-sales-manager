@@ -108,7 +108,7 @@ public class LayoutFrame extends JFrame {
     void solveActionMenu() {
 //        lblBanHang.addMouseListener(new EventInLabel(pnMainContent, new BANHANGGUI()));
 //        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
-        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, new SANPHAMGUI(this)));
+        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, new SANPHAMGUI()));
         lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, new HOADONGUI()));
         lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, new PHIEUNHAPGUI()));

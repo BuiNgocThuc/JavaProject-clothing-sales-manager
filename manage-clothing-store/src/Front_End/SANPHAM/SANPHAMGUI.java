@@ -103,16 +103,12 @@ public class SANPHAMGUI extends JPanel {
 	
 	public SANPHAMGUI()
 	{
-		
-	}
-	public SANPHAMGUI(JFrame f)
-	{
-		this.init(f);
+		this.init();
 		a.loadDataToCombobox();
 	}
 
-	public void init(JFrame f) {
-		this.setSize(f.getWidth(), 800);
+	public void init() {
+		this.setSize(820, 800);
 		this.setLayout(null);
 		
 		// Panel menu
@@ -198,7 +194,7 @@ public class SANPHAMGUI extends JPanel {
 		
 		// Table
 		tableSP = new JTable();
-		this.add(createTable(0, panelTop.getHeight()+20+menu.getHeight(), this.getWidth(), (f.getHeight())/4+100, tableSP));
+		this.add(createTable(0, panelTop.getHeight()+20+menu.getHeight(), this.getWidth(), (this.getHeight())/4+100, tableSP));
 		a.loadDataToTable(tableSP); // đổ dữ liệu lên table
 		
 		// Bộ lọc sản phẩm
@@ -282,7 +278,7 @@ public class SANPHAMGUI extends JPanel {
 		// Panel sửa sản phẩm , hiển thị hình ảnh
 		panelBottom = new JPanel();
 		panelBottom.setLayout(null);
-		panelBottom.setBounds(0,pannelBoLocSP.getHeight()+f.getHeight()/4+150,f.getWidth(),200);
+		panelBottom.setBounds(0,pannelBoLocSP.getHeight()+this.getHeight()/4+150,this.getWidth(),200);
 		panelBottom.setBorder(new LineBorder(Color.black));
 		
 		// --Img
@@ -573,7 +569,7 @@ public class SANPHAMGUI extends JPanel {
 		this.add(panelBottom);
 		// Button chức năng
 		panelChucNang = new JPanel();
-		panelChucNang.setBounds(f.getWidth()/4, pannelBoLocSP.getHeight()+f.getHeight()/4+panelBottom.getHeight()+150, f.getWidth()/2, 150);
+		panelChucNang.setBounds(this.getWidth()/4, pannelBoLocSP.getHeight()+this.getHeight()/4+panelBottom.getHeight()+150, this.getWidth()/2, 150);
 		panelChucNang.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 		
 		Icon iconDelete = new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-remove-28.png"));
@@ -691,7 +687,6 @@ public class SANPHAMGUI extends JPanel {
 				
 			}
 		});
-		f.add(this);
 	}
 	
 	public  JScrollPane createTable(int x, int y, int width, int height, JTable tableSP) {

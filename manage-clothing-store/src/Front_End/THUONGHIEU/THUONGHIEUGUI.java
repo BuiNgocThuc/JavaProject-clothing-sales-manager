@@ -50,13 +50,13 @@ public class THUONGHIEUGUI extends JPanel {
     
     private void innit() {
         this.setLayout(new BorderLayout());
-        pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        pnl1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         pnl2 = new JPanel(null);
         pnl2.setBorder(new TitledBorder(BorderFactory.createRaisedBevelBorder(), "Tìm kiếm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        pnl2.setPreferredSize(new Dimension(450, 80));
+        pnl2.setPreferredSize(new Dimension(433, 80));
         
-        pnl3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        pnl3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
         
         pnl4 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
@@ -64,7 +64,7 @@ public class THUONGHIEUGUI extends JPanel {
         txt.setBounds(33, 25, 250, 30);
         
         btn1 = new JButton("Làm mới");
-        btn1.setBounds(317, 25, 100, 30);
+        btn1.setBounds(300, 25, 100, 30);
         btn1.setBackground(Color.WHITE);
         btn1.setMargin(new Insets(0, 0, 0, 0));
         btn1.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
@@ -142,8 +142,8 @@ public class THUONGHIEUGUI extends JPanel {
         
         pnl3.add(btn2);
         pnl3.add(btn3);
-        
         pnl3.add(btn4);
+        
         pnl2.add(txt);
         pnl2.add(btn1);
         

@@ -213,9 +213,9 @@ public class HOADONBUS {
 				tbl1.getTableHeader().setFont(new Font(null, Font.BOLD, 13));
 				tbl1.setRowHeight(30);
 				tbl1.getColumnModel().getColumn(0).setPreferredWidth(50);
-				tbl1.getColumnModel().getColumn(1).setPreferredWidth(100);
+				tbl1.getColumnModel().getColumn(1).setPreferredWidth(80);
 				tbl1.getColumnModel().getColumn(2).setPreferredWidth(100);
-				tbl1.getColumnModel().getColumn(3).setPreferredWidth(100);
+				tbl1.getColumnModel().getColumn(3).setPreferredWidth(70);
 				tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
 				tbl1.setAlignmentX(20);
 				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

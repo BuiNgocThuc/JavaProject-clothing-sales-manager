@@ -4,17 +4,25 @@
  */
 package Front_End.KHACHHANG;
 
+import Back_End.KHACHHANG.KHACHHANGBUS;
+import Back_End.KHACHHANG.KHACHHANGDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author NGOC THUC
  */
 public class KhachHangTest extends javax.swing.JFrame {
-
+    KHACHHANGBUS khb = new KHACHHANGBUS();
     /**
      * Creates new form KhachHangTest
      */
     public KhachHangTest() {
         initComponents();
+        
+        khb.loadData();
+
+        khb.showConsole();
     }
 
     /**
@@ -26,21 +34,355 @@ public class KhachHangTest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb = new javax.swing.JTable();
+        labelAddress = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        choose = new javax.swing.JComboBox<>();
+        textFind = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
+        textAddress = new javax.swing.JTextField();
+        labelPhone = new javax.swing.JLabel();
+        textPhone = new javax.swing.JTextField();
+        titleLabel = new javax.swing.JLabel();
+        labelStatus = new javax.swing.JLabel();
+        exportBtn = new javax.swing.JButton();
+        labelMaKH = new javax.swing.JLabel();
+        textStatus = new javax.swing.JTextField();
+        importBtn = new javax.swing.JButton();
+        textMaKH = new javax.swing.JTextField();
+        addBtn = new javax.swing.JButton();
+        pdfBtn = new javax.swing.JButton();
+        labelHoTen = new javax.swing.JLabel();
+        editBtn = new javax.swing.JButton();
+        textHoTen = new javax.swing.JTextField();
+        deleteBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(988, 449));
+
+        tb.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã KH", "Họ tên KH", "Địa chỉ", "Số điện thoại", "Trạng thái"
+            }
+        ));
+        tb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tb);
+
+        labelAddress.setText("Địa chỉ");
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 51, 255))); // NOI18N
+
+        choose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo tên", "Tìm kiếm theo mã", " " }));
+
+        searchBtn.setText("Tìm kiếm");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(searchBtn)
+                        .addGap(0, 159, Short.MAX_VALUE))
+                    .addComponent(textFind))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(searchBtn)
+                .addContainerGap())
+        );
+
+        labelPhone.setText("Số điện thoại");
+
+        textPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPhoneActionPerformed(evt);
+            }
+        });
+
+        titleLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(102, 102, 255));
+        titleLabel.setText("QUẢN LÝ KHÁCH HÀNG");
+
+        labelStatus.setText("Trạng thái");
+
+        exportBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png"))); // NOI18N
+        exportBtn.setText("Export");
+        exportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportBtnActionPerformed(evt);
+            }
+        });
+
+        labelMaKH.setText("Mã khách hàng");
+
+        importBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png"))); // NOI18N
+        importBtn.setText("Import");
+        importBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importBtnActionPerformed(evt);
+            }
+        });
+
+        textMaKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textMaKHActionPerformed(evt);
+            }
+        });
+
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-add-new-32.png"))); // NOI18N
+        addBtn.setText("Thêm");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
+
+        pdfBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png"))); // NOI18N
+        pdfBtn.setText("PDF");
+
+        labelHoTen.setText("Họ và tên");
+
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-tools-28.png"))); // NOI18N
+        editBtn.setText("Sửa");
+        editBtn.setMaximumSize(new java.awt.Dimension(96, 39));
+        editBtn.setMinimumSize(new java.awt.Dimension(96, 39));
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icon_img/icons8-remove-28.png"))); // NOI18N
+        deleteBtn.setText("Xóa");
+        deleteBtn.setMaximumSize(new java.awt.Dimension(96, 39));
+        deleteBtn.setMinimumSize(new java.awt.Dimension(96, 39));
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(titleLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addBtn)
+                                    .addComponent(importBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addComponent(exportBtn)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(pdfBtn))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(labelHoTen)
+                                                .addComponent(labelAddress))
+                                            .addGap(21, 21, 21))
+                                        .addComponent(labelMaKH, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(labelPhone)
+                                    .addComponent(labelStatus))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMaKH)
+                            .addComponent(textMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelHoTen)
+                            .addComponent(textHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelAddress)
+                            .addComponent(textAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelPhone)
+                            .addComponent(textPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelStatus)
+                            .addComponent(textStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addBtn)
+                            .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(importBtn)
+                            .addComponent(exportBtn)
+                            .addComponent(pdfBtn))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
+                .addGap(63, 63, 63))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMouseClicked
+        int selectedRow = tb.getSelectedRow();
+        String makh = tb.getModel().getValueAt(selectedRow, 0).toString();
+        String tenkh = tb.getModel().getValueAt(selectedRow, 1).toString();
+        String sdt = tb.getModel().getValueAt(selectedRow, 2).toString();
+        String diachi = tb.getModel().getValueAt(selectedRow, 3).toString();
+        String trangthai = tb.getModel().getValueAt(selectedRow, 4).toString();
+        textMaKH.setText(makh);
+        textHoTen.setText(tenkh);
+        textPhone.setText(sdt);
+        textAddress.setText(diachi);
+        textStatus.setText(trangthai);
+    }//GEN-LAST:event_tbMouseClicked
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        String input = textFind.getText();
+        String selectedValue = (String) choose.getSelectedItem();
+        if (input.trim().length() == 0) {
+            KHACHHANGBUS.dskh = KHACHHANGDAO.getInstance().selectAll();
+        } else {
+            if (selectedValue == "Tìm kiếm theo tên") {
+                KHACHHANGBUS.dskh = KHACHHANGDAO.getInstance().selectByName(input);
+            }
+            if (selectedValue == "Tìm kiếm theo mã") {
+                KHACHHANGBUS.dskh = KHACHHANGDAO.getInstance().selectByID(input);
+            }
+        }
+
+        KHACHHANGBUS.model.setRowCount(0);
+        KHACHHANGBUS.dskh.forEach((kh) -> {
+            KHACHHANGBUS.model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getSdt(), kh.getDiaChi(), kh.getTrangThai()});
+        });
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void textPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textPhoneActionPerformed
+
+    private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportBtnActionPerformed
+
+    private void importBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importBtnActionPerformed
+
+    private void textMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textMaKHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textMaKHActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        String id = textMaKH.getText();
+        String fullname = textHoTen.getText();
+        String phone = textPhone.getText();
+        String address = textAddress.getText();
+        String status = textStatus.getText();
+
+        if (khb.add(id, fullname, phone, address, status)) {
+            JOptionPane.showMessageDialog(tb, "Thêm thành công");
+        }
+
+        khb.reset();
+
+        khb.loadData();
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        String id = textMaKH.getText();
+        String fullname = textHoTen.getText();
+        String phone = textPhone.getText();
+        String address = textAddress.getText();
+        String status = textStatus.getText();
+
+        if (khb.edit(id, fullname, phone, address, status)) {
+            JOptionPane.showMessageDialog(tb, "Sửa thành công");
+        }
+
+        khb.reset();
+
+        khb.loadData();
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int selectedIndex = tb.getSelectedRow();
+        if (selectedIndex >= 0) {
+            int option = JOptionPane.showConfirmDialog(tb, "Xóa khách hàng này?");
+            if (option == 0) {
+                khb.delete(selectedIndex);
+                khb.loadData();
+                khb.reset();
+            }
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +420,28 @@ public class KhachHangTest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
+    private javax.swing.JComboBox<String> choose;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
+    private javax.swing.JButton exportBtn;
+    private javax.swing.JButton importBtn;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelAddress;
+    private javax.swing.JLabel labelHoTen;
+    private javax.swing.JLabel labelMaKH;
+    private javax.swing.JLabel labelPhone;
+    private javax.swing.JLabel labelStatus;
+    private javax.swing.JButton pdfBtn;
+    private javax.swing.JButton searchBtn;
+    public static javax.swing.JTable tb;
+    public static javax.swing.JTextField textAddress;
+    private javax.swing.JTextField textFind;
+    public static javax.swing.JTextField textHoTen;
+    public static javax.swing.JTextField textMaKH;
+    public static javax.swing.JTextField textPhone;
+    public static javax.swing.JTextField textStatus;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

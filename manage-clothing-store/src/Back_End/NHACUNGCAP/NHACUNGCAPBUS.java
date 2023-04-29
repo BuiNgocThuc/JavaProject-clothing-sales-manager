@@ -1,6 +1,6 @@
 package Back_End.NHACUNGCAP;
 
-import Front_End.NHACUNGCAP.NHACUNGCAPGUI;
+import Front_End.NHACUNGCAP.NhaCungCapTest;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +16,7 @@ public class NHACUNGCAPBUS {
     public static DefaultTableModel model = new DefaultTableModel();
 
     public void loadData() {
-        model = (DefaultTableModel) NHACUNGCAPGUI.tb.getModel();
+        model = (DefaultTableModel) NhaCungCapTest.tb.getModel();
         dsncc = NHACUNGCAPDAO.getInstance().selectAll();
         model.setRowCount(0);
         dsncc.forEach((ncc) -> {
@@ -25,11 +25,11 @@ public class NHACUNGCAPBUS {
     }
 
     public void reset() {
-        NHACUNGCAPGUI.textMaNCC.setText("");
-        NHACUNGCAPGUI.textTenNCC.setText("");
-        NHACUNGCAPGUI.textPhone.setText("");
-        NHACUNGCAPGUI.textAddress.setText("");
-        NHACUNGCAPGUI.textStatus.setText("");
+        NhaCungCapTest.textMaNCC.setText("");
+        NhaCungCapTest.textTenNCC.setText("");
+        NhaCungCapTest.textPhone.setText("");
+        NhaCungCapTest.textAddress.setText("");
+        NhaCungCapTest.textStatus.setText("");
     }
 
     public void showConsole() {

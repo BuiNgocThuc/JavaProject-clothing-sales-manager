@@ -1,7 +1,7 @@
 package Back_End.KHACHHANG;
 
 import java.util.ArrayList;
-import Front_End.KHACHHANG.KHACHHANGGUI;
+import Front_End.KHACHHANG.KhachHangTest;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,7 +15,7 @@ public class KHACHHANGBUS {
     public static DefaultTableModel model = new DefaultTableModel();
 
     public void loadData() {
-        model = (DefaultTableModel) KHACHHANGGUI.tb.getModel();
+        model = (DefaultTableModel) KhachHangTest.tb.getModel();
         dskh = KHACHHANGDAO.getInstance().selectAll();
         model.setRowCount(0);
         dskh.forEach((kh) -> {
@@ -24,11 +24,11 @@ public class KHACHHANGBUS {
     }
 
     public void reset() {
-        KHACHHANGGUI.textMaKH.setText("");
-        KHACHHANGGUI.textHoTen.setText("");
-        KHACHHANGGUI.textPhone.setText("");
-        KHACHHANGGUI.textAddress.setText("");
-        KHACHHANGGUI.textStatus.setText("");
+        KhachHangTest.textMaKH.setText("");
+        KhachHangTest.textHoTen.setText("");
+        KhachHangTest.textPhone.setText("");
+        KhachHangTest.textAddress.setText("");
+        KhachHangTest.textStatus.setText("");
     }
 
     public void showConsole() {

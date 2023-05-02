@@ -1,7 +1,7 @@
 package Back_End.NHANVIEN;
 
 import java.util.ArrayList;
-import Front_End.NHANVIEN.NhanVienTest;
+import Front_End.NHANVIEN.NHANVIENGUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +14,7 @@ public class NHANVIENBUS {
     public static DefaultTableModel model = new DefaultTableModel();
     
     public void loadData() {
-        model = (DefaultTableModel) NhanVienTest.tb.getModel();
+        model = (DefaultTableModel) NHANVIENGUI.tb.getModel();
         dsnv = NHANVIENDAO.getInstance().selectAll();
         model.setRowCount(0);
         dsnv.forEach((nv) -> {
@@ -23,12 +23,12 @@ public class NHANVIENBUS {
     }
 
     public void reset() {
-        NhanVienTest.textNhanVien.setText("");
-        NhanVienTest.textHoTen.setText("");
-        NhanVienTest.textDate.setText("");
-        NhanVienTest.textPhone.setText("");
-        NhanVienTest.textAddress.setText("");
-        NhanVienTest.textStatus.setText("");
+        NHANVIENGUI.textNhanVien.setText("");
+        NHANVIENGUI.textHoTen.setText("");
+        NHANVIENGUI.textDate.setText("");
+        NHANVIENGUI.textPhone.setText("");
+        NHANVIENGUI.textAddress.setText("");
+        NHANVIENGUI.textStatus.setText("");
     }
     
     public void showConsole() {

@@ -27,7 +27,7 @@ public class NHANVIENGUI extends JPanel {
 
     NHANVIENBUS nvb = new NHANVIENBUS();
 
-    private JPanel jp1, jp2;
+    private JPanel jp, jp1, jp2, jp3;
     private JLabel labelNhanVien, labelHoTen, labelDate, labelPhone, labelAddress, labelStatus;
     public static JTextField textNhanVien, textHoTen, textDate, textPhone, textAddress, textStatus, textFind;
     private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
@@ -44,58 +44,63 @@ public class NHANVIENGUI extends JPanel {
     }
 
     private void init() {
-
+        jp = new JPanel();
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(400, 480));
+        jp1.setPreferredSize(new Dimension(450, 450));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp1.setBorder(BorderFactory.createTitledBorder("Thông tin"));
 
         labelNhanVien = new JLabel("Mã nhân viên: ");
-        labelNhanVien.setBounds(10, 10, 50, 30);
+        labelNhanVien.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelNhanVien);
 
-        textNhanVien = new JTextField(33);
-
+        textNhanVien = new JTextField();
+        textNhanVien.setPreferredSize(new Dimension(300, 30));
         jp1.add(textNhanVien);
 
         labelHoTen = new JLabel("Họ và tên: ");
-        labelHoTen.setBounds(10, 70, 50, 30);
+        labelHoTen.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelHoTen);
 
-        textHoTen = new JTextField(33);
+        textHoTen = new JTextField();
+        textHoTen.setPreferredSize(new Dimension(300, 30));
         jp1.add(textHoTen);
 
         labelDate = new JLabel("Ngày sinh: ");
-        labelDate.setBounds(10, 130, 50, 30);
+        labelDate.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelDate);
 
-        textDate = new JTextField(33);
+        textDate = new JTextField();
+        textDate.setPreferredSize(new Dimension(300, 30));
         jp1.add(textDate);
 
         labelPhone = new JLabel("Số điện thoại: ");
-        labelPhone.setBounds(10, 240, 50, 30);
+        labelPhone.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelPhone);
 
-        textPhone = new JTextField(33);
+        textPhone = new JTextField();
+        textPhone.setPreferredSize(new Dimension(300, 30));
         jp1.add(textPhone);
 
-        labelAddress = new JLabel("Địa chỉ");
-        labelAddress.setBounds(10, 270, 50, 30);
+        labelAddress = new JLabel("Địa chỉ: ");
+        labelAddress.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelAddress);
 
-        textAddress = new JTextField(33);
+        textAddress = new JTextField();
+        textAddress.setPreferredSize(new Dimension(300, 30));
         jp1.add(textAddress);
 
-        labelStatus = new JLabel("Trạng thái");
-        labelStatus.setBounds(10, 300, 50, 30);
+        labelStatus = new JLabel("Trạng thái: ");
+        labelStatus.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelStatus);
 
-        textStatus = new JTextField(33);
+        textStatus = new JTextField();
+        textStatus.setPreferredSize(new Dimension(300, 30));
         jp1.add(textStatus);
 
         addBtn = new JButton("Thêm");
-        addBtn.setPreferredSize(new Dimension(70, 30));
-        addBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icon8-add-new-32.png")));
+        addBtn.setPreferredSize(new Dimension(120, 50));
+        addBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-add-new-32.png")));
         jp1.add(addBtn);
         addBtn.addActionListener(new ActionListener() {
             @Override
@@ -105,8 +110,8 @@ public class NHANVIENGUI extends JPanel {
         });
 
         editBtn = new JButton("Sửa");
-        editBtn.setPreferredSize(new Dimension(70, 30));
-        editBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-tools-28.png")));
+        editBtn.setPreferredSize(new Dimension(120, 50));
+        editBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-tools-28.png")));
         jp1.add(editBtn);
 
         editBtn.addActionListener(new ActionListener() {
@@ -117,8 +122,8 @@ public class NHANVIENGUI extends JPanel {
         });
 
         deleteBtn = new JButton("Xóa");
-        deleteBtn.setPreferredSize(new Dimension(70, 30));
-        deleteBtn.setIcon(new ImageIcon(getClass().getResource("Icon/icon_img/icons8-remove-28.png")));
+        deleteBtn.setPreferredSize(new Dimension(120, 50));
+        deleteBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-remove-28.png")));
         jp1.add(deleteBtn);
 
         deleteBtn.addActionListener(new ActionListener() {
@@ -129,26 +134,27 @@ public class NHANVIENGUI extends JPanel {
         });
 
         importBtn = new JButton("Import");
-        importBtn.setPreferredSize(new Dimension(70, 30));
+        importBtn.setPreferredSize(new Dimension(120, 50));
         importBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(importBtn);
 
         exportBtn = new JButton("Export");
-        exportBtn.setPreferredSize(new Dimension(70, 30));
+        exportBtn.setPreferredSize(new Dimension(120, 50));
         exportBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
         jp1.add(exportBtn);
 
         pdfBtn = new JButton("PDF");
-        pdfBtn.setPreferredSize(new Dimension(70, 30));
+        pdfBtn.setPreferredSize(new Dimension(120, 50));
         pdfBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
         jp1.add(pdfBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jp2.setPreferredSize(new Dimension(350, 100));
         jp2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm theo tên"));
+        jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm "));
 
-        textFind = new JTextField(29);
+        textFind = new JTextField();
+        textFind.setPreferredSize(new Dimension(300, 30));
         jp2.add(textFind);
 
         searchBtn = new JButton("Tìm kiếm");
@@ -167,6 +173,7 @@ public class NHANVIENGUI extends JPanel {
 
         jp1.add(jp2);
 
+        jp3 = new JPanel(new BorderLayout());
         tb = new JTable();
         tb.setModel(new DefaultTableModel(
                 new Object[][]{},
@@ -192,9 +199,11 @@ public class NHANVIENGUI extends JPanel {
 
         jsp = new JScrollPane(tb);
         tb.setFillsViewportHeight(true);
+        jp3.add(jsp);
 
-        this.add(jp1, BorderLayout.NORTH);
-        this.add(jsp, BorderLayout.SOUTH);
+        jp.add(jp1, BorderLayout.WEST);
+        jp.add(jp3, BorderLayout.EAST);
+        this.add(jp);
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
@@ -209,7 +218,7 @@ public class NHANVIENGUI extends JPanel {
 //
 //        NHANVIENDAO.getInstance().insert(nv);
         if (nvb.add(id, fullname, date, phone, address, status)) {
-            JOptionPane.showMessageDialog(tb, "Thêm thành công");
+            JOptionPane.showMessageDialog(null, "Thêm thành công");
         }
 
         nvb.reset();
@@ -242,7 +251,7 @@ public class NHANVIENGUI extends JPanel {
         String status = textStatus.getText();
 
         if (nvb.edit(id, fullname, date, phone, address, status)) {
-            JOptionPane.showMessageDialog(tb, "Sửa thành công");
+            JOptionPane.showMessageDialog(null, "Sửa thành công");
         }
 
         nvb.reset();
@@ -253,7 +262,7 @@ public class NHANVIENGUI extends JPanel {
     private void deleteBtnActionPerformed(ActionEvent e) {
         int selectedIndex = tb.getSelectedRow();
         if (selectedIndex >= 0) {
-            int option = JOptionPane.showConfirmDialog(tb, "Xoa nhan vien nay?");
+            int option = JOptionPane.showConfirmDialog(tb, "Xóa nhân viên này?");
             if (option == 0) {
                 nvb.delete(selectedIndex);
                 nvb.loadData();

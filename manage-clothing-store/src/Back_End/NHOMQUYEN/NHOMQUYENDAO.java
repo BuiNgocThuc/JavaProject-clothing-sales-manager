@@ -43,6 +43,7 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
             System.out.println("Có " + ketQua + " bị thay đổi");
 
             connec.closeConnection(c);
+            return 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }

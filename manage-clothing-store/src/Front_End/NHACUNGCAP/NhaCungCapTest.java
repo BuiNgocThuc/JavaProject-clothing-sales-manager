@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Front_End.NHACUNGCAP;
 
 import Back_End.NHACUNGCAP.NHACUNGCAPBUS;
@@ -126,7 +123,6 @@ public class NhaCungCapTest extends javax.swing.JFrame {
                 "Mã NCC", "Tên NCC", "Địa chỉ", "Số điện thoại", "Trạng thái"
             }
         ));
-        tb.setPreferredSize(new java.awt.Dimension(375, 80));
         tb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbMouseClicked(evt);

@@ -21,8 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author NGOC THUC
  */
 public class TAIKHOANBUS {
-
-    private ArrayList<TAIKHOAN> dstk = new ArrayList<>();
+    public static ArrayList<TAIKHOAN> dstk = new ArrayList<>();
     TAIKHOANDAO tkDAO = new TAIKHOANDAO();
 
     public TAIKHOANBUS() {
@@ -182,10 +181,10 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
     }
 
     public boolean add(String userName, String passWord, String maQuyen, String trangthai) {
-        TAIKHOAN accouunt = new TAIKHOAN(userName, passWord, maQuyen);
-        int add = tkDAO.insert(accouunt);
+        TAIKHOAN account = new TAIKHOAN(userName, passWord, maQuyen, trangthai);
+        int add = tkDAO.insert(account);
         if (add == 1) {
-            dstk.add(accouunt);
+            dstk.add(account);
             return true;
         } else {
             return false;

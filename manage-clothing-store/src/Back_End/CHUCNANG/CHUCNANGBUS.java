@@ -68,31 +68,31 @@ public class CHUCNANGBUS {
         return result;
     }
     
-    public boolean add(String maCN, String tenCN, String moTa) {
-        CHUCNANG permission = new CHUCNANG(maCN , tenCN, moTa);
-        int add = cnDAO.insert(permission);
-        if (add == 1) {
-            dscn.add(permission);
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public boolean add(String maCN, String tenCN, String moTa) {
+//        CHUCNANG permission = new CHUCNANG(maCN , tenCN, moTa);
+//        int add = cnDAO.insert(permission);
+//        if (add == 1) {
+//            dscn.add(permission);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
     
-     public boolean delete(String maCN) {
-        for (CHUCNANG permission : dscn) {
-            if (permission.getMaCN()== maCN) {
-                int delete = cnDAO.delete(permission);
-                if (delete == 1) {
-                    dscn.remove(permission); // đang phân vân có nên xóa khỏi giao diện không ? 
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
+//     public boolean delete(String maCN) {
+//        for (CHUCNANG permission : dscn) {
+//            if (permission.getMaCN()== maCN) {
+//                int delete = cnDAO.delete(permission);
+//                if (delete == 1) {
+//                    dscn.remove(permission);
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            }
+//        }
+//        return false;
+//    }
      
      public boolean update(String maCN, String tenCN, String moTa) {
         CHUCNANG permission = new CHUCNANG(maCN, tenCN, moTa);

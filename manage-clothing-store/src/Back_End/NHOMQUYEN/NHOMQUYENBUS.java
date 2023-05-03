@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class NHOMQUYENBUS {
-    private ArrayList<NHOMQUYEN> dsnq = new ArrayList<>();
+    public static ArrayList<NHOMQUYEN> dsnq = new ArrayList<>();
     NHOMQUYENDAO nqDAO = new NHOMQUYENDAO();
 
     public NHOMQUYENBUS() {
@@ -28,11 +28,11 @@ public class NHOMQUYENBUS {
     }
 
     public String[] getTitle() {
-        return new String[]{"Mã Quyền", "Tên Quyền", "Mô Tả Quyền"};
+        return new String[]{"STT","Mã Quyền", "Tên Quyền", "Mô Tả Quyền"};
     }
 
     public String getNextID() {
-        return "NQ" + String.valueOf(this.dsnq.size() + 1);
+        return "Q" + String.valueOf(this.dsnq.size() + 1);
     }
 
     public ArrayList<NHOMQUYEN> search(String value, String type) {
@@ -69,10 +69,10 @@ public class NHOMQUYENBUS {
     }
 
     public boolean add(String maQuyen, String tenQuyen, String moTaQuyen, String trangThai) {
-        NHOMQUYEN accouunt = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
-        int add = nqDAO.insert(accouunt);
+        NHOMQUYEN role = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
+        int add = nqDAO.insert(role);
         if (add == 1) {
-            dsnq.add(accouunt);
+            dsnq.add(role);
             return true;
         } else {
             return false;
@@ -84,7 +84,7 @@ public class NHOMQUYENBUS {
             if (role.getMaQuyen()== maQuyen) {
                 int delete = nqDAO.delete(role);
                 if (delete == 1) {
-                    dsnq.remove(role); // đang phân vân có nên xóa khỏi giao diện không ? 
+                    dsnq.remove(role); 
                     return true;
                 } else {
                     return false;

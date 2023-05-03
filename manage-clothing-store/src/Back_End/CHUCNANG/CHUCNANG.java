@@ -10,17 +10,10 @@ package Back_End.CHUCNANG;
  */
 public class CHUCNANG {
 
-    private String maCN, tenCN, moTa, trangThai;
+    private String maCN, tenCN, moTa;
 
     public CHUCNANG() {
 
-    }
-
-    public CHUCNANG(String maCN, String tenCN, String moTa, String trangThai) {
-        this.maCN = maCN;
-        this.tenCN = tenCN;
-        this.moTa = moTa;
-        this.trangThai = trangThai;
     }
     
     public CHUCNANG(String maCN, String tenCN, String moTa) {
@@ -53,13 +46,6 @@ public class CHUCNANG {
         this.moTa = moTa;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
     
     
 }

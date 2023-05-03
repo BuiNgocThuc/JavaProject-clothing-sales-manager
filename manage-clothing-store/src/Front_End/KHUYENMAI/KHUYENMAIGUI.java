@@ -12,6 +12,9 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -21,16 +24,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
 
 /**
  *
@@ -40,7 +46,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
 
     JPanel pnTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
-    JTable tblList = new JTable();
+    public static JTable tblList = new JTable();
 
     JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
     JLabel lblRemove = new JLabel("Xóa", JLabel.CENTER);
@@ -57,20 +63,20 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     JComboBox<String> cbSearch = new JComboBox<>();
 
     JFrame jf = new JFrame();
+    KHUYENMAIBUS km = new KHUYENMAIBUS();
 
     public KHUYENMAIGUI() {
-        KHUYENMAIBUS km = new KHUYENMAIBUS();
-        km.getDskm();
+        km.timKiem(txtSearch);
         ArrayList<KHUYENMAI> dskm = km.getDskm();
         String[] titles = km.getTitle();
         initComponents(titles, dskm);
-//        jf.setSize(800, 500);
-//        jf.setLayout(new BorderLayout());
-//        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
-//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        jf.setLocationRelativeTo(null);
-//        jf.setVisible(true);
+        jf.setSize(800, 500);
+        jf.setLayout(new BorderLayout());
+        jf.add(panelTool(), BorderLayout.NORTH);
+        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
+        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<KHUYENMAI> dskm) {
@@ -78,8 +84,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         this.add(panelTool(), BorderLayout.NORTH);
         this.add(tableList(titles, dskm), BorderLayout.CENTER);
         this.setVisible(true);
-
-        lblAdd.addMouseListener(this);
+       
     }
 
     public JPanel panelTool() {
@@ -95,13 +100,15 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblAdd.setBorder(BorderFactory.createLineBorder(Color.black));
         lblAdd.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-add-new-32b.png"));
         lblAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+         lblAdd.addMouseListener(this);
+        
         lblRemove.setPreferredSize(new Dimension(100, 30));
         lblRemove.setBackground(Color.white);
         lblRemove.setOpaque(true);
         lblRemove.setBorder(BorderFactory.createLineBorder(Color.black));
         lblRemove.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-remove-28.png"));
         lblRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblRemove.addMouseListener(this);
 
         lblFix.setPreferredSize(new Dimension(100, 30));
         lblFix.setBackground(Color.white);
@@ -153,7 +160,8 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         txtSearch.setForeground(Color.black);
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
-
+        
+        
         pnSearch.setPreferredSize(new Dimension(400, 80));
         pnSearch.setBackground(Color.white);
         pnSearch.setOpaque(true);
@@ -168,6 +176,13 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblReset.setBorder(BorderFactory.createLineBorder(Color.black));
         lblReset.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-reset-32.png"));
         lblReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblReset.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                ArrayList<KHUYENMAI> dskm = km.refresh();
+                String[] titles = km.getTitle();
+                initComponents(titles, dskm);
+            }
+        });
 
         pnFrameSearch.add(pnSearch);
         pnFrameSearch.add(lblReset);
@@ -223,10 +238,34 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (e.getSource() == lblAdd) {
-
             new createKMform();
-
         }
+         if(e.getSource() == lblRemove) {
+            int selectedRow = tblList.getSelectedRow();
+             System.out.println(selectedRow);
+            if(selectedRow != -1) {
+                
+            }else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn xóa");
+            }
+        }
+         if(e.getSource() == lblFix) {
+            int selectedRow = tblList.getSelectedRow();
+             System.out.println(selectedRow);
+            if(selectedRow != -1) {
+                
+            }else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn sửa");
+            }
+        }
+         if(e.getSource() == lblReset) {
+             DefaultTableModel dtm = (DefaultTableModel) this.tblList.getModel();
+             dtm.setRowCount(0);
+                int i = 0;
+                for (KHUYENMAI km : km.getDskm()) {
+                    dtm.addRow(new Object[]{i++, km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
+                }
+         }
     }
 
     @Override

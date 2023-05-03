@@ -23,14 +23,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author NGOC THUC
  */
+
+import Back_End.NHOMQUYEN.NHOMQUYEN;
+import Back_End.NHOMQUYEN.NHOMQUYENBUS;
+import Front_End.FrameLayout.LayoutFrame;
+import Front_End.HandleEvent.EventInLabel;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+
 public class PHANQUYENGUI extends JPanel implements MouseListener {
 
-    JPanel pnTool = new JPanel();
+    JPanel nqBusTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
     JTable tblList = new JTable();
 
@@ -42,37 +50,42 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
     JLabel lblPDF = new JLabel("Xuất PDF", JLabel.CENTER);
     JLabel lblReset = new JLabel("Làm mới", JLabel.CENTER);
 
-    JPanel pnSearch = new JPanel();
+    JPanel nqBusSearch = new JPanel();
     JTextField txtSearch = new JTextField();
     JComboBox<String> cbSearch = new JComboBox<>();
+
+    NHOMQUYENBUS nqBus = new NHOMQUYENBUS();
+    ArrayList<NHOMQUYEN> dsnq = nqBus.getDsnq();
+    String[] titles = nqBus.getTitle();
 
     JFrame jf = new JFrame();
 
     public PHANQUYENGUI() {
-        initComponents();
+
+        initComponents(titles, dsnq);
 
 //        jf.setSize(800, 500);
 //        jf.setLayout(new BorderLayout());
 //        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(), BorderLayout.CENTER);
+//        jf.add(tableList(titles, dsnq), BorderLayout.CENTER);
 //        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
 //        jf.setLocationRelativeTo(null);
 //        jf.setVisible(true);
     }
 
-    void initComponents() {
+    void initComponents(String[] titles, ArrayList<NHOMQUYEN> dsnq) {
         this.setSize(800, 500);
         this.setLayout(new BorderLayout());
         this.add(panelTool(), BorderLayout.NORTH);
-        this.add(tableList(), BorderLayout.CENTER);
+        this.add(tableList(titles, dsnq), BorderLayout.CENTER);
     }
 
     public JPanel panelTool() {
-        JPanel pnPopUp = new JPanel();
-        pnPopUp.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        pnPopUp.setPreferredSize(new Dimension(0, 50));
-        pnPopUp.setBackground(Color.white);
-        pnPopUp.setOpaque(true);
+        JPanel nqBusPopUp = new JPanel();
+        nqBusPopUp.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        nqBusPopUp.setPreferredSize(new Dimension(0, 50));
+        nqBusPopUp.setBackground(Color.white);
+        nqBusPopUp.setOpaque(true);
 
         lblAdd.setPreferredSize(new Dimension(100, 30));
         lblAdd.setBackground(Color.white);
@@ -80,6 +93,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         lblAdd.setBorder(BorderFactory.createLineBorder(Color.black));
         lblAdd.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-add-new-32b.png"));
         lblAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblAdd.addMouseListener(this);
 
         lblRemove.setPreferredSize(new Dimension(100, 30));
         lblRemove.setBackground(Color.white);
@@ -116,17 +130,17 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         lblPDF.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-pdf-28.png"));
         lblPDF.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        pnPopUp.add(lblAdd);
-        pnPopUp.add(lblRemove);
-        pnPopUp.add(lblFix);
-        pnPopUp.add(lblImport);
-        pnPopUp.add(lblExport);
-        pnPopUp.add(lblPDF);
+        nqBusPopUp.add(lblAdd);
+        nqBusPopUp.add(lblRemove);
+        nqBusPopUp.add(lblFix);
+        nqBusPopUp.add(lblImport);
+        nqBusPopUp.add(lblExport);
+        nqBusPopUp.add(lblPDF);
 
-        JPanel pnFrameSearch = new JPanel();
-        pnFrameSearch.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-        pnFrameSearch.setBackground(Color.white);
-        pnFrameSearch.setOpaque(true);
+        JPanel nqBusFrameSearch = new JPanel();
+        nqBusFrameSearch.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+        nqBusFrameSearch.setBackground(Color.white);
+        nqBusFrameSearch.setOpaque(true);
 
         cbSearch.setBackground(Color.white);
         cbSearch.setOpaque(true);
@@ -139,13 +153,13 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
 
-        pnSearch.setPreferredSize(new Dimension(400, 80));
-        pnSearch.setBackground(Color.white);
-        pnSearch.setOpaque(true);
-        pnSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Tìm Kiếm", TitledBorder.LEFT, TitledBorder.TOP));
-        pnSearch.setLayout(null);
-        pnSearch.add(cbSearch);
-        pnSearch.add(txtSearch);
+        nqBusSearch.setPreferredSize(new Dimension(400, 80));
+        nqBusSearch.setBackground(Color.white);
+        nqBusSearch.setOpaque(true);
+        nqBusSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Tìm Kiếm", TitledBorder.LEFT, TitledBorder.TOP));
+        nqBusSearch.setLayout(null);
+        nqBusSearch.add(cbSearch);
+        nqBusSearch.add(txtSearch);
 
         lblReset.setPreferredSize(new Dimension(100, 30));
         lblReset.setBackground(Color.white);
@@ -153,35 +167,38 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         lblReset.setBorder(BorderFactory.createLineBorder(Color.black));
         lblReset.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-reset-32.png"));
         lblReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblReset.addMouseListener(this);
 
-        pnFrameSearch.add(pnSearch);
-        pnFrameSearch.add(lblReset);
+        nqBusFrameSearch.add(nqBusSearch);
+        nqBusFrameSearch.add(lblReset);
 
-        pnTool.setPreferredSize(new Dimension(400, 150));
-        pnTool.setBackground(Color.red);
-        pnTool.setOpaque(true);
-        pnTool.setLayout(new BorderLayout());
-        pnTool.setBorder(BorderFactory.createDashedBorder(Color.gray));
-        pnTool.add(pnPopUp, BorderLayout.NORTH);
-        pnTool.add(pnFrameSearch, BorderLayout.CENTER);
+        nqBusTool.setPreferredSize(new Dimension(400, 150));
+        nqBusTool.setBackground(Color.red);
+        nqBusTool.setOpaque(true);
+        nqBusTool.setLayout(new BorderLayout());
+        nqBusTool.setBorder(BorderFactory.createDashedBorder(Color.gray));
+        nqBusTool.add(nqBusPopUp, BorderLayout.NORTH);
+        nqBusTool.add(nqBusFrameSearch, BorderLayout.CENTER);
 
-        return pnTool;
+        return nqBusTool;
     }
 
-    public JScrollPane tableList() {
-
+    public JScrollPane tableList(String[] titles, ArrayList<NHOMQUYEN> dsnq) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Object[][] data = new Object[dsnq.size()][];
+        int i = 0;
+        for (NHOMQUYEN km : dsnq) {
+            data[i++] = new Object[]{
+                i, // số thứ tự tkhuyến mại
+                km.getMaQuyen(),
+                km.getTenQuyen(),
+                km.getMoTaQuyen(),};
+        }
         tblList.setModel(new DefaultTableModel(
-                new Object[][]{
-//                    {"1", "admin", "admin", "NV1", "Q1"},
-//                    {"2", "quanly", "quanly", "NV2", " Q2"},
-//                    {"3", "nhanvien", "nhanvien", "NV3", " Q3"},
-                    {null, null, null, null, null}
-                },
-                new String[]{
-                    "STT", "Mã Quyền", "Tên Quyền", "Chi Tiết Quyền"
-                }
+                data,
+                titles
         ));
-
         spnList.setBorder(BorderFactory.createLineBorder(Color.black));
         spnList.setViewportView(tblList);
         return spnList;
@@ -193,26 +210,55 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (e.getSource() == lblAdd) {
+            new CHUCNANGGUI();
+        }
+        if (e.getSource() == lblReset) {
+            ArrayList<NHOMQUYEN> dsnqNew = nqBus.getDsnq();
+            for (NHOMQUYEN nq : dsnqNew) {
+                System.out.println(nq.getMaQuyen());
+            }
+//            spnList.removeAll();
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            Object[][] data = new Object[dsnqNew.size()][];
+            int i = 0;
+            for (NHOMQUYEN km : dsnqNew) {
+                data[i++] = new Object[]{
+                    i, // số thứ tự tkhuyến mại
+                    km.getMaQuyen(),
+                    km.getTenQuyen(),
+                    km.getMoTaQuyen(),};
+            }
+            tblList.setModel(new DefaultTableModel(
+                    data,
+                    titles
+            ));
+            spnList.setViewportView(tblList);
+            spnList.validate();
+            spnList.repaint();
+
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

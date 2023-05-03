@@ -25,6 +25,7 @@ import Front_End.SANPHAM.SANPHAMGUI;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -89,6 +90,14 @@ public class LayoutFrame extends JFrame {
     Font font = new Font("Arial", Font.ITALIC, 18);
     Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.WHITE);
 
+    public JPanel getPnMainContent() {
+        return pnMainContent;
+    }
+
+    public void setPnMainContent(JPanel pnMainContent) {
+        this.pnMainContent = pnMainContent;
+    }
+
     public LayoutFrame() {
         this.setUndecorated(true);
         initComponents();
@@ -112,13 +121,17 @@ public class LayoutFrame extends JFrame {
         lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, new HOADONGUI()));
         lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, new PHIEUNHAPGUI()));
-//        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, new KHACHHANGGUI()));
-//        lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, new NHANVIENGUI()));
-//        lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, new NHACUNGCAPGUI()));
+        lblKhachHang.addMouseListener(new EventInLabel(pnMainContent, new KHACHHANGGUI()));
+        lblNhanVien.addMouseListener(new EventInLabel(pnMainContent, new NHANVIENGUI()));
+        lblNhaCungCap.addMouseListener(new EventInLabel(pnMainContent, new NHACUNGCAPGUI()));
         lblKhuyenMai.addMouseListener(new EventInLabel(pnMainContent, new KHUYENMAIGUI()));
         lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, new TAIKHOANGUI()));
         lblPhanQuyen.addMouseListener(new EventInLabel(pnMainContent, new PHANQUYENGUI()));
         lblThongKe.addMouseListener(new EventInLabel(pnMainContent, new THONGKEGUI()));
+    }
+
+    public void reset(PHANQUYENGUI targetPage) {
+        new EventInLabel(pnMainContent, targetPage);
     }
 
     public JPanel container() {
@@ -293,12 +306,12 @@ public class LayoutFrame extends JFrame {
 
         lblMinimize.setBounds(810, 15, 50, 50);
         lblMinimize.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-subtract-50.png"));
-         lblMinimize.addMouseListener(new MouseAdapter() {
+        lblMinimize.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-               LayoutFrame.this.setState(JFrame.ICONIFIED);
+                LayoutFrame.this.setState(JFrame.ICONIFIED);
             }
         });
-        
+
         btnMenu.setBounds(20, 15, 50, 50);
         btnMenu.setBackground(Color.black);
         btnMenu.setOpaque(true);
@@ -327,8 +340,8 @@ public class LayoutFrame extends JFrame {
                 pnMenu.setPreferredSize(new Dimension(180, 0));
             }
         });
-        
-        lblInfoUser.setBounds(80, 15, 250, 50 );
+
+        lblInfoUser.setBounds(80, 15, 250, 50);
         lblInfoUser.setForeground(Color.white);
 //        lblInfoUser.setBackground(Color.red);
 //        lblInfoUser.setOpaque(true);
@@ -363,7 +376,7 @@ public class LayoutFrame extends JFrame {
 
         pnFunction.setBackground(Color.black);
         pnFunction.setOpaque(true);
-        pnFunction.setPreferredSize(new Dimension(180, 940));
+        pnFunction.setPreferredSize(new Dimension(180, 900));
         pnFunction.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
         pnFunction.add(lblLogo);
@@ -374,6 +387,43 @@ public class LayoutFrame extends JFrame {
             lbl.setForeground(Color.white);
             lbl.setOpaque(true);
             lbl.setFont(font);
+            lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            lbl.addMouseListener(new MouseAdapter() {
+                boolean isClicked = false;
+
+                public void mouseEntered(MouseEvent e) {
+                    lbl.setBackground(Color.decode("#FFCC00"));
+                    lbl.setOpaque(true);
+                    lbl.setForeground(Color.black);
+                }
+
+                public void mouseExited(MouseEvent e) {
+                    if (!isClicked) { // Nếu chưa click thì mới thay đổi màu nền
+                        lbl.setBackground(Color.black);
+                        lbl.setForeground(Color.white);
+                        lbl.setOpaque(true);
+                    } else { // Nếu đã click thì thay đổi màu nền và màu chữ của label đó
+                        lbl.setBackground(Color.decode("#FFCC00"));
+                        lbl.setForeground(Color.black);
+                        lbl.setOpaque(true);
+                    }
+                    // Thêm code để thay đổi màu nền và màu chữ của các label khác ở đây
+                }
+
+                public void mouseClicked(MouseEvent e) {
+                    isClicked = true;
+                    lbl.setBackground(Color.decode("#FFCC00"));
+                    lbl.setOpaque(true);
+                    lbl.setForeground(Color.black);
+                    for (JLabel lbl1 : dslbl) {
+                        if (lbl1 != lbl) {
+                            lbl1.setBackground(Color.black);
+                            lbl1.setForeground(Color.white);
+                            lbl1.setOpaque(true);
+                        }
+                    }
+                }
+            });
             pnFunction.add(lbl);
         }
 

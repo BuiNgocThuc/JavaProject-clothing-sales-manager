@@ -108,9 +108,8 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                 String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
-                String trangThai = rs.getNString("TRANGTHAI");
 
-                CHUCNANG a = new CHUCNANG(maCN, tenCN, moTa, trangThai);
+                CHUCNANG a = new CHUCNANG(maCN, tenCN, moTa);
                 ketQua.add(a);
             }
 
@@ -137,9 +136,8 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                  String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
-                String trangThai = rs.getNString("TRANGTHAI");
 
-                ketQua = new CHUCNANG(maCN, tenCN, moTa, trangThai);
+                ketQua = new CHUCNANG(maCN, tenCN, moTa);
             }
             connec.closeConnection(c);
         } catch (SQLException e) {
@@ -162,9 +160,8 @@ public class CHUCNANGDAO implements DAOInterface<CHUCNANG> {
                  String maCN = rs.getNString("MACN");
                 String tenCN = rs.getNString("TENCN");
                 String moTa = rs.getNString("MOTA");
-                String trangThai = rs.getNString("TRANGTHAI");
 
-                CHUCNANG a = new CHUCNANG(maCN,tenCN, moTa ,trangThai);
+                CHUCNANG a = new CHUCNANG(maCN,tenCN, moTa );
                 ketQua.add(a);
             }
 

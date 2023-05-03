@@ -93,7 +93,7 @@ public class TAIKHOANDAO {
             Connection c = connec.getConnection();
 
             String sql = "INSERT INTO TAIKHOAN(Username, matKhau, MaQuyen, TRANGTHAI) "
-                    + " VALUES(?,?,?)";
+                    + " VALUES(?,?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getUserName());
             pst.setString(2, t.getPassWord());
@@ -106,6 +106,7 @@ public class TAIKHOANDAO {
             System.out.println("Có " + ketQua + " bị thay đổi");
 
             connec.closeConnection(c);
+            return 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }

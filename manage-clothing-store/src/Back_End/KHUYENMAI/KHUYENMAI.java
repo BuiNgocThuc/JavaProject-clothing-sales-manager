@@ -5,6 +5,7 @@
 package Back_End.KHUYENMAI;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -25,6 +26,8 @@ public class KHUYENMAI {
         this.ngayKT = ngayKT;
         this.phanTramGiamGia = phanTramGiamGia;
     }
+    
+
 
     public String getTrangThai() {
         return trangThai;

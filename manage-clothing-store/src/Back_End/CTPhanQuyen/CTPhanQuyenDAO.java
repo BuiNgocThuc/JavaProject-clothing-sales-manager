@@ -50,11 +50,11 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "INSERT INTO CHITIETPHANQUYEN(CTPQ_MAQUYEN, CTPQ_TENCN) "
+            String sql = "INSERT INTO CHITIETPHANQUYEN(CTPQ_MAQUYEN, CTPQ_MACN) "
                     + " VALUES(?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaQuyen());
-            pst.setString(2, t.getTenChucNang());
+            pst.setString(2, t.getMaChucNang());
 
             ketQua = pst.executeUpdate();
 
@@ -99,7 +99,7 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
                     + " SET CTPQ_TENCN=?"
                     + " WHERE CTPQ_MAQUYEN=? ";
             PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(1, t.getTenChucNang());
+            pst.setString(1, t.getMaChucNang());
             pst.setString(2, t.getMaQuyen());
 
             ketQua = pst.executeUpdate();

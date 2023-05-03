@@ -4,9 +4,21 @@
  */
 package Back_End.KHUYENMAI;
 
+import Back_End.THUONGHIEU.THUONGHIEU;
+import static Back_End.THUONGHIEU.THUONGHIEUBUS.arrTH;
+import Front_End.KHUYENMAI.KHUYENMAIGUI;
+import Front_End.THUONGHIEU.THUONGHIEUGUI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +26,36 @@ import java.util.Date;
  */
 public class KHUYENMAIBUS {
 
-    private ArrayList<KHUYENMAI> dskm = new ArrayList<>();
+    public static ArrayList<KHUYENMAI> dskm = new ArrayList<>();
     KhuyenMaiDao kmDAO = new KhuyenMaiDao();
 
     public KHUYENMAIBUS() {
         dskm = kmDAO.selectAll();
+    }
+
+    public void timKiem(JTextField txt) {
+        txt.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                ArrayList<KHUYENMAI> arrTimKiem = new ArrayList<>();
+                DefaultTableModel dtm = (DefaultTableModel) KHUYENMAIGUI.tblList.getModel();
+                String text;
+                text = txt.getText().toLowerCase();
+               int[] arrSTT = new int[dskm.size()];
+               int i = 0;
+                for (KHUYENMAI km : dskm) {
+                    if ((((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text))) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                        arrTimKiem.add(km);
+                        arrSTT[i++] = dskm.indexOf(km);
+                    }
+                }
+
+                dtm.setRowCount(0);
+                i = 0;
+                for (KHUYENMAI km : arrTimKiem) {
+                    dtm.addRow(new Object[]{arrSTT[i++], km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
+                }
+            }
+        });
     }
 
     public void showConsole() {
@@ -34,7 +71,7 @@ public class KHUYENMAIBUS {
     }
 
     public String[] getTitle() {
-        return new String[]{"Số thứ tự","Mã khuyến mãi", "Tên khuyến mãi", "Điều kiện khuyến mãi", "Phần trăm khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc"};
+        return new String[]{"Số thứ tự", "Mã khuyến mãi", "Tên khuyến mãi", "Điều kiện khuyến mãi", "Phần trăm khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc"};
     }
 
     public String getNextID() {
@@ -154,9 +191,14 @@ public class KHUYENMAIBUS {
             return false;
         }
     }
-    
-     public ArrayList<KHUYENMAI> getDskm() {
+
+    public ArrayList<KHUYENMAI> getDskm() {
         return dskm;
     }
 
+    public ArrayList<KHUYENMAI> refresh() {
+        dskm.clear();
+        dskm = kmDAO.selectAll();
+        return dskm;
+    }
 }

@@ -9,17 +9,16 @@ package Back_End.CTPhanQuyen;
  * @author NGOC THUC
  */
 public class CTPhanQuyen {
-String maQuyen, tenChucNang;
+String maQuyen, maChucNang;
 	
 	public CTPhanQuyen()
 	{
 		
 	}
 
-	public CTPhanQuyen(String maQuyen, String tenChucNang) {
-		super();
+	public CTPhanQuyen(String maQuyen, String maChucNang) {
 		this.maQuyen = maQuyen;
-		this.tenChucNang = tenChucNang;
+		this.maChucNang = maChucNang;
 	}
 
 	public String getMaQuyen() {
@@ -30,11 +29,11 @@ String maQuyen, tenChucNang;
 		this.maQuyen = maQuyen;
 	}
 
-	public String getTenChucNang() {
-		return tenChucNang;
+	public String getMaChucNang() {
+		return maChucNang;
 	}
 
-	public void setTenChucNang(String tenChucNang) {
-		this.tenChucNang = tenChucNang;
+	public void setMaChucNang(String maChucNang) {
+		this.maChucNang = maChucNang;
 	}
 }

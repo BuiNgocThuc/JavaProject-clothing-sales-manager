@@ -13,10 +13,21 @@ import java.util.ArrayList;
  */
 public class CTPhanQuyenBUS {
     CTPhanQuyenDAO nqDao = new CTPhanQuyenDAO();
+    ArrayList<CTPhanQuyen> dspq = new ArrayList<>();
     public CTPhanQuyenBUS() {
     }
      public ArrayList<String> getListCTQByNQuyen(String nhomQuyen){
          return nqDao.getListCTQByNQuyen(nhomQuyen);
      }
      
+     public boolean add(String roleID, String perID) {
+          CTPhanQuyen role_per = new CTPhanQuyen(roleID, perID);
+        int add = nqDao.insert(role_per);
+        if (add == 1) {
+            dspq.add(role_per);
+            return true;
+        } else {
+            return false;
+        }
+     }
 }

@@ -4,6 +4,7 @@
  */
 package Front_End.KHUYENMAI;
 
+import Back_End.KHUYENMAI.KHUYENMAIBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -11,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,6 +21,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import com.toedter.calendar.JDateChooser;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,8 +39,8 @@ public class createKMform extends JFrame {
     JTextField txtNgayBatDau = new JTextField();
     JTextField txtNgayKetThuc = new JTextField();
 
-    JLabel lblCalendar_Start = new JLabel();
-    JLabel lblCalendar_End = new JLabel();
+    JDateChooser lblCalendar_Start = new JDateChooser();
+    JDateChooser lblCalendar_End = new JDateChooser();
     JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
     JLabel lblCancel = new JLabel("Hủy", JLabel.CENTER);
 
@@ -44,6 +50,8 @@ public class createKMform extends JFrame {
 
     ArrayList<JTextField> txtList = new ArrayList<>();
 
+    KHUYENMAIBUS km = new KHUYENMAIBUS();
+    
     public createKMform() {
         this.setUndecorated(true);
         initComponents();
@@ -75,6 +83,10 @@ public class createKMform extends JFrame {
             txtObject.setForeground(Color.black);
             pnText.add(txtObject);
         }
+        
+        int size = km.getDskm().size() + 1;
+        String maKM = "KM" + size;
+        txtMaKM.setText(maKM);
 
         txtMaKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "mã khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
         txtTenKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tên khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
@@ -86,11 +98,15 @@ public class createKMform extends JFrame {
         lblCalendar_Start.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_Start.setBackground(Color.WHITE);
         lblCalendar_Start.setOpaque(true);
-
+       lblCalendar_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_Start.setPreferredSize(new Dimension(150, 50));
+        
         lblCalendar_End.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_End.setBackground(Color.WHITE);
         lblCalendar_End.setOpaque(true);
-
+      lblCalendar_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_End.setPreferredSize(new Dimension(150, 50));
+        
         txtNgayBatDau.setPreferredSize(new Dimension(150, 40));
         txtNgayBatDau.setBackground(Color.WHITE);
         txtNgayBatDau.setOpaque(true);
@@ -105,10 +121,10 @@ public class createKMform extends JFrame {
         pnDate.setBackground(Color.white);
         pnDate.setOpaque(true);
         pnDate.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Trong Khoảng", TitledBorder.LEFT, TitledBorder.TOP));
-        pnDate.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        pnDate.add(txtNgayBatDau);
+        pnDate.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 0));
+//        pnDate.add(txtNgayBatDau);
         pnDate.add(lblCalendar_Start);
-        pnDate.add(txtNgayKetThuc);
+//        pnDate.add(txtNgayKetThuc);
         pnDate.add(lblCalendar_End);
 
         lblAdd.setPreferredSize(new Dimension(100, 40));
@@ -118,6 +134,27 @@ public class createKMform extends JFrame {
         lblAdd.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         lblAdd.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-add-new-32.png"));
         lblAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblAdd.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                
+                String tenKM = txtTenKM.getText();
+                int size = km.getDskm().size() + 1;
+                String maKM = "KM" + size;
+                Double dieuKien = Double.parseDouble(txtDieuKien.getText());
+                Double phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                Date dateS = lblCalendar_Start.getDate();
+                LocalDate startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Date dateE = lblCalendar_End.getDate();
+                LocalDate endDate = dateE.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                String tinhTrang = "Đang hoạt động";
+                boolean success = km.add(maKM, tenKM, dieuKien, phanTram, startDate, endDate , tinhTrang);
+               if(success) {
+                   JOptionPane.showMessageDialog(null, "Thêm Phiếu Nhập Thành Công");
+               }else {
+                   JOptionPane.showMessageDialog(null, "Thêm Phiếu Nhập Thất Bại");
+               }
+            }
+        });
 
         lblCancel.setPreferredSize(new Dimension(100, 40));
         lblCancel.setBackground(Color.white);

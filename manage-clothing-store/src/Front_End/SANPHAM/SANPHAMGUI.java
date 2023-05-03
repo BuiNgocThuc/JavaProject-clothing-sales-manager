@@ -1,4 +1,4 @@
-﻿package Front_End.SANPHAM;
+package Front_End.SANPHAM;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +11,7 @@ import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.PrintJob;
 import java.awt.Toolkit;
 import java.awt.Dialog.ModalExclusionType;
@@ -70,11 +71,12 @@ import org.w3c.dom.ls.LSOutput;
 import Back_End.KICHCO.KICHCOBUS;
 import Back_End.MAUSAC.MAUSACBUS;
 import Back_End.SANPHAM.SANPHAMBUS;
+import Front_End.FrameLayout.LayoutFrame;
 
 public class SANPHAMGUI extends JPanel {
 	public JLabel tenSP, tenTH, size, mauSac;
 	public static JComboBox<String> boxTenSP, boxTenTH, boxSize, boxMauSac;
-	public JButton btnDelete, btnSave, btnUpdate, btnAdd, btnHuy;
+	public JButton btnDelete, btnSave, btnUpdate, btnAdd, btnHuy, btnResert;
 	public JButton btnApply, btnCancel, btnSP, btnLoc, btnTTSP;
 	public JPanel panelMaSP, panelMaTH, panelTenSP, panelSize, panelSoLuong, panelMau, panelDonGia;
 	public static JPanel pannelBoLocSP;
@@ -91,6 +93,7 @@ public class SANPHAMGUI extends JPanel {
 	
 	// form thuộc tính sản phẩm
 	JLabel tenThuocTinh = new JLabel("Tên thuộc tính", JLabel.CENTER);
+	JPanel inforTT = new JPanel();
 	JTextField txtTenTT = new JTextField(10);
 	JButton btnThemTT = new JButton("Thêm");
 	JRadioButton rSize = new JRadioButton("Kích cỡ");
@@ -100,7 +103,6 @@ public class SANPHAMGUI extends JPanel {
 	private JLabel panelImg;
 	private JComboBox<String> boxSize1;
 	private JComboBox<String> cbMau;
-	
 	public SANPHAMGUI()
 	{
 		this.init();
@@ -108,12 +110,14 @@ public class SANPHAMGUI extends JPanel {
 	}
 
 	public void init() {
-		this.setSize(820, 800);
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		
-		// Panel menu
+		// Panel top
+		panelTop = new JPanel();
+		panelTop.setLayout(new BorderLayout());
+		
+		// -- Panel menu
 		JPanel menu = new JPanel();
-		menu.setSize(this.getWidth(), 25);
 		menu.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
 		btnSP = new JButton("Sản phẩm");
 		btnSP.setPreferredSize(new Dimension(120, 23));
@@ -124,12 +128,11 @@ public class SANPHAMGUI extends JPanel {
 			   if(thuocTinhSP.isDisplayable())
 			   {
 				   btnTTSP.setBackground(Color.white);
-					btnSP.setBackground(Color.lightGray);
-					thuocTinhSP.setVisible(false);
-					panelTop.setVisible(true);
-					scrollPane.setVisible(true);
-					panelBottom.setVisible(true);
-					panelChucNang.setVisible(true);
+				   btnSP.setBackground(Color.lightGray);
+				   thuocTinhSP.setVisible(false);
+				   panelTop.setVisible(true);
+				   panelBottom.setVisible(true);
+				   panelChucNang.setVisible(true);
 			   }
 				
 			}
@@ -149,8 +152,6 @@ public class SANPHAMGUI extends JPanel {
 					btnTTSP.setBackground(Color.white);
 					btnSP.setBackground(Color.lightGray);
 					thuocTinhSP.setVisible(false);
-					panelTop.setVisible(true);
-					scrollPane.setVisible(true);
 					panelBottom.setVisible(true);
 					panelChucNang.setVisible(true);
 				}
@@ -160,14 +161,12 @@ public class SANPHAMGUI extends JPanel {
 		btnTTSP = new JButton("Thuộc tính sản phẩm");
 		btnTTSP.setPreferredSize(new Dimension(120, 23));
 		btnTTSP.setBackground(Color.white);
-		addFormTTSP();
 		btnTTSP.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panelTop.setVisible(false);
-				scrollPane.setVisible(false);
 				panelBottom.setVisible(false);
 				panelChucNang.setVisible(false);
+				addFormTTSP();
 				thuocTinhSP.setVisible(true);
 				btnTTSP.setBackground(Color.lightGray);
 				btnSP.setBackground(Color.white);
@@ -185,111 +184,110 @@ public class SANPHAMGUI extends JPanel {
 		menu.add(btnLoc);
 		
 		menu.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.black));
-		this.add(menu);
-		
-		// Panel top
-		panelTop = new JPanel();
-		panelTop.setBounds(0,menu.getHeight()+10,this.getWidth(), 50);
-		panelTop.setLayout(null);
-		
-		// Table
-		tableSP = new JTable();
-		this.add(createTable(0, panelTop.getHeight()+20+menu.getHeight(), this.getWidth(), (this.getHeight())/4, tableSP));
-		a.loadDataToTable(tableSP); // đổ dữ liệu lên table
+		panelTop.add(menu, BorderLayout.CENTER);
 		
 		// Bộ lọc sản phẩm
 		pannelBoLocSP = new JPanel();
 		pannelBoLocSP.setBounds(0, 0, this.getWidth(), 50);
 		pannelBoLocSP.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
-		
+				
 		tenSP = new JLabel("Tên sản phẩm", JLabel.CENTER);
 		tenTH = new JLabel("Thương hiệu", JLabel.CENTER);
 		size = new JLabel("Size", JLabel.CENTER);
 		mauSac = new JLabel("Màu sắc", JLabel.CENTER);
-		
-		
+				
+				
 		boxTenSP = new JComboBox<String>();
-		
+				
 		boxTenTH = new JComboBox<String>();
-		
+				
 		boxSize = new JComboBox<String>();
-		
+				
 		boxMauSac = new JComboBox<String>();
-		
-		
+				
+				
 		btnApply = new JButton("Áp dụng");
 		btnApply.setPreferredSize(new Dimension(100, 25));
 		btnApply.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-done-32.png")));
 		btnApply.setBorder(new LineBorder(Color.black));
 		btnApply.setBackground(Color.white);
-		
+				
 		btnCancel = new JButton("Hủy");
 		btnCancel.setPreferredSize(new Dimension(100, 25));
 		btnCancel.setBorder(new LineBorder(Color.black));
 		btnCancel.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8_cancel_30px_1.png")));
 		btnCancel.setBackground(Color.white);
 
-		// Xử lý sự kiện lọc sản phẩm
-		btnApply.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==btnApply)
-				{
-					SANPHAMBUS a = new SANPHAMBUS();
-					a.boLocSanPham();
-					if(panelImg.isDisplayable())
-					{
-						panelImg.setIcon(null);
+				// Xử lý sự kiện lọc sản phẩm
+				btnApply.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(e.getSource()==btnApply)
+						{
+							SANPHAMBUS a = new SANPHAMBUS();
+							a.boLocSanPham();
+							if(panelImg.isDisplayable())
+							{
+								panelImg.setIcon(null);
+							}
+						}
 					}
-				}
-			}
-		});
-		btnCancel.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==btnCancel)
-				{
-					a.loadDataToTable_UseArray(tableSP);
-					btnLoc.setBackground(Color.white);
-					pannelBoLocSP.setVisible(false);
-					if(panelImg.isDisplayable())
-					{
-						panelImg.setIcon(null);
+				});
+				btnCancel.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(e.getSource()==btnCancel)
+						{
+							a.loadDataToTable_UseArray(tableSP);
+							btnLoc.setBackground(Color.white);
+							pannelBoLocSP.setVisible(false);
+							if(panelImg.isDisplayable())
+							{
+								panelImg.setIcon(null);
+							}
+						}
 					}
-				}
-			}
-		});
-		pannelBoLocSP.add(tenSP);
-		pannelBoLocSP.add(boxTenSP);
-		pannelBoLocSP.add(tenTH);
-		pannelBoLocSP.add(boxTenTH);
-		pannelBoLocSP.add(size);
-		pannelBoLocSP.add(boxSize);
-		pannelBoLocSP.add(mauSac);
-		pannelBoLocSP.add(boxMauSac);
-		pannelBoLocSP.add(btnApply);
-		pannelBoLocSP.add(btnCancel);
+				});
+				pannelBoLocSP.add(tenSP);
+				pannelBoLocSP.add(boxTenSP);
+				pannelBoLocSP.add(tenTH);
+				pannelBoLocSP.add(boxTenTH);
+				pannelBoLocSP.add(size);
+				pannelBoLocSP.add(boxSize);
+				pannelBoLocSP.add(mauSac);
+				pannelBoLocSP.add(boxMauSac);
+				pannelBoLocSP.add(btnApply);
+				pannelBoLocSP.add(btnCancel);
+				
+				pannelBoLocSP.setVisible(false);
+				this.add(panelTop, BorderLayout.NORTH);
 		
-		pannelBoLocSP.setVisible(false);
-		panelTop.add(pannelBoLocSP);
-		this.add(panelTop);
 		
-		// Panel sửa sản phẩm , hiển thị hình ảnh
+		// Panel table, sửa sản phẩm , hiển thị hình ảnh
 		panelBottom = new JPanel();
-		panelBottom.setLayout(null);
-		panelBottom.setBounds(0,pannelBoLocSP.getHeight()+this.getHeight()/4+150,this.getWidth(),150);
+		panelBottom.setLayout(new BorderLayout());
 		panelBottom.setBorder(new LineBorder(Color.black));
+		panelBottom.add(pannelBoLocSP,BorderLayout.NORTH);
+		// -- table
+		tableSP = new JTable();
+		panelBottom.add(createTable(tableSP), BorderLayout.CENTER);
+		a.loadDataToTable(tableSP); // đổ dữ liệu lên table
 		
 		// --Img
+		JPanel imgPanel = new JPanel();
+		imgPanel.setLayout(new BorderLayout());
+		JPanel panelBottom1 = new JPanel();
+		panelBottom1.setLayout(new BorderLayout());
+		panelBottom1.setPreferredSize(new Dimension(this.getWidth(),200));
 		panelImg = new JLabel();
-		panelImg.setBounds(5, 10, panelBottom.getWidth()/3, panelBottom.getHeight()-20);
-		panelBottom.add(panelImg);
+		panelImg.setPreferredSize(new Dimension(200,200));
+		imgPanel.add(panelImg, BorderLayout.CENTER);
+		panelBottom1.add(imgPanel, BorderLayout.WEST);
 		
 		// --Sửa sản phẩm
 		JPanel panelUpdate = new JPanel();
 		panelUpdate.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-		panelUpdate.setBounds(panelImg.getWidth()+5, 10, panelBottom.getWidth()-panelImg.getWidth()-5, panelBottom.getHeight()-20);
 		panelUpdate.setVisible(false);
 		
 		panelMaSP = new JPanel();
@@ -564,12 +562,12 @@ public class SANPHAMGUI extends JPanel {
 		panelUpdate.add(btnHuy);
 		panelUpdate.add(btnSave);
 		
-		panelBottom.add(panelUpdate);
+		panelBottom1.add(panelUpdate, BorderLayout.CENTER);
+		panelBottom.add(panelBottom1, BorderLayout.SOUTH);
 		
-		this.add(panelBottom);
+		this.add(panelBottom,BorderLayout.CENTER);
 		// Button chức năng
 		panelChucNang = new JPanel();
-		panelChucNang.setBounds(10, 450, this.getWidth(), 50);
 		panelChucNang.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
 		
 		Icon iconDelete = new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-remove-28.png"));
@@ -587,14 +585,21 @@ public class SANPHAMGUI extends JPanel {
 		btnAdd.setBorder(new LineBorder(Color.black));
 		btnAdd.setBackground(Color.white);
 		
+		Icon iconreset = new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png"));
+		btnResert = new  JButton("Làm mới",iconreset);
+		btnResert.setBorder(new LineBorder(Color.black));
+		btnResert.setBackground(Color.white);
+		
 		panelChucNang.add(btnAdd);
 		btnAdd.setPreferredSize(new Dimension(100, 30));
 		panelChucNang.add(btnDelete);
 		btnDelete.setPreferredSize(new Dimension(100, 30));
 		panelChucNang.add(btnUpdate);
 		btnUpdate.setPreferredSize(new Dimension(100, 30));
+		panelChucNang.add(btnResert);
+		btnResert.setPreferredSize(new Dimension(100, 30));
 		
-		this.add(panelChucNang);
+		this.add(panelChucNang,BorderLayout.SOUTH);
 		
 		// Sự kiện thêm
 		btnAdd.addActionListener(new ActionListener() {
@@ -623,6 +628,13 @@ public class SANPHAMGUI extends JPanel {
 					panelUpdate.setVisible(true);
 				}
 				
+			}
+		});
+		
+		btnResert.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				a.loadDataToTable_UseArray(tableSP);			
 			}
 		});
 		// Sự kiện table
@@ -689,7 +701,7 @@ public class SANPHAMGUI extends JPanel {
 		});
 	}
 	
-	public  JScrollPane createTable(int x, int y, int width, int height, JTable tableSP) {
+	public  JScrollPane createTable(JTable tableSP) {
 				defaultTableModel = new DefaultTableModel() {
 					@Override
 					public boolean isCellEditable(int row, int column) {
@@ -709,7 +721,6 @@ public class SANPHAMGUI extends JPanel {
 				
 				tableSP.getColumnModel().getColumn(0).setPreferredWidth(5);
 				scrollPane = new JScrollPane(tableSP);
-				scrollPane.setBounds(x,y,width,height);
 				tableSP.setFillsViewportHeight(true);
 				
 				return scrollPane;
@@ -735,33 +746,26 @@ public class SANPHAMGUI extends JPanel {
 	
 	public void addFormTTSP()
 	{
-		this.add(formTTSP(0,30 , this.getWidth(), 500));
+		this.add(formTTSP(),BorderLayout.CENTER);
 	}
-	public JPanel formTTSP(int x, int y, int w, int h)
+	public JPanel formTTSP()
 	{
-		thuocTinhSP.setBounds(x, y, w, h);
 		thuocTinhSP.setLayout(new BorderLayout(10, 10));
 		
 		// Thuộc tính sản phẩm
-		JPanel inforTT = new JPanel();
-		inforTT.setLayout(null);
-		inforTT.setPreferredSize(new Dimension(w-20, h/3));
+		inforTT.setLayout(new FlowLayout(50,50,FlowLayout.LEFT));
 		inforTT.setBorder(BorderFactory.createTitledBorder(null, "Thuộc tính sản phẩm", TitledBorder.LEADING, TitledBorder.TOP, new Font(null,Font.BOLD,20), Color.black));
-		tenThuocTinh.setBounds(20, 30, 100, 20);
 		inforTT.add(tenThuocTinh);
 		
 		txtTenTT.setBounds(120, 30, 150, 20);
 		inforTT.add(txtTenTT);
 		
-		rSize.setBounds(tenThuocTinh.getWidth()+txtTenTT.getWidth()+200,30,100,20);
-		rColor.setBounds(tenThuocTinh.getWidth()+txtTenTT.getWidth()+rSize.getWidth()+220,30,100,20);
 		bg.add(rSize);
 		bg.add(rColor);
 		inforTT.add(rSize);
 		inforTT.add(rColor);
 		
 		btnThemTT.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-add-new-28.png")));
-		btnThemTT.setBounds(20,70,100,20);
 		btnThemTT.setBackground(Color.white);
 		
 		inforTT.add(btnThemTT);
@@ -769,7 +773,6 @@ public class SANPHAMGUI extends JPanel {
 		// Table
 		JTable table = new JTable();
 		JScrollPane pane = new JScrollPane(table);
-		pane.setPreferredSize(new Dimension(w-20, h/2));
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("STT");
 		model.addColumn("Mã thuộc tính");

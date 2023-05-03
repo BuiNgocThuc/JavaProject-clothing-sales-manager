@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -38,6 +38,46 @@ public class PHIEUNHAPBUS {
 		for (PHIEUNHAP phieunhap : arrPN) {
 			dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
 		}
+	}
+
+        public void insertDaTa(PHIEUNHAP t)
+	{
+		int ketQua = PHIEUNHAPDAO.getInstance().insert(t);
+	}
+	
+	public String autoID()
+	{
+		String id = new String();
+		if(arrPN.isEmpty())
+		{
+			arrPN = PHIEUNHAPDAO.getInstance().selectAll();
+			if (arrPN.isEmpty()) {
+				id = "PN001";
+				return id;
+			}
+		}
+		String end = String.valueOf(arrPN.get(arrPN.size()-1).getMaPN());
+		char tmp[] = new char[10];
+		end.getChars(2, end.length(), tmp, 0);
+                int str = 0;
+		
+		String chuoi = String.valueOf(tmp[0]);
+		String chuoi1 = String.valueOf(tmp[1]);
+		String chuoi2 = String.valueOf(tmp[2]);
+		String strEnd = chuoi + chuoi1 + chuoi2;
+		str = Integer.parseInt(strEnd);
+		
+		if (str + 1 <10) {
+			id = "PN00" + String.valueOf(str+1);
+		}
+		else if(str+1<100)
+		{
+			id = "PN0" + String.valueOf(str+1);
+		}
+		else if (str+1<1000) {
+			id = "PN" + String.valueOf(str+1);
+		}
+		return id;
 	}
 	
 	public void timKiem(JTextField txt, JButton btn, JDateChooser dc, JComboBox<String> cb) {

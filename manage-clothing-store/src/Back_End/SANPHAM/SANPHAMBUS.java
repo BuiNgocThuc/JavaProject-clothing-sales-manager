@@ -7,6 +7,7 @@ package Back_End.SANPHAM;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -14,8 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 import Back_End.KICHCO.KICHCO;
 import Back_End.KICHCO.KICHCOBUS;
+import Back_End.KICHCO.KICHCODAO;
 import Back_End.MAUSAC.MAUSAC;
 import Back_End.MAUSAC.MAUSACBUS;
+import Back_End.MAUSAC.MAUSACDAO;
 import Back_End.SANPHAM.SANPHAMDAO;
 import Back_End.THUONGHIEU.THUONGHIEU;
 import Back_End.THUONGHIEU.THUONGHIEUDAO;
@@ -30,7 +33,8 @@ public class SANPHAMBUS {
 	static ArrayList<THUONGHIEU> thuongHieu = new ArrayList<>();
 	static ArrayList<KICHCO> kichCo = new ArrayList<>();
 	static ArrayList<MAUSAC> mauSac = new ArrayList<>();
- 
+	ArrayList<String> arrUpdate = new ArrayList<>();
+
 	KICHCOBUS kcb = new KICHCOBUS();
 	MAUSACBUS msb = new MAUSACBUS();
 	public static SANPHAMBUS getInstance() {
@@ -52,6 +56,37 @@ public class SANPHAMBUS {
 			if (data.get(i).getTrangThai().equalsIgnoreCase("Đã Xóa") == false) {
 				dModel.addRow(new Object[] {i+1, data.get(i).getMaSP(), getTenTH_formID(data.get(i).getMaTH()), data.get(i).getTenSP(),
 						getSize_fromID(data.get(i).getKichCo()), getMau_fromID(data.get(i).getMauSac()), data.get(i).getSoLuongSP(),
+						data.get(i).getGiaSP() });
+			} else {
+				data.remove(i);
+			}
+		}
+	}
+	
+	public void loadDataFormNhapHang(JTable tb)
+	{
+		if(thuongHieu.isEmpty())
+		{
+			thuongHieu = THUONGHIEUDAO.getInstance().selectAll();
+		}
+		if(kichCo.isEmpty())
+		{
+			kichCo = KICHCODAO.getInstance().selectAll();
+		}
+		if(mauSac.isEmpty())
+		{
+			mauSac = MAUSACDAO.getInstance().selectAll();
+		}
+		if(data.isEmpty())
+		{
+			data = SANPHAMDAO.getInstance().selectAll();
+		}
+		DefaultTableModel dModel = (DefaultTableModel) tb.getModel();
+		dModel.setRowCount(0);
+		for (int i = 0; i < data.size(); i++) {
+			if (data.get(i).getTrangThai().equalsIgnoreCase("Đã Xóa") == false) {
+				dModel.addRow(new Object[] { data.get(i).getMaSP(), getTenTH_formID(data.get(i).getMaTH()), data.get(i).getTenSP(),
+						getSize_fromID(data.get(i).getKichCo()), getMau_fromID(data.get(i).getMauSac()), data.get(i).getGiaNhap(),
 						data.get(i).getGiaSP() });
 			} else {
 				data.remove(i);
@@ -448,5 +483,44 @@ public class SANPHAMBUS {
 		}
 		return id;
 	}
+	
+	public void updateGiaBan(String id, Float giaBan)
+	{
+		String str = id +"/" + String.valueOf(giaBan);
+		arrUpdate.add(str);
+	}
+	
+	public void updateGiaBan2()
+	{
+		for(int i=0; i<arrUpdate.size(); i++)
+		{
+		    String str[] = arrUpdate.get(i).split("/");
+		    for (SANPHAM o : data) {
+				if(str[0].equalsIgnoreCase(o.getMaSP()))
+				{
+					o.setGiaSP(Float.parseFloat(str[1]));
+					break;
+				}
+			}
+		}
+	}
+	
+	public void updateGiaBan_SoLuong(String id,int SoLuong,Float giaNhap)
+	{
+		
+		int soLuongNew=0, soLuongOld=0;
+		for (SANPHAM o : data) {
+			if(id.equals(o.getMaSP()))
+			{
+				soLuongOld = o.getSoLuongSP();
+				soLuongNew = soLuongOld + SoLuong;
+				o.setSoLuongSP(soLuongNew);
+				o.setGiaNhap(giaNhap);
+				SANPHAMDAO.getInstance().update(o);
+				break;
+			}
+		}
+	}
+	
 	
 }

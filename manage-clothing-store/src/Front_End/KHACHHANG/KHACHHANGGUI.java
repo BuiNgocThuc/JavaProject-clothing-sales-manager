@@ -28,7 +28,7 @@ public class KHACHHANGGUI extends JPanel {
 
     KHACHHANGBUS khb = new KHACHHANGBUS();
 
-    private JPanel jp,jp1, jp2,jp3;
+    private JPanel jp, jp1, jp2, jp3;
     private JLabel labelMaKH, labelHoTen, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaKH, textHoTen, textPhone, textAddress, textStatus, textFind;
     private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
@@ -45,50 +45,50 @@ public class KHACHHANGGUI extends JPanel {
     }
 
     private void init() {
-        jp = new JPanel();
+        jp = new JPanel(new BorderLayout());
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(450, 450));
+        jp1.setPreferredSize(new Dimension(400, 450));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin"));
+        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin khách hàng"));
 
         labelMaKH = new JLabel("Mã khách hàng: ");
-        labelMaKH.setPreferredSize(new Dimension(100,30));
+        labelMaKH.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelMaKH);
 
         textMaKH = new JTextField();
-        textMaKH.setPreferredSize(new Dimension(300,30));
+        textMaKH.setPreferredSize(new Dimension(270, 30));
         jp1.add(textMaKH);
 
         labelHoTen = new JLabel("Họ và tên: ");
-        labelHoTen.setPreferredSize(new Dimension(100,30));
+        labelHoTen.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelHoTen);
 
         textHoTen = new JTextField();
-        textHoTen.setPreferredSize(new Dimension(300,30));
+        textHoTen.setPreferredSize(new Dimension(270, 30));
         jp1.add(textHoTen);
 
         labelPhone = new JLabel("Số điện thoại: ");
-        labelPhone.setPreferredSize(new Dimension(100,30));
+        labelPhone.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelPhone);
 
         textPhone = new JTextField();
-        textPhone.setPreferredSize(new Dimension(300,30));
+        textPhone.setPreferredSize(new Dimension(270, 30));
         jp1.add(textPhone);
 
         labelAddress = new JLabel("Địa chỉ: ");
-        labelAddress.setPreferredSize(new Dimension(100,30));
+        labelAddress.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelAddress);
 
         textAddress = new JTextField();
-        textAddress.setPreferredSize(new Dimension(300,30));
+        textAddress.setPreferredSize(new Dimension(270, 30));
         jp1.add(textAddress);
 
         labelStatus = new JLabel("Trạng thái: ");
-        labelStatus.setPreferredSize(new Dimension(100,30));
+        labelStatus.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelStatus);
 
         textStatus = new JTextField();
-        textStatus.setPreferredSize(new Dimension(300,30));
+        textStatus.setPreferredSize(new Dimension(270, 30));
         jp1.add(textStatus);
 
         addBtn = new JButton("Thêm");
@@ -142,12 +142,12 @@ public class KHACHHANGGUI extends JPanel {
         jp1.add(pdfBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp2.setPreferredSize(new Dimension(350, 100));
+        jp2.setPreferredSize(new Dimension(370, 100));
         jp2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
 
         textFind = new JTextField();
-        textFind.setPreferredSize(new Dimension(300,30));
+        textFind.setPreferredSize(new Dimension(350, 30));
         jp2.add(textFind);
 
         searchBtn = new JButton("Tìm kiếm");
@@ -167,6 +167,9 @@ public class KHACHHANGGUI extends JPanel {
         jp1.add(jp2);
 
         jp3 = new JPanel(new BorderLayout());
+        jp3.setPreferredSize(new Dimension(400, 450));
+        jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jp3.setBorder(BorderFactory.createTitledBorder("Danh sách khách hàng"));
         tb = new JTable();
         tb.setModel(new DefaultTableModel(
                 new Object[][]{},
@@ -195,7 +198,7 @@ public class KHACHHANGGUI extends JPanel {
         jp3.add(jsp);
 
         jp.add(jp1, BorderLayout.WEST);
-        jp.add(jp3, BorderLayout.EAST);
+        jp.add(jp3, BorderLayout.CENTER);
         this.add(jp);
     }
 

@@ -44,27 +44,27 @@ public class NHACUNGCAPGUI extends JPanel {
     }
 
     private void init() {
-        jp = new JPanel();
+        jp = new JPanel(new BorderLayout());
 
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(450, 450));
+        jp1.setPreferredSize(new Dimension(400, 450));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin"));
+        jp1.setBorder(BorderFactory.createTitledBorder("Thông tin nhà cung cấp"));
 
-        labelMaNCC = new JLabel("Mã nhà cung cấp: ");
+        labelMaNCC = new JLabel("Mã NCC: ");
         labelMaNCC.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelMaNCC);
 
         textMaNCC = new JTextField();
-        textMaNCC.setPreferredSize(new Dimension(300, 30));
+        textMaNCC.setPreferredSize(new Dimension(270, 30));
         jp1.add(textMaNCC);
 
-        labelTenNCC = new JLabel("Tên nhà cung cấp: ");
+        labelTenNCC = new JLabel("Tên NCC: ");
         labelTenNCC.setPreferredSize(new Dimension(100, 30));
         jp1.add(labelTenNCC);
 
         textTenNCC = new JTextField();
-        textTenNCC.setPreferredSize(new Dimension(300, 30));
+        textTenNCC.setPreferredSize(new Dimension(270, 30));
         jp1.add(textTenNCC);
 
         labelPhone = new JLabel("Số điện thoại: ");
@@ -72,7 +72,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(labelPhone);
 
         textPhone = new JTextField();
-        textPhone.setPreferredSize(new Dimension(300, 30));
+        textPhone.setPreferredSize(new Dimension(270, 30));
         jp1.add(textPhone);
 
         labelAddress = new JLabel("Địa chỉ: ");
@@ -80,7 +80,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(labelAddress);
 
         textAddress = new JTextField();
-        textAddress.setPreferredSize(new Dimension(300, 30));
+        textAddress.setPreferredSize(new Dimension(270, 30));
         jp1.add(textAddress);
 
         labelStatus = new JLabel("Trạng thái: ");
@@ -88,7 +88,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(labelStatus);
 
         textStatus = new JTextField();
-        textStatus.setPreferredSize(new Dimension(300, 30));
+        textStatus.setPreferredSize(new Dimension(270, 30));
         jp1.add(textStatus);
 
         addBtn = new JButton("Thêm");
@@ -142,11 +142,12 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(pdfBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp2.setPreferredSize(new Dimension(350, 100));
+        jp2.setPreferredSize(new Dimension(370, 100));
         jp2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm theo"));
+        jp2.setBorder(BorderFactory.createTitledBorder("Tìm kiếm "));
 
-        textFind = new JTextField(29);
+        textFind = new JTextField();
+        textFind.setPreferredSize(new Dimension(350, 30));
         jp2.add(textFind);
 
         searchBtn = new JButton("Tìm kiếm");
@@ -166,6 +167,9 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(jp2);
 
         jp3 = new JPanel(new BorderLayout());
+        jp3.setPreferredSize(new Dimension(400, 450));
+        jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        jp3.setBorder(BorderFactory.createTitledBorder("Danh sách nhà cung cấp"));
         tb = new JTable();
         tb.setModel(new DefaultTableModel(
                 new Object[][]{},
@@ -194,7 +198,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp3.add(jsp);
 
         jp.add(jp1, BorderLayout.WEST);
-        jp.add(jp3, BorderLayout.EAST);
+        jp.add(jp3, BorderLayout.CENTER);
         this.add(jp);
     }
 
@@ -274,6 +278,5 @@ public class NHACUNGCAPGUI extends JPanel {
         NHACUNGCAPBUS.dsncc.forEach((ncc) -> {
             NHACUNGCAPBUS.model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSdt(), ncc.getDiaChi(), ncc.getTrangThai()});
         });
-
     }
 }

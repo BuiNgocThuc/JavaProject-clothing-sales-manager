@@ -10,15 +10,16 @@ package Back_End.SANPHAM;
  */
 public class SANPHAM {
 	private String maSP, tenSP, trangThai, mauSac, kichCo, maTH, hinhAnh;
-    private float giaSP;
+    private float giaSP, giaNhap;
     private int soLuongSP;
 
-    public SANPHAM(String maSP,String maTH, String tenSP, String kichCo, String mauSac, float giaSP, int soLuongSP, String trangThai, String hinhAnh) {
+    public SANPHAM(String maSP,String maTH, String tenSP, String kichCo, String mauSac,float giaNhap, float giaSP, int soLuongSP, String trangThai, String hinhAnh) {
         this.maSP = maSP;
         this.maTH = maTH;
         this.tenSP = tenSP;
         this.kichCo = kichCo;
         this.mauSac = mauSac;
+        this.giaNhap = giaNhap;
         this.giaSP = giaSP;
         this.soLuongSP = soLuongSP;
         this.trangThai = trangThai;
@@ -32,6 +33,14 @@ public class SANPHAM {
     }
     
     
+
+	public float getGiaNhap() {
+		return giaNhap;
+	}
+
+	public void setGiaNhap(float giaNhap) {
+		this.giaNhap = giaNhap;
+	}
 
 	public String getMaSP() {
 		return maSP;

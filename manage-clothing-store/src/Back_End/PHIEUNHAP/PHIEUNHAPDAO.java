@@ -107,7 +107,7 @@ public class PHIEUNHAPDAO implements DAOInterface<PHIEUNHAP> {
 
 	@Override
 	public ArrayList<PHIEUNHAP> selectAll() {
-		ArrayList< PHIEUNHAP> ketQua = new ArrayList<>();
+		ArrayList<PHIEUNHAP> ketQua = new ArrayList<>();
 		try {
 			Connection c = connec.getConnection();
 			String sql = "SELECT * FROM PHIEUNHAP";
@@ -184,6 +184,42 @@ public class PHIEUNHAPDAO implements DAOInterface<PHIEUNHAP> {
 		}
 		
 		return ketQua;
+	}
+	
+	public String selectTenNCC(String maNCC) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENNCC FROM PHIEUNHAP JOIN NHACUNGCAP ON PN_MANCC = MANCC "
+					+ " WHERE PN_MANCC = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maNCC);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENNCC");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenNV(String maNV) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENNV FROM PHIEUNHAP JOIN NHANVIEN ON PN_MANV = MANV "
+					+ " WHERE PN_MANV = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maNV);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENNV");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
 	}
 	
 }

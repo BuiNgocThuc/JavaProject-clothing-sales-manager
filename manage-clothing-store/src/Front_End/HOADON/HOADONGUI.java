@@ -135,7 +135,6 @@ public class HOADONGUI extends JPanel {
 		tbl.getColumnModel().getColumn(2).setPreferredWidth(100);
 		tbl.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tbl.getColumnModel().getColumn(4).setPreferredWidth(100);
-		tbl.setAlignmentX(20);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		tbl.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);

@@ -19,19 +19,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class NHANVIENGUI extends JPanel {
+public class NHANVIENGUI extends JPanel{
 
     NHANVIENBUS nvb = new NHANVIENBUS();
 
     private JPanel jp, jp1, jp2, jp3;
     private JLabel labelNhanVien, labelHoTen, labelDate, labelPhone, labelAddress, labelStatus;
     public static JTextField textNhanVien, textHoTen, textDate, textPhone, textAddress, textStatus, textFind;
-    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn, resetBtn;
     public static JTable tb;
     private JScrollPane jsp;
     private JComboBox choose;
@@ -171,8 +173,17 @@ public class NHANVIENGUI extends JPanel {
                 searchBtnActionPerformed(e);
             }
         });
-
+        resetBtn = new JButton("Reset");
+        resetBtn.setPreferredSize(new Dimension(120, 50));
+        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
+        resetBtn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e){
+               resetBtnActionPerformed(e);
+           }
+        });
         jp1.add(jp2);
+        jp1.add(resetBtn);
 
         jp3 = new JPanel(new BorderLayout());
         jp3.setPreferredSize(new Dimension(400, 450));
@@ -211,23 +222,28 @@ public class NHANVIENGUI extends JPanel {
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
-        String id = textNhanVien.getText();
-        String fullname = textHoTen.getText();
-        String date = textDate.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+        if (checkValue() == true){
+            String id = textNhanVien.getText();
+            String fullname = textHoTen.getText();
+            String date = textDate.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
 //        NHANVIEN nv = new NHANVIEN(id, fullname, date, phone, address, status);
 //
 //        NHANVIENDAO.getInstance().insert(nv);
-        if (nvb.add(id, fullname, date, phone, address, status)) {
-            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            if (nvb.add(id, fullname, date, phone, address, status)== true) {
+                JOptionPane.showMessageDialog(null, "Thêm thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            nvb.reset();
+
+            nvb.loadData();
         }
-
-        nvb.reset();
-
-        nvb.loadData();
+        else {
+            JOptionPane.showMessageDialog(null, "Thêm không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void tableMouseCliked(MouseEvent e) {
@@ -239,6 +255,7 @@ public class NHANVIENGUI extends JPanel {
         String diachi = tb.getModel().getValueAt(selectedRow, 4).toString();
         String trangthai = tb.getModel().getValueAt(selectedRow, 5).toString();
         textNhanVien.setText(manv);
+        textNhanVien.setEditable(false);
         textHoTen.setText(tennv);
         textDate.setText(ngaysinh);
         textPhone.setText(sdt);
@@ -247,20 +264,25 @@ public class NHANVIENGUI extends JPanel {
     }
 
     private void editBtnActionPerformed(ActionEvent e) {
-        String id = textNhanVien.getText();
-        String fullname = textHoTen.getText();
-        String date = textDate.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+        if (checkValue() == true){
+            String id = textNhanVien.getText();
+            String fullname = textHoTen.getText();
+            String date = textDate.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
-        if (nvb.edit(id, fullname, date, phone, address, status)) {
-            JOptionPane.showMessageDialog(null, "Sửa thành công");
+            if (nvb.edit(id, fullname, date, phone, address, status) == true) {
+                JOptionPane.showMessageDialog(null, "Sửa thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            nvb.reset();
+
+            nvb.loadData();
         }
-
-        nvb.reset();
-
-        nvb.loadData();
+        else {
+            JOptionPane.showMessageDialog(null, "Sửa không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void deleteBtnActionPerformed(ActionEvent e) {
@@ -293,5 +315,31 @@ public class NHANVIENGUI extends JPanel {
         NHANVIENBUS.dsnv.forEach((nv) -> {
             NHANVIENBUS.model.addRow(new Object[]{nv.getMaNV(), nv.getTenNV(), nv.getNgaySinh(), nv.getSdt(), nv.getDiaChi(), nv.getTrangThai()});
         });
+    }
+    
+    public void resetBtnActionPerformed(ActionEvent e){
+        nvb.reset();
+        textNhanVien.setEditable(true);
+    }
+    
+    private boolean checkValue() {
+        if (textNhanVien.getText().isEmpty() || textHoTen.getText().isEmpty() || textPhone.getText().isEmpty() || textAddress.getText().isEmpty() || textStatus.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        try {
+            sdf.parse(textDate.getText());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Định dạng ngày sinh không đúng! (yyyy-MM-dd)", "Lỗi",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        String regex = "^\\d{10}$";
+        if (!textPhone.getText().matches(regex)) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không đúng định dạng! (10 chữ số)", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

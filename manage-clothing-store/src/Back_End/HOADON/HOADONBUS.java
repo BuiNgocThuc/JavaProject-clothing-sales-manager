@@ -266,7 +266,7 @@ public class HOADONBUS {
 								String maHD = String.valueOf(tbl1.getValueAt(tbl1.getSelectedRow(), 0));
 								for (HOADON hoadon : arrHD) {
 									if(hoadon.getMaHD().equals(maHD)) {
-										HOADON hd = new HOADON(maHD, hoadon.getMaNV(), hoadon.getMaKH(), hoadon.getNgayNhap(), hoadon.getTongTien(), "Chưa hủy");
+										HOADON hd = new HOADON(maHD, hoadon.getMaNV(), hoadon.getMaKM(), hoadon.getMaKH(), hoadon.getNgayNhap(), hoadon.getTongTien(), "Chưa hủy");
 										HOADONDAO.getInstance().update(hd);
 										hoadon.setTinhTrang("Chưa hủy");
 										dtm.removeRow(tbl1.getSelectedRow());
@@ -293,5 +293,18 @@ public class HOADONBUS {
 				dialog.setVisible(true);
 			}
 		});
+	}
+    
+    public static String getTenKM(String maHD) {
+    	String ten = "Không";
+    	for (HOADON hoadon : arrHD) {
+			if(maHD.equals(hoadon.getMaHD())) {
+				if(!(HOADONDAO.getInstance().selectTenKM(hoadon.getMaKM()).equals(""))) {
+					ten = HOADONDAO.getInstance().selectTenKM(hoadon.getMaKM());
+				}
+				break;
+			}
+		}
+    	return ten;
 	}
 }

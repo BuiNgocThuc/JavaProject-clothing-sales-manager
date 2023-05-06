@@ -522,5 +522,21 @@ public class SANPHAMBUS {
 		}
 	}
 	
+	public void updateGiaBan_SoLuong1(String id,int SoLuong)
+	{
+		
+		int soLuongNew=0, soLuongOld=0;
+		for (SANPHAM o : data) {
+			if(id.equals(o.getMaSP()))
+			{
+				soLuongOld = o.getSoLuongSP();
+				soLuongNew = soLuongOld - SoLuong;
+				o.setSoLuongSP(soLuongNew);
+				SANPHAMDAO.getInstance().update(o);
+				break;
+			}
+		}
+	}
+	
 	
 }

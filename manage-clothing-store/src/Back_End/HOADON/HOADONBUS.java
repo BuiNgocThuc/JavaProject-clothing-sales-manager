@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -48,7 +48,7 @@ import Front_End.HOADON.HOADONGUI;
  * @author NGOC THUC
  */
 public class HOADONBUS {
-    public static ArrayList<HOADON> arrHD;
+    public static ArrayList<HOADON> arrHD = new ArrayList<>();
     
     Locale locale = new Locale("en", "EN");
 	String pattern = "###,###.# VNĐ";
@@ -66,6 +66,42 @@ public class HOADONBUS {
     		}
 		}
     }
+
+    public String autoID()
+	{ 
+		String id = new String();
+			if(arrHD.isEmpty())
+			{
+				arrHD = HOADONDAO.getInstance().selectAll();
+				if (arrHD.isEmpty()) {
+					id = "HD001";
+					return id;
+				}
+			}
+			String end = String.valueOf(arrHD.get(arrHD.size()-1).getMaHD());
+			char tmp[] = new char[10];
+			end.getChars(2, end.length(), tmp, 0);
+	                int str = 0;
+			
+			String chuoi = String.valueOf(tmp[0]);
+			String chuoi1 = String.valueOf(tmp[1]);
+			String chuoi2 = String.valueOf(tmp[2]);
+			String strEnd = chuoi + chuoi1 + chuoi2;
+			str = Integer.parseInt(strEnd);
+			
+			if (str + 1 <10) {
+				id = "HD00" + String.valueOf(str+1);
+			}
+			else if(str+1<100)
+			{
+				id = "HD0" + String.valueOf(str+1);
+			}
+			else if (str+1<1000) {
+				id = "HD" + String.valueOf(str+1);
+			}
+		return id;
+	}
+    
     
     public void timKiem(JTextField txt, JButton btn, JDateChooser dc, JComboBox<String> cb) {
 		btn.addActionListener(new ActionListener() {

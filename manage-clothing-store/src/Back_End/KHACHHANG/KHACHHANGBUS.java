@@ -22,6 +22,41 @@ public class KHACHHANGBUS {
             model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getSdt(), kh.getDiaChi(), kh.getTrangThai()});
         });
     }
+    
+    public String autoID()
+    {
+    	String id = new String();
+		if(dskh.isEmpty())
+		{
+			dskh = KHACHHANGDAO.getInstance().selectAll();
+			if (dskh.isEmpty()) {
+				id = "KH001";
+				return id;
+			}
+		}
+		String end = String.valueOf(dskh.get(dskh.size()-1).getMaKH());
+		char tmp[] = new char[10];
+		end.getChars(2, end.length(), tmp, 0);
+        int str = 0;
+		
+		String chuoi = String.valueOf(tmp[0]);
+		String chuoi1 = String.valueOf(tmp[1]);
+		String chuoi2 = String.valueOf(tmp[2]);
+		String strEnd = chuoi + chuoi1 + chuoi2;
+		str = Integer.parseInt(strEnd);
+		
+		if (str + 1 <10) {
+			id = "KH00" + String.valueOf(str+1);
+		}
+		else if(str+1<100)
+		{
+			id = "KH0" + String.valueOf(str+1);
+		}
+		else if (str+1<1000) {
+			id = "KH" + String.valueOf(str+1);
+		}
+    	return id;
+    }
 
     public void reset() {
         KHACHHANGGUI.textMaKH.setText("");

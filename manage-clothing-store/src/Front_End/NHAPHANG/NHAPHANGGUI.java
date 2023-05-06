@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import Back_End.CTPhieuNhap.CTPhieuNhap;
 import Back_End.CTPhieuNhap.CTPhieuNhapBUS;
@@ -74,9 +77,8 @@ public class NHAPHANGGUI extends JPanel{
 	JPanel panelMaNCC = new JPanel();
 	JTextField txtMaNCC = new JTextField(10);
 	JButton btnMoreNCC = new JButton();
-	JPanel panelNgayNhap = new JPanel();
-	JTextField txtNgayNhap = new JTextField(10);
-	JButton btnChonNgay = new JButton();
+	JLabel labelNgayNhap = new JLabel("Ngày nhập", JLabel.CENTER);
+	JDateChooser txtNgayNhap = new JDateChooser();
 	JPanel panelTongTien = new JPanel();
 	JLabel labelTongTien = new JLabel("",JLabel.CENTER);
 	JPanel panelNhanVien = new JPanel();
@@ -187,14 +189,10 @@ public class NHAPHANGGUI extends JPanel{
 		panelMaNCC.add(btnMoreNCC);
 		panelPhieuNhap.add(panelMaNCC);
 		
-		panelNgayNhap.setBorder(BorderFactory.createTitledBorder(null, "Ngày nhập", TitledBorder.LEADING, TitledBorder.TOP, null, Color.GRAY));
-		panelNgayNhap.setPreferredSize(new Dimension(175,55));
-		btnChonNgay.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-calendar-32.png")));
-		btnChonNgay.setBackground(Color.white);
-		btnChonNgay.setPreferredSize(new Dimension(22,22));
-		panelNgayNhap.add(txtNgayNhap);
-		panelNgayNhap.add(btnChonNgay);
-		panelPhieuNhap.add(panelNgayNhap);
+		txtNgayNhap.setDateFormatString("yyyy-MM-dd");
+		txtNgayNhap.setPreferredSize(new Dimension(100, 30));
+		panelPhieuNhap.add(labelNgayNhap);
+		panelPhieuNhap.add(txtNgayNhap);
 		
 		panelNhanVien.setBorder(BorderFactory.createTitledBorder(null, "Nhân viên", TitledBorder.LEADING, TitledBorder.TOP, null, Color.GRAY));
 		panelNhanVien.setPreferredSize(new Dimension(175,55));
@@ -300,6 +298,20 @@ public class NHAPHANGGUI extends JPanel{
 				mouseClickBtnLamMoi();
 			}
 		});
+		
+		btnChonNhanVien.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FormChonNhanVien aChonNhanVien = new FormChonNhanVien(txtNhanVien);
+			}
+		});
+		
+		btnMoreNCC.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FormChonNCC aChonNCC = new FormChonNCC(txtMaNCC);
+			}
+		});
 	}
 	
 	public void mouseClickTableSP()
@@ -318,22 +330,25 @@ public class NHAPHANGGUI extends JPanel{
 	public void mouseClickBtnThem()
 	{
         Float tongTien;
-		checkInput();
-		loadDataToTableNhapHang();
-		int lenght = model2.getRowCount();
-		tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
-		for(int i=1; i<lenght; i++)
+		if(checkInput()==true)
 		{
-			tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+			loadDataToTableNhapHang();
+			int lenght = model2.getRowCount();
+			tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
+			for(int i=1; i<lenght; i++)
+			{
+				tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+			}
+			labelTongTien.setText(String.valueOf(tongTien));
+			labelMaSP.setText("");
+			labelTenSP.setText("");
+			labelTenTH.setText("");
+			labelMau.setText("");
+			labelSize.setText("");
+			txtGiaNhap.setText("");
+			txtSoLuong.setText("");
 		}
-		labelTongTien.setText(String.valueOf(tongTien));
-		labelMaSP.setText("");
-		labelTenSP.setText("");
-		labelTenTH.setText("");
-		labelMau.setText("");
-		labelSize.setText("");
-		txtGiaNhap.setText("");
-		txtSoLuong.setText("");
+		
 	}
 	
 	public void mouseClickbtnXoa()
@@ -389,9 +404,12 @@ public class NHAPHANGGUI extends JPanel{
 		String maPN = labelMaPN.getText();
 		String maNCC = txtMaNCC.getText();
 		String nhanVien = txtNhanVien.getText();
-		String ngayNhap = txtNgayNhap.getText();
+		String arrNV[] = nhanVien.split("-");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = txtNgayNhap.getDate();
+		String ngayNhap = dateFormat.format(date);
 		Float tongTien = Float.parseFloat(labelTongTien.getText());
-		PHIEUNHAP pnPhieunhap = new PHIEUNHAP(maPN, nhanVien, maNCC, ngayNhap, tongTien);
+		PHIEUNHAP pnPhieunhap = new PHIEUNHAP(maPN, arrNV[0], maNCC, ngayNhap, tongTien);
 		pnb.insertDaTa(pnPhieunhap);
 		
 		for(int i=0; i<model2.getRowCount(); i++)
@@ -409,14 +427,16 @@ public class NHAPHANGGUI extends JPanel{
 	{
 		labelMaPN.setText(pnb.autoID());
 		txtMaNCC.setText("");
-		txtNgayNhap.setText("");
+		txtNgayNhap.setDate(null);
 		txtNhanVien.setText("");
 		labelTongTien.setText("");
 		for(int i=0; i<model2.getRowCount(); i++)
 		{
 			model2.removeRow(i);
 		}
+		spb.loadDataFormNhapHang(tableSP);
 	}
+	
 	
 	public void loadDataToTableNhapHang()
 	{
@@ -431,6 +451,23 @@ public class NHAPHANGGUI extends JPanel{
 	}
 	public boolean checkInput()
 	{
+		if(txtGiaNhap.getText().trim().equals(""))
+		{
+			return showErr(txtGiaNhap, "Giá nhập không được để trống");
+		}
+		
+		if(txtSoLuong.getText().trim().equals("")) {
+			return showErr(txtSoLuong, "Số lượng không được để trống");
+		}
+		else {
+			try {
+				int soLuong = Integer.parseInt(txtSoLuong.getText());
+			} catch (Exception e) {
+				return showErr(txtSoLuong, "Số lượng phải là số nguyên");
+			}
+			
+		}
+		
 		String giaNhapStr = txtGiaNhap.getText();
 		try {
 			Float giaNhap2 = Float.parseFloat(giaNhapStr);
@@ -479,9 +516,7 @@ public class NHAPHANGGUI extends JPanel{
 		} catch (NumberFormatException e) {
 			return showErr(txtGiaNhap, "Giá nhập không hợp lệ(Phải là số thực)");
 		}	
-		if (txtSoLuong.getText().trim().equals("")) {
-			return showErr(txtSoLuong, "Số lượng không được để trống");
-		}
+		
 		return true;
 	}
 	

@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -341,17 +339,20 @@ public class THUONGHIEUBUS {
 					ma = String.valueOf(THUONGHIEUGUI.tbl.getValueAt(THUONGHIEUGUI.tbl.getSelectedRow(), 0));
 					ten = String.valueOf(THUONGHIEUGUI.tbl.getValueAt(THUONGHIEUGUI.tbl.getSelectedRow(), 1));
 
-					for(int i=0; i<arrTH.size(); i++) {
-						if((arrTH.get(i).getMaTH()).equals(ma) && (arrTH.get(i).getTenTH()).equals(ten)) {
-							arrTH.get(i).setTrangthai("Đã xóa");
-							THUONGHIEUDAO.getInstance().update(arrTH.get(i));
+					int output = JOptionPane.showConfirmDialog(THUONGHIEUGUI.tbl, "Bạn có chắc chắn muốn xóa thương hiệu này?", "Thông báo", JOptionPane.YES_NO_OPTION);
+					if(output == JOptionPane.YES_OPTION) {
+						for(int i=0; i<arrTH.size(); i++) {
+							if((arrTH.get(i).getMaTH()).equals(ma) && (arrTH.get(i).getTenTH()).equals(ten)) {
+								arrTH.get(i).setTrangthai("Đã xóa");
+								THUONGHIEUDAO.getInstance().update(arrTH.get(i));
+							}
 						}
-					}
-					
-					dtm.setRowCount(0);
-					for (THUONGHIEU thuonghieu : arrTH) {
-						if((thuonghieu.getTrangthai()).equals("Còn")) {
-							dtm.addRow(new Object[] {thuonghieu.getMaTH(), thuonghieu.getTenTH()});
+						
+						dtm.setRowCount(0);
+						for (THUONGHIEU thuonghieu : arrTH) {
+							if((thuonghieu.getTrangthai()).equals("Còn")) {
+								dtm.addRow(new Object[] {thuonghieu.getMaTH(), thuonghieu.getTenTH()});
+							}
 						}
 					}
 				}catch(Exception e2) {

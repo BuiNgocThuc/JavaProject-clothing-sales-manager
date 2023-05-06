@@ -15,7 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -39,6 +42,9 @@ import Front_End.HOADON.HOADONGUI;
  * @author NGOC THUC
  */
 public class CTHoaDonBUS {
+	static Locale locale = new Locale("en", "EN");
+	static String pattern = "###,###.# VNĐ";
+	static DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
     
 	public void showCTHD(JTable tbl) {
 		tbl.addMouseListener(new MouseAdapter() {
@@ -58,13 +64,13 @@ public class CTHoaDonBUS {
 				dialog.setLocation(x, y);
 								
 				JPanel pnl1 = new JPanel(null);
-				pnl1.setPreferredSize(new Dimension(700, 135));
+				pnl1.setPreferredSize(new Dimension(700, 200));
 				
-				JLabel lbl[] = new JLabel[10];
-				String strName[] = {"Mã hóa đơn", "Khách hàng", "Nhân viên lập hóa đơn", "Ngày nhập", "Tổng tiền"};
+				JLabel lbl[] = new JLabel[12];
+				String strName[] = {"Mã hóa đơn", "Khách hàng", "Nhân viên lập hóa đơn", "Ngày nhập", "Tổng tiền", "Khuyến mãi"};
 				int k=0;
 				
-				for(int i=0; i<10; i+=2) {
+				for(int i=0; i<12; i+=2) {
 					lbl[i] = new JLabel(strName[k++], JLabel.CENTER);
 					lbl[i].setFont(new Font(null, Font.BOLD, 13));
 					pnl1.add(lbl[i]);
@@ -74,6 +80,7 @@ public class CTHoaDonBUS {
 				lbl[4].setBounds(250, 5, 200, 25);
 				lbl[6].setBounds(140, 70, 200, 25);
 				lbl[8].setBounds(360, 70, 200, 25);
+				lbl[10].setBounds(250, 135, 200, 25);
 				
 				k=0;
 				for(int i=1; i<10; i+=2) {
@@ -88,6 +95,13 @@ public class CTHoaDonBUS {
 				lbl[5].setBounds(250, 30, 200, 30);
 				lbl[7].setBounds(140, 95, 200, 30);
 				lbl[9].setBounds(360, 95, 200, 30);
+				
+				String str = HOADONBUS.getTenKM(String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)));
+				lbl[11] = new JLabel(str, JLabel.CENTER);
+				lbl[11].setFont(new Font(null, Font.PLAIN, 14));
+				lbl[11].setBorder(BorderFactory.createLoweredBevelBorder());
+				lbl[11].setBounds(150, 160, 400, 30);
+				pnl1.add(lbl[11]);
 								
 				JPanel pnl2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 				
@@ -107,7 +121,7 @@ public class CTHoaDonBUS {
 							String maHD = String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0));
 							for (HOADON hoadon : arrHD) {
 								if(hoadon.getMaHD().equals(maHD)) {
-									HOADON hd = new HOADON(maHD, hoadon.getMaNV(), hoadon.getMaKH(), hoadon.getNgayNhap(), hoadon.getTongTien(), "Đã hủy");
+									HOADON hd = new HOADON(maHD, hoadon.getMaNV(), hoadon.getMaKM(), hoadon.getMaKH(), hoadon.getNgayNhap(), hoadon.getTongTien(), "Đã hủy");
 									HOADONDAO.getInstance().update(hd);
 									hoadon.setTinhTrang("Đã hủy");
 									dtm.removeRow(tbl.getSelectedRow());
@@ -173,6 +187,15 @@ public class CTHoaDonBUS {
 				JScrollPane sp = new JScrollPane(tbl1);
 				sp.setBorder(BorderFactory.createRaisedBevelBorder());
 				
+				String condition = "CTHD_MAHD = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
+				ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
+		    	
+				dcf.applyPattern(pattern);
+		    	dtm.setRowCount(0);
+		    	for (CTHoaDon cthoadon : arrCTHD) {
+		    		dtm.addRow(new Object[] {CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong()});
+				}
+				
 				pnl2.add(btn1);
 				pnl2.add(btn2);
 				pnl2.add(btn3);
@@ -206,13 +229,13 @@ public class CTHoaDonBUS {
 					dialog.setLocation(x, y);
 									
 					JPanel pnl1 = new JPanel(null);
-					pnl1.setPreferredSize(new Dimension(700, 135));
+					pnl1.setPreferredSize(new Dimension(700, 200));
 					
-					JLabel lbl[] = new JLabel[10];
-					String strName[] = {"Mã hóa đơn", "Khách hàng", "Nhân viên lập hóa đơn", "Ngày nhập", "Tổng tiền"};
+					JLabel lbl[] = new JLabel[12];
+					String strName[] = {"Mã hóa đơn", "Khách hàng", "Nhân viên lập hóa đơn", "Ngày nhập", "Tổng tiền", "Khuyến mãi"};
 					int k=0;
 					
-					for(int i=0; i<10; i+=2) {
+					for(int i=0; i<12; i+=2) {
 						lbl[i] = new JLabel(strName[k++], JLabel.CENTER);
 						lbl[i].setFont(new Font(null, Font.BOLD, 13));
 						pnl1.add(lbl[i]);
@@ -222,6 +245,7 @@ public class CTHoaDonBUS {
 					lbl[4].setBounds(250, 5, 200, 25);
 					lbl[6].setBounds(140, 70, 200, 25);
 					lbl[8].setBounds(360, 70, 200, 25);
+					lbl[10].setBounds(250, 135, 200, 25);
 					
 					k=0;
 					for(int i=1; i<10; i+=2) {
@@ -236,6 +260,13 @@ public class CTHoaDonBUS {
 					lbl[5].setBounds(250, 30, 200, 30);
 					lbl[7].setBounds(140, 95, 200, 30);
 					lbl[9].setBounds(360, 95, 200, 30);
+					
+					String str = HOADONBUS.getTenKM(String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)));
+					lbl[11] = new JLabel(str, JLabel.CENTER);
+					lbl[11].setFont(new Font(null, Font.PLAIN, 14));
+					lbl[11].setBorder(BorderFactory.createLoweredBevelBorder());
+					lbl[11].setBounds(150, 160, 400, 30);
+					pnl1.add(lbl[11]);
 									
 					JPanel pnl2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 					
@@ -294,6 +325,15 @@ public class CTHoaDonBUS {
 					
 					JScrollPane sp = new JScrollPane(tbl1);
 					sp.setBorder(BorderFactory.createRaisedBevelBorder());
+					
+					String condition = "CTHD_MAHD = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
+					ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
+			    	
+					dcf.applyPattern(pattern);
+			    	dtm.setRowCount(0);
+			    	for (CTHoaDon cthoadon : arrCTHD) {
+			    		dtm.addRow(new Object[] {CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong()});
+					}
 					
 					pnl2.add(btn1);
 					pnl2.add(btn2);

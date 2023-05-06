@@ -160,7 +160,7 @@ public class CTPhieuNhapDAO implements DAOInterface<CTPhieuNhap> {
 			while (rs.next()) {
 				String maPN = rs.getString("CTPN_MAPN");
 				String maSP = rs.getString("CTPN_MASP");
-				Float donGia = rs.getFloat("CTSP_DONGIA");
+				Float donGia = rs.getFloat("CTSP_GIASP");
 			    int soLuong = rs.getInt("CTSP_SOLUONGSP");
 			    
 			    CTPhieuNhap a = new CTPhieuNhap(maPN, maSP, donGia, soLuong);
@@ -173,4 +173,75 @@ public class CTPhieuNhapDAO implements DAOInterface<CTPhieuNhap> {
 		return ketQua;
 	}
     
+	public String selectTenSP(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENSP FROM CHITIETPHIEUNHAP JOIN SANPHAM ON CTPN_MASP = MASP "
+					+ " WHERE CTPN_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENSP");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenSize(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENSIZE FROM (CHITIETPHIEUNHAP JOIN SANPHAM ON CTPN_MASP = MASP) JOIN KICHCO ON SIZE = MASIZE "
+					+ " WHERE CTPN_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENSIZE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenMau(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENMAU FROM (CHITIETPHIEUNHAP JOIN SANPHAM ON CTPN_MASP = MASP) JOIN MAUSAC ON MAUSAC = MAMAU "
+					+ " WHERE CTPN_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENMAU");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenTH(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENTH FROM (CHITIETPHIEUNHAP JOIN SANPHAM ON CTPN_MASP = MASP) JOIN THUONGHIEU ON SP_MATH = MATH "
+					+ " WHERE CTPN_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENTH");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
 }

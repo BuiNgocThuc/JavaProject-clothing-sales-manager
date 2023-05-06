@@ -8,7 +8,6 @@ import Back_End.KHACHHANG.KHACHHANGBUS;
 import Back_End.KHACHHANG.KHACHHANGDAO;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -31,7 +30,7 @@ public class KHACHHANGGUI extends JPanel {
     private JPanel jp, jp1, jp2, jp3;
     private JLabel labelMaKH, labelHoTen, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaKH, textHoTen, textPhone, textAddress, textStatus, textFind;
-    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn, resetBtn;
     public static JTable tb;
     private JScrollPane jsp;
     private JComboBox choose;
@@ -164,7 +163,17 @@ public class KHACHHANGGUI extends JPanel {
             }
         });
 
+        resetBtn = new JButton("Reset");
+        resetBtn.setPreferredSize(new Dimension(120, 50));
+        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
+        resetBtn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e){
+               resetBtnActionPerformed(e);
+           }
+        });
         jp1.add(jp2);
+        jp1.add(resetBtn);
 
         jp3 = new JPanel(new BorderLayout());
         jp3.setPreferredSize(new Dimension(400, 450));
@@ -203,19 +212,21 @@ public class KHACHHANGGUI extends JPanel {
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
-        String id = textMaKH.getText();
-        String fullname = textHoTen.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+        if (checkValue() == true) {
+            String id = textMaKH.getText();
+            String fullname = textHoTen.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
-        if (khb.add(id, fullname, phone, address, status)) {
-            JOptionPane.showMessageDialog(null, "Thêm thành công");
+            if (khb.add(id, fullname, phone, address, status) == true) {
+                JOptionPane.showMessageDialog(null, "Thêm thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
+            khb.reset();
+            khb.loadData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
-        khb.reset();
-
-        khb.loadData();
     }
 
     private void tableMouseCliked(MouseEvent e) {
@@ -226,6 +237,7 @@ public class KHACHHANGGUI extends JPanel {
         String diachi = tb.getModel().getValueAt(selectedRow, 3).toString();
         String trangthai = tb.getModel().getValueAt(selectedRow, 4).toString();
         textMaKH.setText(makh);
+        textMaKH.setEditable(false);
         textHoTen.setText(tenkh);
         textPhone.setText(sdt);
         textAddress.setText(diachi);
@@ -233,19 +245,23 @@ public class KHACHHANGGUI extends JPanel {
     }
 
     private void editBtnActionPerformed(ActionEvent e) {
-        String id = textMaKH.getText();
-        String fullname = textHoTen.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+        if (checkValue() == true) {
+            String id = textMaKH.getText();
+            String fullname = textHoTen.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
-        if (khb.edit(id, fullname, phone, address, status)) {
-            JOptionPane.showMessageDialog(null, "Sửa thành công");
+            if (khb.edit(id, fullname, phone, address, status) == true) {
+                JOptionPane.showMessageDialog(null, "Sửa thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            khb.reset();
+
+            khb.loadData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-
-        khb.reset();
-
-        khb.loadData();
     }
 
     private void deleteBtnActionPerformed(ActionEvent e) {
@@ -278,5 +294,23 @@ public class KHACHHANGGUI extends JPanel {
         KHACHHANGBUS.dskh.forEach((kh) -> {
             KHACHHANGBUS.model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.getSdt(), kh.getDiaChi(), kh.getTrangThai()});
         });
+    }
+    
+    public void resetBtnActionPerformed(ActionEvent e){
+        khb.reset();
+        textMaKH.setEditable(true);
+    }
+
+    private boolean checkValue() {
+        if (textMaKH.getText().isEmpty() || textHoTen.getText().isEmpty() || textPhone.getText().isEmpty() || textAddress.getText().isEmpty() || textStatus.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        String regex = "^\\d{10}$";
+        if (!textPhone.getText().matches(regex)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng! (10 chữ số)", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

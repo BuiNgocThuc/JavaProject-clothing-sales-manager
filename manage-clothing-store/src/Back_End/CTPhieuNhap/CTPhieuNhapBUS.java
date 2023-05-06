@@ -9,6 +9,10 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,6 +29,10 @@ import javax.swing.table.DefaultTableModel;
  * @author NGOC THUC
  */
 public class CTPhieuNhapBUS {
+	Locale locale = new Locale("en", "EN");
+	String pattern = "###,###.# VNĐ";
+	DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+	
         public void insertData(CTPhieuNhap t)
     {
     	int ketQua = CTPhieuNhapDAO.getInstance().insert(t);
@@ -135,6 +143,15 @@ public class CTPhieuNhapBUS {
 				
 				JScrollPane sp = new JScrollPane(tbl1);
 				sp.setBorder(BorderFactory.createRaisedBevelBorder());
+				
+				String condition = "CTPN_MAPN = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
+				ArrayList<CTPhieuNhap> arrCTPN = CTPhieuNhapDAO.getInstance().selectByCondition(condition);
+		    	
+				dcf.applyPattern(pattern);
+		    	dtm.setRowCount(0);
+		    	for (CTPhieuNhap ctphieunhap : arrCTPN) {
+		    		dtm.addRow(new Object[] {CTPhieuNhapDAO.getInstance().selectTenSP(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenTH(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenSize(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenMau(ctphieunhap.getMaSP()), dcf.format(ctphieunhap.getDonGia()), ctphieunhap.getSoLuong()});
+				}
 				
 				pnl2.add(btn1);
 				pnl2.add(btn2);

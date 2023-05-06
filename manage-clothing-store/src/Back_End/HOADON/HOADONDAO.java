@@ -27,16 +27,17 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO HOADON(MAHD, HD_MAKH, HD_MANV, NGAYNHAP, HD_TONGTIEN) " +
-			             " VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO HOADON(MAHD, HD_MAKH, HD_MAKM, HD_MANV, NGAYNHAP, HD_TONGTIEN) " +
+			             " VALUES(?,?,?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaHD());
 			pst.setString(2, t.getMaKH());
-			pst.setString(3, t.getMaNV());
+			pst.setString(3, t.getMaKM());
+			pst.setString(4, t.getMaNV());
 			String ngayString = t.getNgayNhap();
 			Date date = Date.valueOf(ngayString);
-			pst.setDate(4, date);
-			pst.setFloat(5, t.getTongTien());
+			pst.setDate(5, date);
+			pst.setFloat(6, t.getTongTien());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -79,6 +80,7 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			Connection c = connec.getConnection();
 			String sql = "UPDATE HOADON " +
 			             " SET HD_MAKH=?" + 
+			             ", HD_MAKM=?" +
 					     ", HD_MANV=?" +
 			             ", NGAYNHAP=?" +
 					     ", HD_TONGTIEN=?" +
@@ -86,13 +88,14 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			             " WHERE MAHD=?";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaKH());
-			pst.setString(2, t.getMaNV());
+			pst.setString(2, t.getMaKM());
+			pst.setString(3, t.getMaNV());
 			String ngayString = t.getNgayNhap();
 			Date date = Date.valueOf(ngayString);
-			pst.setDate(3, date);
-			pst.setFloat(4, t.getTongTien());
-			pst.setString(5, t.getTinhTrang());
-			pst.setString(6, t.getMaHD());
+			pst.setDate(4, date);
+			pst.setFloat(5, t.getTongTien());
+			pst.setString(6, t.getTinhTrang());
+			pst.setString(7, t.getMaHD());
 			
 			ketQua = pst.executeUpdate();
 			
@@ -118,12 +121,13 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			while (rs.next()) {
 				String maHD = rs.getString("MAHD");
 				String maKH = rs.getString("HD_MAKH");
+				String maKM = rs.getString("HD_MAKM");
 				String maNV = rs.getString("HD_MANV");
 				String ngayNhap = String.valueOf(rs.getDate("NGAYNHAP"));
 				Float tongTien = rs.getFloat("HD_TONGTIEN");
 				String tinhTrang = rs.getString("HD_TINHTRANG");
 				
-				HOADON a = new HOADON(maHD, maNV, maKH, ngayNhap, tongTien, tinhTrang);
+				HOADON a = new HOADON(maHD, maNV, maKM, maKH, ngayNhap, tongTien, tinhTrang);
 				ketQua.add(a);
 			}
 			connec.closeConnection(c);
@@ -146,12 +150,13 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			while (rs.next()) {
 				String maHD = rs.getString("MAHD");
 				String maKH = rs.getString("HD_MAKH");
+				String maKM = rs.getString("HD_MAKM");
 				String maNV = rs.getString("HD_MANV");
 				String ngayNhap = String.valueOf(rs.getDate("NGAYNHAP"));
 				Float tongTien = rs.getFloat("HD_TONGTIEN");
 				String tinhTrang = rs.getString("HD_TINHTRANG");
 				
-				ketQua = new HOADON(maHD, maNV, maKH, ngayNhap, tongTien, tinhTrang);
+				ketQua = new HOADON(maHD, maNV, maKM, maKH, ngayNhap, tongTien, tinhTrang);
 			}
 			connec.closeConnection(c);
 		} catch (SQLException e) {
@@ -172,12 +177,13 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			while (rs.next()) {
 				String maHD = rs.getString("MAHD");
 				String maKH = rs.getString("HD_MAKH");
+				String maKM = rs.getString("HD_MAKM");
 				String maNV = rs.getString("HD_MANV");
 				String ngayNhap = String.valueOf(rs.getDate("NGAYNHAP"));
 				Float tongTien = rs.getFloat("HD_TONGTIEN");
 				String tinhTrang = rs.getString("HD_TINHTRANG");
 				
-				HOADON a = new HOADON(maHD, maNV, maKH, ngayNhap, tongTien, tinhTrang);
+				HOADON a = new HOADON(maHD, maNV, maKM, maKH, ngayNhap, tongTien, tinhTrang);
 				ketQua.add(a);
 			}
 			connec.closeConnection(c);
@@ -216,6 +222,24 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {		
 				ten = rs.getString("TENNV");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenKM(String maKM) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENKM FROM HOADON JOIN KHUYENMAI ON HD_MAKM = MAKM "
+					+ " WHERE HD_MAKM = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maKM);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENKM");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

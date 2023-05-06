@@ -30,7 +30,7 @@ public class NHACUNGCAPGUI extends JPanel {
     private JPanel jp, jp1, jp2, jp3;
     private JLabel labelMaNCC, labelTenNCC, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaNCC, textTenNCC, textPhone, textAddress, textStatus, textFind;
-    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn, resetBtn;
     public static JTable tb;
     private JScrollPane jsp;
     private JComboBox choose;
@@ -164,7 +164,17 @@ public class NHACUNGCAPGUI extends JPanel {
             }
         });
 
+        resetBtn = new JButton("Reset");
+        resetBtn.setPreferredSize(new Dimension(120, 50));
+        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
+        resetBtn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e){
+               resetBtnActionPerformed(e);
+           }
+        });
         jp1.add(jp2);
+        jp1.add(resetBtn);
 
         jp3 = new JPanel(new BorderLayout());
         jp3.setPreferredSize(new Dimension(400, 450));
@@ -203,19 +213,24 @@ public class NHACUNGCAPGUI extends JPanel {
     }
 
     private void addBtnActionPerformed(ActionEvent e) {
-        String id = textMaNCC.getText();
-        String name = textTenNCC.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+       if (checkValue() == true){
+            String id = textMaNCC.getText();
+            String name = textTenNCC.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
-        if (nccb.add(id, name, phone, address, status)) {
-            JOptionPane.showMessageDialog(tb, "Thêm thành công");
-        }
+            if (nccb.add(id, name, phone, address, status)== true) {
+                JOptionPane.showMessageDialog(null, "Thêm thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
 
-        nccb.reset();
+            nccb.reset();
 
-        nccb.loadData();
+            nccb.loadData();
+       }
+       else {
+            JOptionPane.showMessageDialog(this, "Thêm không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
+       }
     }
 
     private void tableMouseCliked(MouseEvent e) {
@@ -226,6 +241,7 @@ public class NHACUNGCAPGUI extends JPanel {
         String diachi = tb.getModel().getValueAt(selectedRow, 3).toString();
         String trangthai = tb.getModel().getValueAt(selectedRow, 4).toString();
         textMaNCC.setText(mancc);
+        textMaNCC.setEditable(false);
         textTenNCC.setText(tenncc);
         textPhone.setText(sdt);
         textAddress.setText(diachi);
@@ -233,19 +249,24 @@ public class NHACUNGCAPGUI extends JPanel {
     }
 
     private void editBtnActionPerformed(ActionEvent e) {
-        String id = textMaNCC.getText();
-        String name = textTenNCC.getText();
-        String phone = textPhone.getText();
-        String address = textAddress.getText();
-        String status = textStatus.getText();
+        if (checkValue() == true){
+            String id = textMaNCC.getText();
+            String name = textTenNCC.getText();
+            String phone = textPhone.getText();
+            String address = textAddress.getText();
+            String status = textStatus.getText();
 
-        if (nccb.edit(id, name, phone, address, status)) {
-            JOptionPane.showMessageDialog(tb, "Sửa thành công");
+            if (nccb.edit(id, name, phone, address, status)== true) {
+                JOptionPane.showMessageDialog(null, "Sửa thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            nccb.reset();
+
+            nccb.loadData();
         }
-
-        nccb.reset();
-
-        nccb.loadData();
+        else {
+            JOptionPane.showMessageDialog(this, "Sửa không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void deleteBtnActionPerformed(ActionEvent e) {
@@ -278,5 +299,23 @@ public class NHACUNGCAPGUI extends JPanel {
         NHACUNGCAPBUS.dsncc.forEach((ncc) -> {
             NHACUNGCAPBUS.model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSdt(), ncc.getDiaChi(), ncc.getTrangThai()});
         });
+    }
+    
+    public void resetBtnActionPerformed(ActionEvent e){
+        nccb.reset();
+        textMaNCC.setEditable(true);
+    }
+    
+    private boolean checkValue() {
+        if (textMaNCC.getText().isEmpty() || textTenNCC.getText().isEmpty() || textPhone.getText().isEmpty() || textAddress.getText().isEmpty() || textStatus.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        String regex = "^\\d{10}$";
+        if (!textPhone.getText().matches(regex)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng! (10 chữ số)", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

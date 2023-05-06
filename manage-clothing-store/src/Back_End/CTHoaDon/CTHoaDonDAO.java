@@ -173,4 +173,75 @@ public class CTHoaDonDAO implements DAOInterface<CTHoaDon> {
 		return ketQua;
 	}
     
+	public String selectTenSP(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENSP FROM CHITIETHOADON JOIN SANPHAM ON CTHD_MASP = MASP "
+					+ " WHERE CTHD_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENSP");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenSize(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENSIZE FROM (CHITIETHOADON JOIN SANPHAM ON CTHD_MASP = MASP) JOIN KICHCO ON SIZE = MASIZE "
+					+ " WHERE CTHD_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENSIZE");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenMau(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENMAU FROM (CHITIETHOADON JOIN SANPHAM ON CTHD_MASP = MASP) JOIN MAUSAC ON MAUSAC = MAMAU "
+					+ " WHERE CTHD_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENMAU");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenTH(String maSP) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENTH FROM (CHITIETHOADON JOIN SANPHAM ON CTHD_MASP = MASP) JOIN THUONGHIEU ON SP_MATH = MATH "
+					+ " WHERE CTHD_MASP = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maSP);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENTH");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
 }

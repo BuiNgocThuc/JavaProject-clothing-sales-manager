@@ -27,7 +27,7 @@ import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
  * @author NGOC THUC
  */
 public class PHIEUNHAPBUS {
-	public static ArrayList<PHIEUNHAP> arrPN;
+	public static ArrayList<PHIEUNHAP> arrPN = new ArrayList<>();
 	
 	Locale locale = new Locale("en", "EN");
 	String pattern = "###,###.# VNĐ";

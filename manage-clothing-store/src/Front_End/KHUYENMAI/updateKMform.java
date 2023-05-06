@@ -6,6 +6,7 @@ package Front_End.KHUYENMAI;
 
 import Back_End.KHUYENMAI.KHUYENMAIBUS;
 import Back_End.KHUYENMAI.KHUYENMAI;
+import Front_End.HandleEvent.tryCatch;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,7 +34,8 @@ import javax.swing.border.TitledBorder;
  * @author NGOC THUC
  */
 public class updateKMform extends JFrame {
-        JTextField txtMaKM = new JTextField();
+
+    JTextField txtMaKM = new JTextField();
     JTextField txtTenKM = new JTextField();
     JTextField txtDieuKien = new JTextField();
     JTextField txtPhanTramGiamGia = new JTextField();
@@ -49,17 +51,19 @@ public class updateKMform extends JFrame {
     JPanel pnText = new JPanel();
     JPanel pnTool = new JPanel();
 
+    tryCatch tc = new tryCatch();
+
     ArrayList<JTextField> txtList = new ArrayList<>();
 
     KHUYENMAIBUS km = new KHUYENMAIBUS();
-    
+
     public updateKMform(KHUYENMAI kmNew) {
 //        txtMaKM.setText(kmNew.getMaKM());
         txtTenKM.setText(kmNew.getTenKM());
         txtDieuKien.setText(String.valueOf(kmNew.getDieuKien()));
         txtPhanTramGiamGia.setText(String.valueOf(kmNew.getPhanTramGiamGia()));
         lblCalendar_Start.setDate(Date.from(kmNew.getNgayBD().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-         lblCalendar_End.setDate(Date.from(kmNew.getNgayKT().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+        lblCalendar_End.setDate(Date.from(kmNew.getNgayKT().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         this.setUndecorated(true);
         initComponents();
 
@@ -90,7 +94,6 @@ public class updateKMform extends JFrame {
             txtObject.setForeground(Color.black);
             pnText.add(txtObject);
         }
-        
 
         txtMaKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "mã khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
         txtTenKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tên khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
@@ -102,15 +105,15 @@ public class updateKMform extends JFrame {
         lblCalendar_Start.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_Start.setBackground(Color.WHITE);
         lblCalendar_Start.setOpaque(true);
-       lblCalendar_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
         lblCalendar_Start.setPreferredSize(new Dimension(150, 50));
-        
+
         lblCalendar_End.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_End.setBackground(Color.WHITE);
         lblCalendar_End.setOpaque(true);
-      lblCalendar_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
         lblCalendar_End.setPreferredSize(new Dimension(150, 50));
-        
+
         txtNgayBatDau.setPreferredSize(new Dimension(150, 40));
         txtNgayBatDau.setBackground(Color.WHITE);
         txtNgayBatDau.setOpaque(true);
@@ -140,23 +143,52 @@ public class updateKMform extends JFrame {
         lblAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblAdd.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                
-          
+                if(!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) return;
                 String maKM = txtMaKM.getText();
                 String tenKM = txtTenKM.getText();
-                Double dieuKien = Double.parseDouble(txtDieuKien.getText());
-                Double phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                Double phanTram = 0.0;
+                try {
+                      phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    txtPhanTramGiamGia.requestFocus();
+                    return;
+                }
+               Double dieuKien = 0.0;
+                try {
+                    dieuKien = Double.parseDouble(txtDieuKien.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    txtDieuKien.requestFocus();
+                    return;
+                }
                 Date dateS = lblCalendar_Start.getDate();
-                LocalDate startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate startDate = null;
+                try {
+                    startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày bắt đầu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                   lblCalendar_Start.requestFocus();
+                    return;
+                }
+
                 Date dateE = lblCalendar_End.getDate();
-                LocalDate endDate = dateE.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate endDate = null;
+                try {
+                    endDate = dateE.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày kết thúc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    lblCalendar_End.requestFocus();
+                    return;
+                }
+
                 String tinhTrang = "Đang hoạt động";
-                boolean success = km.update(maKM, tenKM, dieuKien, phanTram, startDate, endDate , tinhTrang);
-               if(success) {
-                   JOptionPane.showMessageDialog(null, "Sửa Phiếu Nhập Thành Công");
-               }else {
-                   JOptionPane.showMessageDialog(null, "Sửa Phiếu Nhập Thất Bại");
-               }
+                boolean success = km.update(maKM, tenKM, dieuKien, phanTram, startDate, endDate, tinhTrang);
+                if (success) {
+                    JOptionPane.showMessageDialog(null, "Sửa Khuyến Mại Thành Công!! nhấn 'Làm mới' để cập nhật");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Sửa Khuyến Mại Thất Bại");
+                }
             }
         });
 
@@ -186,6 +218,6 @@ public class updateKMform extends JFrame {
     }
 
     public static void main(String[] args) {
-      new updateKMform(new KHUYENMAI());
+        new updateKMform(new KHUYENMAI());
     }
 }

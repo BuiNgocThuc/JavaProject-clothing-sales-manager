@@ -6,17 +6,23 @@ package Front_End.KHUYENMAI;
 
 import Back_End.KHUYENMAI.KHUYENMAIBUS;
 import Back_End.KHUYENMAI.KHUYENMAI;
+import static Back_End.KHUYENMAI.KHUYENMAIBUS.dskm;
+import Import_Export.IOExcel;
+import Import_Export.writePDF;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -36,6 +42,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.TitledBorder;
@@ -43,6 +51,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -74,15 +83,15 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     String[] titles = km.getTitle();
 
     public KHUYENMAIGUI() {
-        km.timKiem(txtSearch);
+
         initComponents(titles, dskm);
-        jf.setSize(800, 500);
-        jf.setLayout(new BorderLayout());
-        jf.add(panelTool(), BorderLayout.NORTH);
-        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(panelTool(), BorderLayout.NORTH);
+//        jf.add(tableList(titles, dskm), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<KHUYENMAI> dskm) {
@@ -115,6 +124,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblRemove.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-remove-28.png"));
         lblRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblRemove.addMouseListener(this);
+        lblExport.addMouseListener(this);
 
         lblFix.setPreferredSize(new Dimension(100, 30));
         lblFix.setBackground(Color.white);
@@ -130,6 +140,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblImport.setBorder(BorderFactory.createLineBorder(Color.black));
         lblImport.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-microsoft-excel-2019-28.png"));
         lblImport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblImport.addMouseListener(this);
 
         lblExport.setPreferredSize(new Dimension(100, 30));
         lblExport.setBackground(Color.white);
@@ -137,6 +148,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblExport.setBorder(BorderFactory.createLineBorder(Color.black));
         lblExport.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-microsoft-excel-2019-28.png"));
         lblExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblExport.addMouseListener(this);
 
         lblPDF.setPreferredSize(new Dimension(100, 30));
         lblPDF.setBackground(Color.white);
@@ -144,6 +156,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblPDF.setBorder(BorderFactory.createLineBorder(Color.black));
         lblPDF.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-pdf-28.png"));
         lblPDF.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblPDF.addMouseListener(this);
 
         pnPopUp.add(lblAdd);
         pnPopUp.add(lblRemove);
@@ -160,13 +173,66 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         cbSearch.setBackground(Color.white);
         cbSearch.setOpaque(true);
         cbSearch.setBounds(40, 30, 120, 20);
-        cbSearch.setModel(new DefaultComboBoxModel<>(new String[]{"Tất cả", "Mã Khuyến Mại", "Tên Khuyến Mại", "Điều Kiện", "Phần Trăm Giảm Giá", "Ngày Bắt Đầu", "Ngày Kết Thúc"}));
+        cbSearch.setModel(new DefaultComboBoxModel<>(new String[]{"Tất cả", "Mã Khuyến Mại", "Tên Khuyến Mại"}));
+        cbSearch.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedOption = (String) e.getItem();
+                    txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), selectedOption, TitledBorder.LEFT, TitledBorder.TOP));
+                }
+            }
+        });
 
+//    km.timKiem(txtSearch, selectedOption);
         txtSearch.setBackground(Color.white);
         txtSearch.setOpaque(true);
         txtSearch.setForeground(Color.black);
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
+        txtSearch.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                String selectedOption = cbSearch.getSelectedItem().toString();
+                ArrayList<KHUYENMAI> arrTimKiem = new ArrayList<>();
+                DefaultTableModel dtm = (DefaultTableModel) KHUYENMAIGUI.tblList.getModel();
+                String text;
+                text = txtSearch.getText().toLowerCase();
+                int[] arrSTT = new int[dskm.size()];
+                int i = 0;
+//                JOptionPane.showMessageDialog(null, selectedOption);
+                switch (selectedOption) {
+                    case "Tất cả":
+                        for (KHUYENMAI km : dskm) {
+                            if (((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text)) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dskm.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Mã Khuyến Mại":
+                        for (KHUYENMAI km : dskm) {
+                            if ((km.getMaKM()).toLowerCase().contains(text) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dskm.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Tên Khuyến Mại":
+                        for (KHUYENMAI km : dskm) {
+                            if ((km.getTenKM()).toLowerCase().contains(text) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dskm.indexOf(km);
+                            }
+                        }
+                        break;
+
+                }
+                dtm.setRowCount(0);
+                i = 0;
+                for (KHUYENMAI km : arrTimKiem) {
+                    dtm.addRow(new Object[]{arrSTT[i++], km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
+                }
+            }
+        });
 
         pnSearch.setPreferredSize(new Dimension(400, 80));
         pnSearch.setBackground(Color.white);
@@ -231,6 +297,12 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                | UnsupportedLookAndFeelException ignored) {
+        }
+
         new KHUYENMAIGUI();
     }
 
@@ -245,11 +317,19 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         if (e.getSource() == lblRemove) {
             int selectedRow = tblList.getSelectedRow();
             if (selectedRow != -1) {
-                int columnIndex = tblList.getColumnModel().getColumnIndex("Mã khuyến mãi"); // Lấy chỉ số của cột dựa trên tên của cột
-                int rowIndex = tblList.getSelectedRow(); // Lấy chỉ số của hàng được chọn
-                Object value = tblList.getModel().getValueAt(rowIndex, columnIndex); // Lấy giá trị của ô tương ứng trong cột đó
-                String stringValue = value.toString();
-                km.delete(stringValue);
+                int confirmed = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa khuyến mại này không?", "Xác nhận xóa khuyến mại", JOptionPane.YES_NO_OPTION);
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    int columnIndex = tblList.getColumnModel().getColumnIndex("Mã khuyến mãi"); // Lấy chỉ số của cột dựa trên tên của cột
+                    int rowIndex = tblList.getSelectedRow(); // Lấy chỉ số của hàng được chọn
+                    Object value = tblList.getModel().getValueAt(rowIndex, columnIndex); // Lấy giá trị của ô tương ứng trong cột đó
+                    String stringValue = value.toString();
+                    boolean remove = km.delete(stringValue);
+                    if (remove) {
+                        JOptionPane.showMessageDialog(null, "Xóa Thành Công!! Nhấn 'Làm Mới' để cập nhật");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa thất bại");
+                    }
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn xóa");
             }
@@ -279,8 +359,8 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
 //                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 
-                 LocalDate startDate = LocalDate.parse( model.getValueAt(selectedRow, 5).toString());
-                  LocalDate endDate = LocalDate.parse( model.getValueAt(selectedRow, 6).toString());
+                LocalDate startDate = LocalDate.parse(model.getValueAt(selectedRow, 5).toString());
+                LocalDate endDate = LocalDate.parse(model.getValueAt(selectedRow, 6).toString());
                 KHUYENMAI kmNew = new KHUYENMAI(maKM, tenKM, dieuKien, phanTram, startDate, endDate);
                 new updateKMform(kmNew);
             } else {
@@ -288,7 +368,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
             }
         }
         if (e.getSource() == lblReset) {
-            ArrayList<KHUYENMAI> dsnqNew = km.getDskm();
+            ArrayList<KHUYENMAI> dsnqNew = km.refresh();
             for (KHUYENMAI km : dsnqNew) {
                 System.out.println(km.getMaKM());
             }
@@ -321,6 +401,27 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
             spnList.setViewportView(tblList);
             spnList.validate();
             spnList.repaint();
+        }
+
+        if (e.getSource() == lblExport) {
+            System.out.println("Front_End.KHUYENMAI.KHUYENMAIGUI.mouseClicked()");
+            IOExcel.writeExcel(tblList, "Danh Sách Khuyến Mại", "DSKM");
+        }
+
+        if (e.getSource() == lblImport) {
+            ArrayList<ArrayList<Object>> data = null;
+            try {
+                data = IOExcel.readExcel(0);
+            } catch (IOException ex) {
+                Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            km.insertDTO(data);
+            
+        }
+        if(e.getSource() == lblPDF) {
+            writePDF.writeHD();
         }
     }
 

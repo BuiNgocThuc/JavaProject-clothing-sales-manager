@@ -24,6 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -67,12 +69,12 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     public THONGKEGUI() {
         initComponents();
 
-        jf.setSize(800, 500);
-        jf.setLayout(new BorderLayout());
-        jf.add(paneStatistic(), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(paneStatistic(), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents() {
@@ -257,6 +259,11 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                | UnsupportedLookAndFeelException ignored) {
+        }
         new THONGKEGUI();
     }
 

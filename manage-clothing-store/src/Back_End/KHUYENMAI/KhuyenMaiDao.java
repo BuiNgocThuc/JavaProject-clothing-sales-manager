@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.sql.Date;
 import Connection.connec;
 import Dao.DAOInterface;
+import Front_End.KHUYENMAI.KHUYENMAIGUI;
+import java.sql.Statement;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
@@ -47,6 +49,37 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             return 0;
         }
         return 1;
+    }
+
+    public boolean insertArray(ArrayList<KHUYENMAI> listKM) {
+        try {
+            Connection c = connec.getConnection();
+            String sql = "INSERT INTO KHUYENMAI(MAKM, TENKM, DIEUKIEN, GIAMGIA, NGAY_BD, NGAY_KT, TRANGTHAI) "
+                    + " VALUES(?,?,?,?,?,?,?)";
+            PreparedStatement pst = c.prepareStatement(sql);
+            for (KHUYENMAI t : listKM) {
+                pst.setString(1, t.getMaKM());
+                pst.setString(2, t.getTenKM());
+                pst.setDouble(3, t.getDieuKien());
+                pst.setDouble(4, t.getPhanTramGiamGia());
+                LocalDate ngayBD = t.getNgayBD();
+                LocalDate ngayKT = t.getNgayKT();
+                pst.setDate(5, Date.valueOf(ngayBD));
+                pst.setDate(6, Date.valueOf(ngayKT));
+                pst.setNString(7, t.getTrangThai());
+                
+                pst.executeUpdate();
+            }
+
+            
+            
+            connec.closeConnection(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu xuống bảng KHUYENMAI");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -110,12 +143,31 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
         return 1;
     }
 
+    public int getCount() {
+        int count = 0;
+        try {
+            Connection c = connec.getConnection();
+            Statement st = c.createStatement();
+            String sql = "select COUNT(*) as count from KHUYENMAI";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                count = rs.getInt("count");
+            }
+
+            connec.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     @Override
     public ArrayList<KHUYENMAI> selectAll() {
         ArrayList<KHUYENMAI> ketQua = new ArrayList<>();
         try {
             Connection c = connec.getConnection();
-            String sql = "SELECT * FROM KHUYENMAI";
+            String sql = "SELECT * FROM KHUYENMAI WHERE TRANGTHAI NOT IN ('Đã Xóa')";
             PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
@@ -175,7 +227,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
             PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
-           while (rs.next()) {
+            while (rs.next()) {
                 String maKM = rs.getString("MAKM");
                 String tenKM = rs.getNString("TENKM");
                 double dieuKien = rs.getDouble("DIEUKIEN");

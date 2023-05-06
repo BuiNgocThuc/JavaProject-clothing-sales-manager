@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Front_End.KHUYENMAI;
 
 import Back_End.KHUYENMAI.KHUYENMAIBUS;
+import Front_End.HandleEvent.tryCatch;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -47,6 +44,8 @@ public class createKMform extends JFrame {
     JPanel pnDate = new JPanel();
     JPanel pnText = new JPanel();
     JPanel pnTool = new JPanel();
+    
+     tryCatch tc = new tryCatch();
 
     ArrayList<JTextField> txtList = new ArrayList<>();
 
@@ -84,10 +83,9 @@ public class createKMform extends JFrame {
             pnText.add(txtObject);
         }
         
-        int size = km.getDskm().size() + 1;
-        String maKM = "KM" + size;
+        String maKM = km.getNextID();
         txtMaKM.setText(maKM);
-
+        txtMaKM.setEnabled(false);
         txtMaKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "mã khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
         txtTenKM.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tên khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
         txtDieuKien.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "điều kiện khuyến mại", TitledBorder.LEFT, TitledBorder.TOP));
@@ -136,16 +134,44 @@ public class createKMform extends JFrame {
         lblAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblAdd.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                
+                 if(!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) return;
+                String maKM = txtMaKM.getText();
                 String tenKM = txtTenKM.getText();
-                int size = km.getDskm().size() + 1;
-                String maKM = "KM" + size;
-                Double dieuKien = Double.parseDouble(txtDieuKien.getText());
-                Double phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                Double phanTram = 0.0;
+                try {
+                      phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    txtPhanTramGiamGia.requestFocus();
+                    return;
+                }
+               Double dieuKien = 0.0;
+                try {
+                    dieuKien = Double.parseDouble(txtDieuKien.getText());
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    txtDieuKien.requestFocus();
+                    return;
+                }
                 Date dateS = lblCalendar_Start.getDate();
-                LocalDate startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate startDate = null;
+                try {
+                    startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày bắt đầu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                   lblCalendar_Start.requestFocus();
+                    return;
+                }
+
                 Date dateE = lblCalendar_End.getDate();
-                LocalDate endDate = dateE.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate endDate = null;
+                try {
+                    endDate = dateE.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày kết thúc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    lblCalendar_End.requestFocus();
+                    return;
+                }
                 String tinhTrang = "Đang hoạt động";
                 boolean success = km.add(maKM, tenKM, dieuKien, phanTram, startDate, endDate , tinhTrang);
                if(success) {

@@ -69,13 +69,13 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         dsnq = nqBus.getDsnq();
         initComponents(titles, dsnq);
 
-        jf.setSize(800, 500);
-        jf.setLayout(new BorderLayout());
-        jf.add(panelTool(), BorderLayout.NORTH);
-        jf.add(tableList(titles, dsnq), BorderLayout.CENTER);
-        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+//        jf.setSize(800, 500);
+//        jf.setLayout(new BorderLayout());
+//        jf.add(panelTool(), BorderLayout.NORTH);
+//        jf.add(tableList(titles, dsnq), BorderLayout.CENTER);
+//        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
+//        jf.setLocationRelativeTo(null);
+//        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<NHOMQUYEN> dsnq) {

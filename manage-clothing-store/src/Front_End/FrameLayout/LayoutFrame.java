@@ -30,6 +30,8 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -50,6 +52,8 @@ public class LayoutFrame extends JFrame {
 
     int widthBar = 180, heightBar = 0;
     int widthMainPN = 820, heightMainPN = 0;
+    
+    Map<JLabel, Boolean> labelStates = new HashMap<>();
 
     JPanel pnContainer = new JPanel();
     JPanel pnHeader = new JPanel();
@@ -114,7 +118,7 @@ public class LayoutFrame extends JFrame {
 
     void solveActionMenu() {
 //        lblBanHang.addMouseListener(new EventInLabel(pnMainContent, new BANHANGGUI()));
-//        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, new NHAPHANGGUI()));
+        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, new NHAPHANGGUI()));
 //        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, new SANPHAMGUI()));
         lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, new HOADONGUI()));
@@ -386,42 +390,35 @@ public class LayoutFrame extends JFrame {
             lbl.setOpaque(true);
             lbl.setFont(font);
             lbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            lbl.addMouseListener(new MouseAdapter() {
-                boolean isClicked = false;
+            
+ labelStates.put(lbl, false);
 
-                public void mouseEntered(MouseEvent e) {
-                    lbl.setBackground(Color.decode("#FFCC00"));
-                    lbl.setOpaque(true);
-                    lbl.setForeground(Color.black);
-                }
+    lbl.addMouseListener(new MouseAdapter() {
+        public void mouseEntered(MouseEvent e) {
+            lbl.setBackground(Color.decode("#FFCC00"));
+            lbl.setForeground(Color.black);
+        }
 
-                public void mouseExited(MouseEvent e) {
-                    if (!isClicked) { // Nếu chưa click thì mới thay đổi màu nền
-                        lbl.setBackground(Color.black);
-                        lbl.setForeground(Color.white);
-                        lbl.setOpaque(true);
-                    } else { // Nếu đã click thì thay đổi màu nền và màu chữ của label đó
-                        lbl.setBackground(Color.decode("#FFCC00"));
-                        lbl.setForeground(Color.black);
-                        lbl.setOpaque(true);
-                    }
-                    // Thêm code để thay đổi màu nền và màu chữ của các label khác ở đây
-                }
+        public void mouseExited(MouseEvent e) {
+            if (!labelStates.get(lbl)) {
+                lbl.setBackground(Color.black);
+                lbl.setForeground(Color.white);
+            }
+        }
 
-                public void mouseClicked(MouseEvent e) {
-                    isClicked = true;
-                    lbl.setBackground(Color.decode("#FFCC00"));
-                    lbl.setOpaque(true);
-                    lbl.setForeground(Color.black);
-                    for (JLabel lbl1 : dslbl) {
-                        if (lbl1 != lbl) {
-                            lbl1.setBackground(Color.black);
-                            lbl1.setForeground(Color.white);
-                            lbl1.setOpaque(true);
-                        }
-                    }
-                }
-            });
+        public void mouseClicked(MouseEvent e) {
+            for (JLabel label : labelStates.keySet()) {
+                labelStates.put(label, false);
+                label.setBackground(Color.black);
+                label.setForeground(Color.white);
+            }
+
+            labelStates.put((JLabel) e.getSource(), true);
+            ((JLabel) e.getSource()).setBackground(Color.decode("#FFCC00"));
+            ((JLabel) e.getSource()).setForeground(Color.black);
+        }
+    });
+
             pnFunction.add(lbl);
         }
 

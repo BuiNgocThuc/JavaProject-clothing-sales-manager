@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,22 +34,34 @@ public class KHUYENMAIBUS {
         dskm = kmDAO.selectAll();
     }
 
-    public void timKiem(JTextField txt) {
+    public void timKiem(JTextField txt, String selectedOption) {
         txt.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 ArrayList<KHUYENMAI> arrTimKiem = new ArrayList<>();
                 DefaultTableModel dtm = (DefaultTableModel) KHUYENMAIGUI.tblList.getModel();
                 String text;
                 text = txt.getText().toLowerCase();
-               int[] arrSTT = new int[dskm.size()];
-               int i = 0;
-                for (KHUYENMAI km : dskm) {
-                    if ((((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text))) && (km.getTrangThai().equals("Đang hoạt động"))) {
-                        arrTimKiem.add(km);
-                        arrSTT[i++] = dskm.indexOf(km);
-                    }
+                int[] arrSTT = new int[dskm.size()];
+                int i = 0;
+                JOptionPane.showMessageDialog(null, selectedOption);
+                switch (selectedOption) {
+                    case "Tất cả":
+                        for (KHUYENMAI km : dskm) {
+                            if ((((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text))) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dskm.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Mã Khuyến Mại":
+                        for (KHUYENMAI km : dskm) {
+                            if ((km.getMaKM()).toLowerCase().contains(text) && (km.getTrangThai().equals("Đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dskm.indexOf(km);
+                            }
+                        }
+                        break;
                 }
-
                 dtm.setRowCount(0);
                 i = 0;
                 for (KHUYENMAI km : arrTimKiem) {
@@ -75,7 +88,7 @@ public class KHUYENMAIBUS {
     }
 
     public String getNextID() {
-        return "KM" + String.valueOf(this.dskm.size() + 1);
+        return "KM" + String.valueOf(kmDAO.getCount() + 1);
     }
 
     public ArrayList<KHUYENMAI> search(String value, String type, int dk1, int dk2, float phantram1, float phantram2, LocalDate ngay1, LocalDate ngay2) {
@@ -200,5 +213,31 @@ public class KHUYENMAIBUS {
         dskm.clear();
         dskm = kmDAO.selectAll();
         return dskm;
+    }
+
+    public void insertDTO(ArrayList<ArrayList<Object>> data) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<KHUYENMAI> listKM = new ArrayList<>();
+        for (ArrayList<Object> voucher : data) {
+            String maKM = voucher.get(1).toString();
+            String tenKM = voucher.get(2) + "";
+             Double dieuKien = 0.0;
+             Double phanTram = 0.0;
+            try {
+                dieuKien = Double.parseDouble((String) voucher.get(3));
+                phanTram = Double.parseDouble((String) voucher.get(4));
+            } catch (NumberFormatException e) {
+                System.out.println("không đổi thành số");
+                // xử lý ngoại lệ ở đây
+            }
+
+            LocalDate startDate = LocalDate.parse(voucher.get(5) + "");
+            LocalDate endDate = LocalDate.parse(voucher.get(6) + "");
+            String trangthai = "ĐANG HOẠT ĐỘNG";
+            KHUYENMAI kmDTO = new KHUYENMAI(maKM, tenKM, dieuKien, startDate, endDate, phanTram, trangthai);
+            listKM.add(kmDTO);
+            System.out.println(voucher.get(3) + "");
+        }
+        kmDAO.insertArray(listKM);
     }
 }

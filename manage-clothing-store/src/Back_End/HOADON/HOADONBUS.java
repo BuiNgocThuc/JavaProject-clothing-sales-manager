@@ -19,8 +19,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -47,14 +50,19 @@ import Front_End.HOADON.HOADONGUI;
 public class HOADONBUS {
     public static ArrayList<HOADON> arrHD;
     
+    Locale locale = new Locale("en", "EN");
+	String pattern = "###,###.# VNĐ";
+	DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+    
 	public void uploadData() {
     	arrHD = HOADONDAO.getInstance().selectAll();
     	DefaultTableModel dtm = (DefaultTableModel) HOADONGUI.tbl.getModel();
     	
+		dcf.applyPattern(pattern);
     	dtm.setRowCount(0);
     	for (HOADON hoadon : arrHD) {
     		if(hoadon.getTinhTrang().equals("Chưa hủy")) {
-    			dtm.addRow(new Object[] {hoadon.getMaHD(), hoadon.getMaKH(), hoadon.getMaNV(), hoadon.getNgayNhap(), hoadon.getTongTien()});
+    			dtm.addRow(new Object[] {hoadon.getMaHD(), HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH()), HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV()), hoadon.getNgayNhap(), dcf.format(hoadon.getTongTien())});
     		}
 		}
     }
@@ -82,14 +90,15 @@ public class HOADONBUS {
 				String text = txt.getText().toLowerCase();
 				
 				for (HOADON hoadon : arrHD) {
-					if((((hoadon.getMaHD()).toLowerCase().contains(text) || (hoadon.getMaKH()).toLowerCase().contains(text) || (hoadon.getMaNV()).toLowerCase().contains(text))) && (hoadon.getTinhTrang().equals("Chưa hủy"))) {
+					if((((hoadon.getMaHD()).toLowerCase().contains(text) || (HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH())).toLowerCase().contains(text) || (HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV())).toLowerCase().contains(text))) && (hoadon.getTinhTrang().equals("Chưa hủy"))) {
 						arrTimKiem.add(hoadon);
 					}
 				}
 
+				dcf.applyPattern(pattern);
 				dtm.setRowCount(0);
 				for (HOADON hoadon : arrTimKiem) {
-	    			dtm.addRow(new Object[] {hoadon.getMaHD(), hoadon.getMaKH(), hoadon.getMaNV(), hoadon.getNgayNhap(), hoadon.getTongTien()});
+	    			dtm.addRow(new Object[] {hoadon.getMaHD(), HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH()), HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV()), hoadon.getNgayNhap(), dcf.format(hoadon.getTongTien())});
 				}
 			}
 			
@@ -142,9 +151,11 @@ public class HOADONBUS {
 				}else {
 					arrTimKiem = arrHD;
 				}
+				
+				dcf.applyPattern(pattern);
 				dtm.setRowCount(0);
 				for (HOADON hoadon : arrTimKiem) {
-	    			dtm.addRow(new Object[] {hoadon.getMaHD(), hoadon.getMaKH(), hoadon.getMaNV(), hoadon.getNgayNhap(), hoadon.getTongTien()});
+	    			dtm.addRow(new Object[] {hoadon.getMaHD(), HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH()), HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV()), hoadon.getNgayNhap(), dcf.format(hoadon.getTongTien())});
 				}
 			}
 		});
@@ -159,10 +170,11 @@ public class HOADONBUS {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date = sdf.format(dc.getDate());
 					
+					dcf.applyPattern(pattern);
 					dtm.setRowCount(0);
 					for (HOADON hoadon : arrHD) {
 						if(date.equals(hoadon.getNgayNhap())) {
-			    			dtm.addRow(new Object[] {hoadon.getMaHD(), hoadon.getMaKH(), hoadon.getMaNV(), hoadon.getNgayNhap(), hoadon.getTongTien()});
+			    			dtm.addRow(new Object[] {hoadon.getMaHD(), HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH()), HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV()), hoadon.getNgayNhap(), dcf.format(hoadon.getTongTien())});
 						}
 					}
 				}
@@ -217,7 +229,6 @@ public class HOADONBUS {
 				tbl1.getColumnModel().getColumn(2).setPreferredWidth(100);
 				tbl1.getColumnModel().getColumn(3).setPreferredWidth(70);
 				tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
-				tbl1.setAlignmentX(20);
 				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 				centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 				tbl1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -230,10 +241,11 @@ public class HOADONBUS {
 				JScrollPane sp = new JScrollPane(tbl1);
 				sp.setBorder(BorderFactory.createRaisedBevelBorder());
 				
+				dcf.applyPattern(pattern);
 				dtm.setRowCount(0);
 				for (HOADON hoadon : arrHD) {
 		    		if(hoadon.getTinhTrang().equals("Đã hủy")) {
-		    			dtm.addRow(new Object[] {hoadon.getMaHD(), hoadon.getMaKH(), hoadon.getMaNV(), hoadon.getNgayNhap(), hoadon.getTongTien()});
+		    			dtm.addRow(new Object[] {hoadon.getMaHD(), HOADONDAO.getInstance().selectTenKH(hoadon.getMaKH()), HOADONDAO.getInstance().selectTenNV(hoadon.getMaNV()), hoadon.getNgayNhap(), dcf.format(hoadon.getTongTien())});
 		    		}
 				}
 				

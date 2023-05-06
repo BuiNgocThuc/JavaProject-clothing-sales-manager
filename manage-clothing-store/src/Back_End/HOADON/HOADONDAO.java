@@ -187,39 +187,39 @@ public class HOADONDAO implements DAOInterface<HOADON> {
 		return ketQua;
 	}
     
-//	public String selectTenKH(String maKH) {
-//		String ten = new String();
-//		try {
-//			Connection c = connec.getConnection();
-//			String sql = "SELECT TENKH FROM HOADON JOIN KHACHHANG ON HD_MAKH = MAKH "
-//					+ " WHERE HD_MAKH = ?";
-//			PreparedStatement pst = c.prepareStatement(sql);
-//			pst.setString(1, maKH);
-//			ResultSet rs = pst.executeQuery();
-//			while (rs.next()) {		
-//				ten = rs.getString("TENKH");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return ten;
-//	}
-//	
-//	public String selectTenNV(String maNV) {
-//		String ten = new String();
-//		try {
-//			Connection c = connec.getConnection();
-//			String sql = "SELECT TENNV FROM HOADON JOIN NHANVIEN ON HD_MANV = MANV "
-//					+ " WHERE HD_MANV = ?";
-//			PreparedStatement pst = c.prepareStatement(sql);
-//			pst.setString(1, maNV);
-//			ResultSet rs = pst.executeQuery();
-//			while (rs.next()) {		
-//				ten = rs.getString("TENNV");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return ten;
-//	}
+	public String selectTenKH(String maKH) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENKH FROM HOADON JOIN KHACHHANG ON HD_MAKH = MAKH "
+					+ " WHERE HD_MAKH = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maKH);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENKH");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
+	
+	public String selectTenNV(String maNV) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT TENNV FROM HOADON JOIN NHANVIEN ON HD_MANV = MANV "
+					+ " WHERE HD_MANV = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maNV);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("TENNV");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
 }

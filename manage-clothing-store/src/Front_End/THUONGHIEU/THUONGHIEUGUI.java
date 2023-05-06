@@ -126,7 +126,6 @@ public class THUONGHIEUGUI extends JPanel {
         tbl.setRowHeight(30);
         tbl.getColumnModel().getColumn(0).setPreferredWidth(250);
         tbl.getColumnModel().getColumn(1).setPreferredWidth(750);
-        tbl.setAlignmentX(20);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         tbl.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -153,7 +152,6 @@ public class THUONGHIEUGUI extends JPanel {
         this.add(pnl1, BorderLayout.NORTH);
         this.add(sp, BorderLayout.CENTER);
         this.add(pnl4, BorderLayout.SOUTH);
-        txt.requestFocus();
     }
     
     public static void main(String[] args) {

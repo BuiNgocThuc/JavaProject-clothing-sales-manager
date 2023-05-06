@@ -123,7 +123,6 @@ public class CTPhieuNhapBUS {
 				tbl1.getColumnModel().getColumn(3).setPreferredWidth(50);
 				tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
 				tbl1.getColumnModel().getColumn(5).setPreferredWidth(50);
-				tbl1.setAlignmentX(20);
 				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 				centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 				tbl1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);

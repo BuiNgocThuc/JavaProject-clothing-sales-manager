@@ -8,8 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,13 +29,18 @@ import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
 public class PHIEUNHAPBUS {
 	public static ArrayList<PHIEUNHAP> arrPN;
 	
+	Locale locale = new Locale("en", "EN");
+	String pattern = "###,###.# VNĐ";
+	DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+	
 	public void uploadData() {
 		DefaultTableModel dtm = (DefaultTableModel) PHIEUNHAPGUI.tbl.getModel();
 		arrPN = PHIEUNHAPDAO.getInstance().selectAll();
 		
+		dcf.applyPattern(pattern);
 		dtm.setRowCount(0);
 		for (PHIEUNHAP phieunhap : arrPN) {
-			dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+			dtm.addRow(new Object[] {phieunhap.getMaPN(), PHIEUNHAPDAO.getInstance().selectTenNCC(phieunhap.getMaNCC()), PHIEUNHAPDAO.getInstance().selectTenNV(phieunhap.getMaNV()), phieunhap.getNgayNhap(), dcf.format(phieunhap.getTongTien())});
 		}
 	}
 
@@ -100,14 +108,15 @@ public class PHIEUNHAPBUS {
 				text = txt.getText().toLowerCase();
 				
 				for (PHIEUNHAP phieunhap : arrPN) {
-					if((phieunhap.getMaPN()).toLowerCase().contains(text) || (phieunhap.getMaNCC()).toLowerCase().contains(text) || (phieunhap.getMaNV()).toLowerCase().contains(text)) {
+					if((phieunhap.getMaPN()).toLowerCase().contains(text) || (PHIEUNHAPDAO.getInstance().selectTenNCC(phieunhap.getMaNCC())).toLowerCase().contains(text) || (PHIEUNHAPDAO.getInstance().selectTenNV(phieunhap.getMaNV())).toLowerCase().contains(text)) {
 						arrTimKiem.add(phieunhap);
 					}
 				}
 
+				dcf.applyPattern(pattern);
 				dtm.setRowCount(0);
 				for (PHIEUNHAP phieunhap : arrTimKiem) {
-					dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+					dtm.addRow(new Object[] {phieunhap.getMaPN(), PHIEUNHAPDAO.getInstance().selectTenNCC(phieunhap.getMaNCC()), PHIEUNHAPDAO.getInstance().selectTenNV(phieunhap.getMaNV()), phieunhap.getNgayNhap(), dcf.format(phieunhap.getTongTien())});
 				}
 			}
 			
@@ -160,9 +169,10 @@ public class PHIEUNHAPBUS {
 				}else {
 					arrTimKiem = arrPN;
 				}
+				dcf.applyPattern(pattern);
 				dtm.setRowCount(0);
 				for (PHIEUNHAP phieunhap : arrTimKiem) {
-					dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+					dtm.addRow(new Object[] {phieunhap.getMaPN(), PHIEUNHAPDAO.getInstance().selectTenNCC(phieunhap.getMaNCC()), PHIEUNHAPDAO.getInstance().selectTenNV(phieunhap.getMaNV()), phieunhap.getNgayNhap(), dcf.format(phieunhap.getTongTien())});
 				}
 			}
 		});
@@ -177,10 +187,11 @@ public class PHIEUNHAPBUS {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date = sdf.format(dc.getDate());
 					
+					dcf.applyPattern(pattern);
 					dtm.setRowCount(0);
 					for (PHIEUNHAP phieunhap : arrPN) {
 						if(date.equals(phieunhap.getNgayNhap())) {
-							dtm.addRow(new Object[] {phieunhap.getMaPN(), phieunhap.getMaNCC(), phieunhap.getMaNV(), phieunhap.getNgayNhap(), phieunhap.getTongTien()});
+							dtm.addRow(new Object[] {phieunhap.getMaPN(), PHIEUNHAPDAO.getInstance().selectTenNCC(phieunhap.getMaNCC()), PHIEUNHAPDAO.getInstance().selectTenNV(phieunhap.getMaNV()), phieunhap.getNgayNhap(), dcf.format(phieunhap.getTongTien())});
 						}
 					}
 				}

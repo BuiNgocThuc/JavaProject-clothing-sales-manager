@@ -1,7 +1,3 @@
-﻿/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Back_End.PHIEUNHAP;
 
 import java.awt.event.ActionEvent;
@@ -21,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
-
+import Back_End.PHIEUNHAP.PHIEUNHAPDAO;
 import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
 /**
  *

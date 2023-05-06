@@ -55,7 +55,7 @@ public class KhuyenMaiDao implements DAOInterface<KHUYENMAI> {
         try {
             Connection c = connec.getConnection();
             String sql = "UPDATE KHUYENMAI "
-                    + "SET trangThai='Đã Khóa' "
+                    + "SET trangThai='Đã Xóa' "
                     + " WHERE MAKM=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKM());

@@ -67,12 +67,12 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     public THONGKEGUI() {
         initComponents();
 
-//        jf.setSize(800, 500);
-//        jf.setLayout(new BorderLayout());
-//        jf.add(paneStatistic(), BorderLayout.CENTER);
-//        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        jf.setLocationRelativeTo(null);
-//        jf.setVisible(true);
+        jf.setSize(800, 500);
+        jf.setLayout(new BorderLayout());
+        jf.add(paneStatistic(), BorderLayout.CENTER);
+        jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
     void initComponents() {

@@ -4,6 +4,8 @@
  */
 package Front_End.PHANQUYEN;
 
+import Back_End.CTPhanQuyen.CTPhanQuyen;
+import Back_End.CTPhanQuyen.CTPhanQuyenBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -33,8 +35,10 @@ import Back_End.NHOMQUYEN.NHOMQUYENBUS;
 import Front_End.FrameLayout.LayoutFrame;
 import Front_End.HandleEvent.EventInLabel;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 public class PHANQUYENGUI extends JPanel implements MouseListener {
 
@@ -55,22 +59,23 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
     JComboBox<String> cbSearch = new JComboBox<>();
 
     NHOMQUYENBUS nqBus = new NHOMQUYENBUS();
-    ArrayList<NHOMQUYEN> dsnq = nqBus.getDsnq();
+    CTPhanQuyenBUS ctpqBus = new CTPhanQuyenBUS();
+    ArrayList<NHOMQUYEN> dsnq;
     String[] titles = nqBus.getTitle();
 
     JFrame jf = new JFrame();
 
     public PHANQUYENGUI() {
-
+        dsnq = nqBus.getDsnq();
         initComponents(titles, dsnq);
 
-//        jf.setSize(800, 500);
-//        jf.setLayout(new BorderLayout());
-//        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(titles, dsnq), BorderLayout.CENTER);
-//        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
-//        jf.setLocationRelativeTo(null);
-//        jf.setVisible(true);
+        jf.setSize(800, 500);
+        jf.setLayout(new BorderLayout());
+        jf.add(panelTool(), BorderLayout.NORTH);
+        jf.add(tableList(titles, dsnq), BorderLayout.CENTER);
+        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<NHOMQUYEN> dsnq) {
@@ -101,6 +106,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         lblRemove.setBorder(BorderFactory.createLineBorder(Color.black));
         lblRemove.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-remove-28.png"));
         lblRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblRemove.addMouseListener(this);
 
         lblFix.setPreferredSize(new Dimension(100, 30));
         lblFix.setBackground(Color.white);
@@ -108,6 +114,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         lblFix.setBorder(BorderFactory.createLineBorder(Color.black));
         lblFix.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-tools-28.png"));
         lblFix.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblFix.addMouseListener(this);
 
         lblImport.setPreferredSize(new Dimension(100, 30));
         lblImport.setBackground(Color.white);
@@ -214,51 +221,86 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         if (e.getSource() == lblAdd) {
             new CHUCNANGGUI();
         }
-        if (e.getSource() == lblReset) {
-            ArrayList<NHOMQUYEN> dsnqNew = nqBus.getDsnq();
-            for (NHOMQUYEN nq : dsnqNew) {
-                System.out.println(nq.getMaQuyen());
-            }
-//            spnList.removeAll();
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-            Object[][] data = new Object[dsnqNew.size()][];
-            int i = 0;
-            for (NHOMQUYEN km : dsnqNew) {
-                data[i++] = new Object[]{
-                    i, // số thứ tự tkhuyến mại
-                    km.getMaQuyen(),
-                    km.getTenQuyen(),
-                    km.getMoTaQuyen(),};
-            }
-            tblList.setModel(new DefaultTableModel(
-                    data,
-                    titles
-            ));
-            spnList.setViewportView(tblList);
-            spnList.validate();
-            spnList.repaint();
+        if (e.getSource() == lblRemove) {
+            int selectedRow = tblList.getSelectedRow();
+            if (selectedRow != -1) {
+                int confirmed = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa sản phẩm này không?", "Xác nhận xóa sản phẩm", JOptionPane.YES_NO_OPTION);
 
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    // Xóa sản phẩm
+                    int columnIndex = tblList.getColumnModel().getColumnIndex("Mã Quyền");
+                    Object value = tblList.getModel().getValueAt(selectedRow, columnIndex);
+                    String stringValue = value.toString();
+                    boolean remove = nqBus.delete(stringValue);
+                    if (remove) {
+                        JOptionPane.showMessageDialog(null, "Xóa Thành Công !!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa Thất Bại!!!");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn xóa");
+            }
+        }
+        if (e.getSource() == lblFix) {
+            int selectedRow = tblList.getSelectedRow();
+            if (selectedRow != -1) {
+                  TableModel model = tblList.getModel();
+                  String maQuyen = model.getValueAt(selectedRow, 1).toString();
+                  NHOMQUYEN role = nqBus.selectID(maQuyen);
+                  ArrayList<String> dscn = ctpqBus.getListCTQByNQuyen(maQuyen);
+                new updatePQForm(role, dscn);
+        } else {
+            JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn sửa");
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
+    if (e.getSource () 
+        == lblReset) {
+            ArrayList<NHOMQUYEN> dsnqNew = nqBus.getDsnq();
+        for (NHOMQUYEN nq : dsnqNew) {
+            System.out.println(nq.getMaQuyen());
+        }
+//            spnList.removeAll();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        Object[][] data = new Object[dsnqNew.size()][];
+        int i = 0;
+        for (NHOMQUYEN km : dsnqNew) {
+            data[i++] = new Object[]{
+                i, // số thứ tự tkhuyến mại
+                km.getMaQuyen(),
+                km.getTenQuyen(),
+                km.getMoTaQuyen(),};
+        }
+        tblList.setModel(new DefaultTableModel(
+                data,
+                titles
+        ));
+        spnList.setViewportView(tblList);
+        spnList.validate();
+        spnList.repaint();
+
+    }
+}
+
+@Override
+public void mousePressed(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
+public void mouseReleased(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+public void mouseEntered(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+public void mouseExited(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

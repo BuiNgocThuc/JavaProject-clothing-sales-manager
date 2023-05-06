@@ -17,7 +17,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -30,13 +36,13 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -64,11 +70,11 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
 
     JFrame jf = new JFrame();
     KHUYENMAIBUS km = new KHUYENMAIBUS();
+    ArrayList<KHUYENMAI> dskm = km.getDskm();
+    String[] titles = km.getTitle();
 
     public KHUYENMAIGUI() {
         km.timKiem(txtSearch);
-        ArrayList<KHUYENMAI> dskm = km.getDskm();
-        String[] titles = km.getTitle();
         initComponents(titles, dskm);
         jf.setSize(800, 500);
         jf.setLayout(new BorderLayout());
@@ -84,7 +90,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         this.add(panelTool(), BorderLayout.NORTH);
         this.add(tableList(titles, dskm), BorderLayout.CENTER);
         this.setVisible(true);
-       
+
     }
 
     public JPanel panelTool() {
@@ -100,8 +106,8 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblAdd.setBorder(BorderFactory.createLineBorder(Color.black));
         lblAdd.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-add-new-32b.png"));
         lblAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         lblAdd.addMouseListener(this);
-        
+        lblAdd.addMouseListener(this);
+
         lblRemove.setPreferredSize(new Dimension(100, 30));
         lblRemove.setBackground(Color.white);
         lblRemove.setOpaque(true);
@@ -116,6 +122,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblFix.setBorder(BorderFactory.createLineBorder(Color.black));
         lblFix.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-tools-28.png"));
         lblFix.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblFix.addMouseListener(this);
 
         lblImport.setPreferredSize(new Dimension(100, 30));
         lblImport.setBackground(Color.white);
@@ -160,8 +167,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         txtSearch.setForeground(Color.black);
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
-        
-        
+
         pnSearch.setPreferredSize(new Dimension(400, 80));
         pnSearch.setBackground(Color.white);
         pnSearch.setOpaque(true);
@@ -176,13 +182,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblReset.setBorder(BorderFactory.createLineBorder(Color.black));
         lblReset.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-reset-32.png"));
         lblReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        lblReset.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                ArrayList<KHUYENMAI> dskm = km.refresh();
-                String[] titles = km.getTitle();
-                initComponents(titles, dskm);
-            }
-        });
+        lblReset.addMouseListener(this);
 
         pnFrameSearch.add(pnSearch);
         pnFrameSearch.add(lblReset);
@@ -240,32 +240,88 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         if (e.getSource() == lblAdd) {
             new createKMform();
         }
-         if(e.getSource() == lblRemove) {
+
+        // Remove 1 row
+        if (e.getSource() == lblRemove) {
             int selectedRow = tblList.getSelectedRow();
-             System.out.println(selectedRow);
-            if(selectedRow != -1) {
-                
-            }else {
+            if (selectedRow != -1) {
+                int columnIndex = tblList.getColumnModel().getColumnIndex("Mã khuyến mãi"); // Lấy chỉ số của cột dựa trên tên của cột
+                int rowIndex = tblList.getSelectedRow(); // Lấy chỉ số của hàng được chọn
+                Object value = tblList.getModel().getValueAt(rowIndex, columnIndex); // Lấy giá trị của ô tương ứng trong cột đó
+                String stringValue = value.toString();
+                km.delete(stringValue);
+            } else {
                 JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn xóa");
             }
         }
-         if(e.getSource() == lblFix) {
+
+        //Update 1 Row
+        if (e.getSource() == lblFix) {
             int selectedRow = tblList.getSelectedRow();
-             System.out.println(selectedRow);
-            if(selectedRow != -1) {
-                
-            }else {
+            if (selectedRow != -1) {
+                TableModel model = tblList.getModel();
+                String maKM = model.getValueAt(selectedRow, 1).toString();
+                String tenKM = model.getValueAt(selectedRow, 2).toString();
+                double dieuKien = ((Double) model.getValueAt(selectedRow, 3)).doubleValue();
+                double phanTram = ((Double) model.getValueAt(selectedRow, 4)).doubleValue();
+//                String startDateString = model.getValueAt(selectedRow, 4).toString();
+//
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//                try {
+//                    Date startDate = dateFormat.parse(startDateString);
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                String endDateString = model.getValueAt(selectedRow, 4).toString();
+//                try {
+//                    Date endDate = dateFormat.parse(endDateString);
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+
+                 LocalDate startDate = LocalDate.parse( model.getValueAt(selectedRow, 5).toString());
+                  LocalDate endDate = LocalDate.parse( model.getValueAt(selectedRow, 6).toString());
+                KHUYENMAI kmNew = new KHUYENMAI(maKM, tenKM, dieuKien, phanTram, startDate, endDate);
+                new updateKMform(kmNew);
+            } else {
                 JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn sửa");
             }
         }
-         if(e.getSource() == lblReset) {
-             DefaultTableModel dtm = (DefaultTableModel) this.tblList.getModel();
-             dtm.setRowCount(0);
-                int i = 0;
-                for (KHUYENMAI km : km.getDskm()) {
-                    dtm.addRow(new Object[]{i++, km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
-                }
-         }
+        if (e.getSource() == lblReset) {
+            ArrayList<KHUYENMAI> dsnqNew = km.getDskm();
+            for (KHUYENMAI km : dsnqNew) {
+                System.out.println(km.getMaKM());
+            }
+//            spnList.removeAll();
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            Object[][] data = new Object[dsnqNew.size()][];
+            int i = 0;
+            for (KHUYENMAI dis : dsnqNew) {
+                data[i++] = new Object[]{
+                    i, // số thứ tự tkhuyến mại
+                    dis.getMaKM(),
+                    dis.getTenKM(),
+                    dis.getDieuKien(),
+                    dis.getPhanTramGiamGia(),
+                    dis.getNgayBD(),
+                    dis.getNgayKT()};
+            }
+            tblList.setModel(new DefaultTableModel(
+                    data,
+                    titles
+            ));
+            for (int j = 0; j < tblList.getColumnCount(); j++) {
+                tblList.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+            }
+            TableColumn column = tblList.getColumnModel().getColumn(2); // Lấy cột thứ 3
+            column.setPreferredWidth(220); // Thiết lập chiều rộng ưu tiên là 200
+
+            spnList.setBorder(BorderFactory.createLineBorder(Color.black));
+            spnList.setViewportView(tblList);
+            spnList.validate();
+            spnList.repaint();
+        }
     }
 
     @Override

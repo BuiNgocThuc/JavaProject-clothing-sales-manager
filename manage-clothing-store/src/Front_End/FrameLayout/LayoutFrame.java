@@ -11,15 +11,13 @@ import Front_End.TAIKHOAN.TAIKHOANGUI;
 import Front_End.THONGKE.THONGKEGUI;
 import Front_End.THONGKE.ThongKe;
 import Front_End.THUONGHIEU.THUONGHIEUGUI;
-import Back_End.THUONGHIEU.THUONGHIEUDAO;
-import Back_End.THUONGHIEU.THUONGHIEUBUS;
 import Front_End.BANHANG.BANHANGGUI;
 import Front_End.HOADON.HOADONGUI;
 import Front_End.KHACHHANG.KHACHHANGGUI;
 import Front_End.LoginForm.LoginForm;
-import Front_End.LoginForm.LoginFormtest;
 import Front_End.NHACUNGCAP.NHACUNGCAPGUI;
 import Front_End.NHANVIEN.NHANVIENGUI;
+import Front_End.NHAPHANG.NHAPHANGGUI;
 import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
 import Front_End.SANPHAM.SANPHAMGUI;
 import java.awt.BorderLayout;
@@ -116,8 +114,8 @@ public class LayoutFrame extends JFrame {
 
     void solveActionMenu() {
 //        lblBanHang.addMouseListener(new EventInLabel(pnMainContent, new BANHANGGUI()));
-//        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, pnNhapHang));
-        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, new SANPHAMGUI()));
+//        lblNhapHang.addMouseListener(new EventInLabel(pnMainContent, new NHAPHANGGUI()));
+//        lblSanPham.addMouseListener(new EventInLabel(pnMainContent, new SANPHAMGUI()));
         lblThuongHieu.addMouseListener(new EventInLabel(pnMainContent, new THUONGHIEUGUI()));
         lblHoaDon.addMouseListener(new EventInLabel(pnMainContent, new HOADONGUI()));
         lblPhieuNhap.addMouseListener(new EventInLabel(pnMainContent, new PHIEUNHAPGUI()));

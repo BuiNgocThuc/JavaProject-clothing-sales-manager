@@ -6,17 +6,13 @@ package Front_End.PHANQUYEN;
 
 import Back_End.CHUCNANG.CHUCNANG;
 import Back_End.CHUCNANG.CHUCNANGBUS;
-import Back_End.CTPhanQuyen.CTPhanQuyen;
 import Back_End.CTPhanQuyen.CTPhanQuyenBUS;
 import Back_End.NHOMQUYEN.NHOMQUYEN;
 import Back_End.NHOMQUYEN.NHOMQUYENBUS;
-import Front_End.KHUYENMAI.createKMform;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -28,13 +24,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
 /**
  *
  * @author NGOC THUC
  */
-public class CHUCNANGGUI extends JFrame {
+public class updatePQForm extends JFrame {
 
     JPanel pnText = new JPanel();
     JPanel pnCheckBox = new JPanel();
@@ -44,48 +39,29 @@ public class CHUCNANGGUI extends JFrame {
     JTextField txtRoleID = new JTextField();
     JTextField txtRoleName = new JTextField();
 
-//    JCheckBox chbBanHang = new JCheckBox("Bán hàng");
-//    JCheckBox chbNhapHang = new JCheckBox("Nhập Hàng");
-//    JCheckBox chbSanPham = new JCheckBox("Sản Phẩm");
-//    JCheckBox chbThuongHieu = new JCheckBox("Thương Hiệu");
-//    JCheckBox chbHoaDon = new JCheckBox("Hóa Đơn");
-//    JCheckBox chbPhieuNhap = new JCheckBox("Phiếu Nhập");
-//    JCheckBox chbNhanVien = new JCheckBox("Nhân Viên");
-//    JCheckBox chbKhachHang = new JCheckBox("Khách Hàng");
-//    JCheckBox chbNhaCungCap = new JCheckBox("Nhà Cung Cấp");
-//    JCheckBox chbThongKe = new JCheckBox("Thống Kê");
-//    JCheckBox chbKhuyenMai = new JCheckBox("Khuyến Mại");
-//    JCheckBox chbTaiKhoan = new JCheckBox("Tài Khoản");
-//    JCheckBox chbPhanQuyen = new JCheckBox("Phân Quyền");
-    JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
+    JLabel lblAdd = new JLabel("Sửa", JLabel.CENTER);
     JLabel lblCancel = new JLabel("Hủy", JLabel.CENTER);
 
-//    public void createCheckbox() {
-//        chbList.add(chbBanHang);
-//        chbList.add(chbNhapHang);
-//        chbList.add(chbSanPham);
-//        chbList.add(chbThuongHieu);
-//        chbList.add(chbHoaDon);
-//        chbList.add(chbPhieuNhap);
-//        chbList.add(chbNhanVien);
-//        chbList.add(chbKhachHang);
-//        chbList.add(chbNhaCungCap);
-//        chbList.add(chbThongKe);
-//        chbList.add(chbKhuyenMai);
-//        chbList.add(chbTaiKhoan);
-//        chbList.add(chbPhanQuyen);
-//    }
     NHOMQUYENBUS nq = new NHOMQUYENBUS();
     CTPhanQuyenBUS ctpq = new CTPhanQuyenBUS();
     ArrayList<NHOMQUYEN> dsnq = nq.getDsnq();
     CHUCNANGBUS cnBUS = new CHUCNANGBUS();
     ArrayList<CHUCNANG> dscn = cnBUS.getDscn();
 
-    public CHUCNANGGUI() {
-
+    public updatePQForm(NHOMQUYEN role, ArrayList<String> dscnNew) {
+        txtRoleID.setText(role.getMaQuyen());
+        txtRoleName.setText(role.getTenQuyen());
         for (CHUCNANG cn : dscn) {
             JCheckBox cb = new JCheckBox(cn.getTenCN());
+            System.out.println(cn.getMaCN());
+             for(String maCN : dscnNew) {
+                if(cn.getMaCN().equals(maCN)) {
+                    cb.setSelected(true);
+                    break;
+                }
+            }
             chbList.add(cb);
+           
         }
 
         initComponents(dsnq);
@@ -107,9 +83,6 @@ public class CHUCNANGGUI extends JFrame {
     public JPanel textInfo(ArrayList<NHOMQUYEN> dsnq) {
         pnText.setLayout(new FlowLayout());
         pnText.setPreferredSize(new Dimension(300, 50));
-
-        String ID = nq.getNextID();
-        txtRoleID.setText(ID);
 
         txtRoleID.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Mã quyền"));
         txtRoleID.setPreferredSize(new Dimension(140, 40));
@@ -149,8 +122,9 @@ public class CHUCNANGGUI extends JFrame {
                 String tenQuyen = txtRoleName.getText();
                 String moTaQuyen = txtRoleName.getText();
                 String trangThai = "ĐANG HOAT ĐỘNG";
-                boolean success = nq.add(maQuyen, tenQuyen, moTaQuyen, trangThai);
+                boolean success = nq.update(maQuyen, tenQuyen, moTaQuyen, trangThai);
                 if (success) {
+                    ctpq.delete(maQuyen);
                     ArrayList<JCheckBox> selectedCheckboxes = new ArrayList<>();
                     for (JCheckBox checkbox : chbList) {
                         if (checkbox.isSelected()) {
@@ -158,14 +132,14 @@ public class CHUCNANGGUI extends JFrame {
                         }
                     }
                     for (CHUCNANG cn : dscn) {
-                         for (JCheckBox checkBox : selectedCheckboxes) {
-                             if(checkBox.getText() == cn.getTenCN()) {
-                                 ctpq.add(maQuyen, cn.getMaCN());
-                                 break;
-                             }
+                        for (JCheckBox checkBox : selectedCheckboxes) {
+                            if (checkBox.getText().equals(cn.getTenCN())) {
+                                ctpq.add(maQuyen, cn.getMaCN());
+                                break;
+                            }
                         }
                     }
-                   
+
                     JOptionPane.showMessageDialog(null, "Đã thêm nhóm quyền thành công");
                 } else {
                     JOptionPane.showMessageDialog(null, "Đã thêm nhóm quyền thất bại");
@@ -183,7 +157,7 @@ public class CHUCNANGGUI extends JFrame {
         lblCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblCancel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                CHUCNANGGUI.this.setVisible(false);
+                updatePQForm.this.setVisible(false);
             }
         });
 
@@ -196,6 +170,6 @@ public class CHUCNANGGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new CHUCNANGGUI();
+//        new updatePQForm();
     }
 }

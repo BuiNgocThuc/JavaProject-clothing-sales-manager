@@ -26,8 +26,21 @@ public class KHUYENMAI {
         this.ngayKT = ngayKT;
         this.phanTramGiamGia = phanTramGiamGia;
     }
-    
 
+    public KHUYENMAI(String maKM, String tenKM, double dieuKien, double phanTramGiamGia, LocalDate ngayBD, LocalDate ngayKT) {
+        this.maKM = maKM;
+        this.tenKM = tenKM;
+        this.dieuKien = dieuKien;
+        this.phanTramGiamGia = phanTramGiamGia;
+        this.ngayBD = ngayBD;
+        this.ngayKT = ngayKT;
+    }
+
+    public KHUYENMAI() {
+      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
 
     public String getTrangThai() {
         return trangThai;

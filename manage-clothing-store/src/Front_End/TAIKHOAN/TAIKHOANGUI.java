@@ -29,6 +29,7 @@ import javax.swing.WindowConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -54,21 +55,22 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
     JComboBox<String> cbSearch = new JComboBox<>();
 
     JFrame jf = new JFrame();
-
-    public TAIKHOANGUI() {
-        TAIKHOANBUS tk = new TAIKHOANBUS();
+    TAIKHOANBUS tk = new TAIKHOANBUS();
         ArrayList<TAIKHOAN> dstk = tk.getDstk();
         String[] titles = tk.getTitle();
 
+    public TAIKHOANGUI() {
+        
+
         initComponents(titles, dstk);
 
-//        jf.setSize(800, 500);
-//        jf.setLayout(new BorderLayout());
-//        jf.add(panelTool(), BorderLayout.NORTH);
-//        jf.add(tableList(titles, dstk), BorderLayout.CENTER);
-//        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
-//        jf.setLocationRelativeTo(null);
-//        jf.setVisible(true);
+        jf.setSize(800, 500);
+        jf.setLayout(new BorderLayout());
+        jf.add(panelTool(), BorderLayout.NORTH);
+        jf.add(tableList(titles, dstk), BorderLayout.CENTER);
+        jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
     void initComponents(String[] titles, ArrayList<TAIKHOAN> dstk) {
@@ -205,7 +207,35 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
       //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-   new newAccount();
+
+        if(e.getSource() == lblAdd){
+                   new newAccount();
+        }
+        if(e.getSource() == lblReset) {
+            ArrayList<TAIKHOAN> dstkNew = tk.getDstk();
+//            for (TAIKHOAN nq : dstkNew) { 
+//                System.out.println(nq.getMaQuyen());
+//            }
+//            spnList.removeAll();
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            Object[][] data = new Object[dstkNew.size()][];
+            int i = 0;
+            for (TAIKHOAN km : dstkNew) {
+                data[i++] = new Object[]{
+                    i, // số thứ tự tkhuyến mại
+                    km.getUserName(),
+                    km.getPassWord(),
+                    km.getMaQuyen(),};
+            }
+            tblList.setModel(new DefaultTableModel(
+                    data,
+                    titles
+            ));
+            spnList.setViewportView(tblList);
+            spnList.validate();
+            spnList.repaint();
+        }
     }
 
     @Override

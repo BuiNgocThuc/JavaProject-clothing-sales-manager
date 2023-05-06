@@ -50,13 +50,33 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
         return 0;
     }
 
+    public int getCount() {
+        int count = 0;
+        try {
+            Connection c = connec.getConnection();
+            Statement st = c.createStatement();
+            String sql = "select COUNT(*) as count from NHOMQUYEN";
+            ResultSet rs = st.executeQuery(sql);
+            
+             while (rs.next()) {
+               count = rs.getInt("count");
+            }
+            
+            connec.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     @Override
     public int delete(NHOMQUYEN t) {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "DELETE FROM NHOMQUYEN "
-                    + " WHERE MAQUYEN=?";
+            String sql = "UPDATE NHOMQUYEN "
+                    + "SET TRANGTHAI = 'Đã Xóa' "
+                    + "WHERE MAQUYEN=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaQuyen());
 
@@ -68,8 +88,9 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -96,8 +117,9 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -106,14 +128,14 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
         try {
             Connection c = connec.getConnection();
             Statement st = c.createStatement();
-            String sql = "SELECT * FROM NHOMQUYEN";
+            String sql = "select * from NHOMQUYEN where TRANGTHAI NOT IN ('Đã Xóa')";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
                 String maQuyen = rs.getString("MAQUYEN");
                 String tenQuyen = rs.getNString("TENQUYEN");
                 String moTaQuyen = rs.getNString("MOTAQUYEN");
-                String trangThai = rs.getString("TRANGTHAI");
+                String trangThai = rs.getNString("TRANGTHAI");
 
                 NHOMQUYEN a = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
                 ketQua.add(a);
@@ -141,7 +163,7 @@ public class NHOMQUYENDAO implements DAOInterface<NHOMQUYEN> {
                 String maQuyen = rs.getString("MAQUYEN");
                 String tenQuyen = rs.getNString("TENQUYEN");
                 String moTaQuyen = rs.getNString("MOTAQUYEN");
-                String trangThai = rs.getString("TRANGTHAI");
+                String trangThai = rs.getNString("TRANGTHAI");
 
                 ketQua = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
             }

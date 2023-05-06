@@ -32,7 +32,7 @@ public class NHOMQUYENBUS {
     }
 
     public String getNextID() {
-        return "Q" + String.valueOf(this.dsnq.size() + 1);
+        return "Q" + String.valueOf(nqDAO.getCount() + 1);
     }
 
     public ArrayList<NHOMQUYEN> search(String value, String type) {
@@ -110,8 +110,14 @@ public class NHOMQUYENBUS {
             return false;
         }
     }
+    
+    public NHOMQUYEN selectID(String maQuyen) {
+        NHOMQUYEN nqNew = new NHOMQUYEN(maQuyen);
+        return nqDAO.selectById(nqNew);
+    }
 
     public ArrayList<NHOMQUYEN> getDsnq() {
+        dsnq = nqDAO.selectAll();
         return dsnq;
     }
 }

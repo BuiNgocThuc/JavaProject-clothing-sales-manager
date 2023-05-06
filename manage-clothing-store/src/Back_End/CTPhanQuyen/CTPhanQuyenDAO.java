@@ -4,6 +4,7 @@
  */
 package Back_End.CTPhanQuyen;
 
+import Back_End.CHUCNANG.CHUCNANG;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +35,8 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
             pstm.setString(1, nhomQuyen);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                String maQuyen = rs.getString("CTPQ_MACN");//+ 
-                dsctq.add(maQuyen);//+
+                String maChucNang = rs.getString("CTPQ_MACN");//+ 
+                dsctq.add(maChucNang);//+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,7 +75,7 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
         try {
             Connection c = connec.getConnection();
             String sql = "DELETE FROM CHITIETPHANQUYEN "
-                    + " WHERE CTPQ_MAQUYEN=?";
+                    + "WHERE CTPQ_MAQUYEN=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaQuyen());
 
@@ -84,10 +85,12 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
             System.out.println("Có " + ketQua + " bị thay đổi");
 
             connec.closeConnection(c);
+            
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -125,7 +128,7 @@ public class CTPhanQuyenDAO implements DAOInterface<CTPhanQuyen> {
 
             while (rs.next()) {
                 String maQuyen = rs.getString("CTPQ_MAQUYEN");
-                String tenChucNang = rs.getNString("CTPQ_TENCN");
+                String tenChucNang = rs.getNString("CTPQ_MACN");
 
                 CTPhanQuyen a = new CTPhanQuyen(maQuyen, tenChucNang);
                 ketQua.add(a);

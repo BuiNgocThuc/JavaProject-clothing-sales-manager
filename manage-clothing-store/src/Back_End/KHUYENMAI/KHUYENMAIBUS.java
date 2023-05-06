@@ -162,7 +162,7 @@ public class KHUYENMAIBUS {
             if (voucher.getMaKM() == maKM) {
                 int delete = kmDAO.delete(voucher);
                 if (delete == 1) {
-                    dskm.remove(voucher); // đang phân vân có nên xóa khỏi giao diện không ? 
+                    dskm.remove(voucher);
                     return true;
                 } else {
                     return false;

@@ -68,7 +68,7 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
         lf.getLblSanPham().setVisible(false);
         lf.getLblThuongHieu().setVisible(false);
         lf.getLblHoaDon().setVisible(false);
-        lf.getLblHoaDon().setVisible(false);
+        lf.getLblPhieuNhap().setVisible(false);
         lf.getLblNhanVien().setVisible(false);
         lf.getLblKhachHang().setVisible(false);
         lf.getLblNhaCungCap().setVisible(false);

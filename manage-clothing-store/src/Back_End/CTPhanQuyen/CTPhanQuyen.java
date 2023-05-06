@@ -21,6 +21,10 @@ String maQuyen, maChucNang;
 		this.maChucNang = maChucNang;
 	}
 
+                    public CTPhanQuyen(String maQuyen) {
+                        this.maQuyen = maQuyen;
+                    }
+        
 	public String getMaQuyen() {
 		return maQuyen;
 	}

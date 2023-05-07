@@ -6,6 +6,7 @@ package Back_End.NHOMQUYEN;
 
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -96,6 +97,7 @@ public class NHOMQUYENBUS {
 
     public boolean update(String maQuyen, String tenQuyen, String moTaQuyen, String trangThai) {
         NHOMQUYEN role = new NHOMQUYEN(maQuyen, tenQuyen, moTaQuyen, trangThai);
+//          JOptionPane.showMessageDialog(null, maQuyen + ", " + tenQuyen + ", " + moTaQuyen +  ", " + trangThai);
         int update = nqDAO.update(role);
         if (update == 1) {
             dsnq.forEach((nq) -> {

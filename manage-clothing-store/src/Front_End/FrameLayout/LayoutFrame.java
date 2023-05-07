@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Front_End.FrameLayout;
 
 import Front_End.HandleEvent.EventInLabel;
@@ -130,10 +126,6 @@ public class LayoutFrame extends JFrame {
         lblTaiKhoan.addMouseListener(new EventInLabel(pnMainContent, new TAIKHOANGUI()));
         lblPhanQuyen.addMouseListener(new EventInLabel(pnMainContent, new PHANQUYENGUI()));
         lblThongKe.addMouseListener(new EventInLabel(pnMainContent, new THONGKEGUI()));
-    }
-
-    public void reset(PHANQUYENGUI targetPage) {
-        new EventInLabel(pnMainContent, targetPage);
     }
 
     public JPanel container() {
@@ -449,7 +441,7 @@ public class LayoutFrame extends JFrame {
         sbMenu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         sbMenu.setBounds(0, 0, 180, 520);
         sbMenu.setViewportView(pnFunction);
-
+           sbMenu.getVerticalScrollBar().setUnitIncrement(10);
         pnMenu.add(sbMenu);
         return pnMenu;
     }
@@ -468,7 +460,7 @@ public class LayoutFrame extends JFrame {
             // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ignored) {
         }
-
+     
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException

@@ -23,11 +23,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -162,7 +165,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         pnPopUp.add(lblFix);
         pnPopUp.add(lblImport);
         pnPopUp.add(lblExport);
-        pnPopUp.add(lblPDF);
+//        pnPopUp.add(lblPDF);
 
         JPanel pnFrameSearch = new JPanel();
         pnFrameSearch.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -264,17 +267,27 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
     }
 
     public JScrollPane tableList(String[] titles, ArrayList<KHUYENMAI> dskm) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
+        nf.setMaximumFractionDigits(0);
+        nf.setCurrency(Currency.getInstance("VND"));
+        NumberFormat percentFormat = NumberFormat.getPercentInstance(); // format phần trăm
+        percentFormat.setMaximumFractionDigits(0);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         Object[][] data = new Object[dskm.size()][];
         int i = 0;
+        String dieukien = null;
+        String phanTram = null;
         for (KHUYENMAI km : dskm) {
+            dieukien = nf.format(km.getDieuKien());
+            phanTram = percentFormat.format(km.getPhanTramGiamGia() * 1.0 / 100.0);
             data[i++] = new Object[]{
                 i, // số thứ tự tkhuyến mại
                 km.getMaKM(),
                 km.getTenKM(),
-                km.getDieuKien(),
-                km.getPhanTramGiamGia(),
+                dieukien,
+                phanTram,
                 km.getNgayBD(),
                 km.getNgayKT(),};
         }
@@ -341,23 +354,22 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
                 TableModel model = tblList.getModel();
                 String maKM = model.getValueAt(selectedRow, 1).toString();
                 String tenKM = model.getValueAt(selectedRow, 2).toString();
-                double dieuKien = ((Double) model.getValueAt(selectedRow, 3)).doubleValue();
-                double phanTram = ((Double) model.getValueAt(selectedRow, 4)).doubleValue();
-//                String startDateString = model.getValueAt(selectedRow, 4).toString();
-//
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//                try {
-//                    Date startDate = dateFormat.parse(startDateString);
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                String endDateString = model.getValueAt(selectedRow, 4).toString();
-//                try {
-//                    Date endDate = dateFormat.parse(endDateString);
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-
+                double dieuKien = 0;
+                try {
+                    NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+                    Number number = format.parse(model.getValueAt(selectedRow, 3).toString());
+                    dieuKien = number.doubleValue();
+                } catch (ParseException ex) {
+                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                double phanTram = 0;
+                try {
+                    NumberFormat percentFormat = NumberFormat.getPercentInstance(); 
+                    Number number = percentFormat.parse(model.getValueAt(selectedRow, 4).toString());
+                    phanTram = number.doubleValue() * 100;
+                } catch (ParseException ex) {
+                    Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 LocalDate startDate = LocalDate.parse(model.getValueAt(selectedRow, 5).toString());
                 LocalDate endDate = LocalDate.parse(model.getValueAt(selectedRow, 6).toString());
                 KHUYENMAI kmNew = new KHUYENMAI(maKM, tenKM, dieuKien, phanTram, startDate, endDate);
@@ -367,22 +379,29 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
             }
         }
         if (e.getSource() == lblReset) {
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN); // format tiền tệ
+            nf.setMaximumFractionDigits(0);
+            nf.setCurrency(Currency.getInstance("VND"));
+            NumberFormat percentFormat = NumberFormat.getPercentInstance(); // format phần trăm
+            percentFormat.setMaximumFractionDigits(0);
             ArrayList<KHUYENMAI> dsnqNew = km.refresh();
-            for (KHUYENMAI km : dsnqNew) {
-                System.out.println(km.getMaKM());
-            }
 //            spnList.removeAll();
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
             Object[][] data = new Object[dsnqNew.size()][];
             int i = 0;
+            String dieukien = null;
+            String phanTram = null;
             for (KHUYENMAI dis : dsnqNew) {
+                dieukien = nf.format(dis.getDieuKien());
+                phanTram = percentFormat.format(dis.getPhanTramGiamGia() * 1.0  / 100.0);
                 data[i++] = new Object[]{
                     i, // số thứ tự tkhuyến mại
                     dis.getMaKM(),
                     dis.getTenKM(),
-                    dis.getDieuKien(),
-                    dis.getPhanTramGiamGia(),
+                    dieukien,
+                    phanTram,
                     dis.getNgayBD(),
                     dis.getNgayKT()};
             }
@@ -416,9 +435,9 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
                 Logger.getLogger(KHUYENMAIGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             km.insertDTO(data);
-            
+
         }
-        if(e.getSource() == lblPDF) {
+        if (e.getSource() == lblPDF) {
             writePDF.writeHD();
         }
     }

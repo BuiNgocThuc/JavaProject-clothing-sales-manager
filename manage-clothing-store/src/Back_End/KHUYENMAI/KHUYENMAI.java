@@ -15,7 +15,7 @@ public class KHUYENMAI {
     
     private String maKM, tenKM, trangThai;
     private double dieuKien,  phanTramGiamGia;
-    private LocalDate ngayBD, ngayKT;
+    private LocalDate ngayBD, ngayKT;   
 
     public KHUYENMAI(String maKM, String tenKM, double dieuKien, LocalDate ngayBD, LocalDate ngayKT, double phanTramGiamGia, String trangthai) {
         this.trangThai = trangthai;

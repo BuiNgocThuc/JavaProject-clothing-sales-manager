@@ -44,13 +44,13 @@ public class createKMform extends JFrame {
     JPanel pnDate = new JPanel();
     JPanel pnText = new JPanel();
     JPanel pnTool = new JPanel();
-    
-     tryCatch tc = new tryCatch();
+
+    tryCatch tc = new tryCatch();
 
     ArrayList<JTextField> txtList = new ArrayList<>();
 
     KHUYENMAIBUS km = new KHUYENMAIBUS();
-    
+
     public createKMform() {
         this.setUndecorated(true);
         initComponents();
@@ -82,7 +82,7 @@ public class createKMform extends JFrame {
             txtObject.setForeground(Color.black);
             pnText.add(txtObject);
         }
-        
+
         String maKM = km.getNextID();
         txtMaKM.setText(maKM);
         txtMaKM.setEnabled(false);
@@ -96,15 +96,16 @@ public class createKMform extends JFrame {
         lblCalendar_Start.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_Start.setBackground(Color.WHITE);
         lblCalendar_Start.setOpaque(true);
-       lblCalendar_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
         lblCalendar_Start.setPreferredSize(new Dimension(150, 50));
-        
+        lblCalendar_Start.setDate(new Date());
+
         lblCalendar_End.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
         lblCalendar_End.setBackground(Color.WHITE);
         lblCalendar_End.setOpaque(true);
-      lblCalendar_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
+        lblCalendar_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
         lblCalendar_End.setPreferredSize(new Dimension(150, 50));
-        
+
         txtNgayBatDau.setPreferredSize(new Dimension(150, 40));
         txtNgayBatDau.setBackground(Color.WHITE);
         txtNgayBatDau.setOpaque(true);
@@ -134,20 +135,32 @@ public class createKMform extends JFrame {
         lblAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblAdd.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                 if(!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) return;
+                if (!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) {
+                    return;
+                }
                 String maKM = txtMaKM.getText();
                 String tenKM = txtTenKM.getText();
                 Double phanTram = 0.0;
                 try {
-                      phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                    phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                    if (phanTram <= 0) {
+                        JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        txtPhanTramGiamGia.requestFocus();
+                        return;
+                    }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     txtPhanTramGiamGia.requestFocus();
                     return;
                 }
-               Double dieuKien = 0.0;
+                Double dieuKien = 0.0;
                 try {
                     dieuKien = Double.parseDouble(txtDieuKien.getText());
+                    if (dieuKien <= 0) {
+                        JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        txtDieuKien.requestFocus();
+                        return;
+                    }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     txtDieuKien.requestFocus();
@@ -159,7 +172,7 @@ public class createKMform extends JFrame {
                     startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày bắt đầu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                   lblCalendar_Start.requestFocus();
+                    lblCalendar_Start.requestFocus();
                     return;
                 }
 
@@ -172,13 +185,20 @@ public class createKMform extends JFrame {
                     lblCalendar_End.requestFocus();
                     return;
                 }
+                if (startDate.isAfter(endDate) || startDate.isEqual(endDate)) {
+                    JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải nhỏ hơn ngày kết thúc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String tinhTrang = "Đang hoạt động";
-                boolean success = km.add(maKM, tenKM, dieuKien, phanTram, startDate, endDate , tinhTrang);
-               if(success) {
-                   JOptionPane.showMessageDialog(null, "Thêm Phiếu Nhập Thành Công");
-               }else {
-                   JOptionPane.showMessageDialog(null, "Thêm Phiếu Nhập Thất Bại");
-               }
+                boolean success = km.add(maKM, tenKM, dieuKien, phanTram, startDate, endDate, tinhTrang);
+                if (success) {
+                    JOptionPane.showMessageDialog(null, "Thêm Khuyến Mại Thành Công!! Nhấn 'Làm Mới' để cập nhật");
+                    createKMform.this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thêm Khuyến Mại Thất Bại");
+                    return;
+                }
             }
         });
 

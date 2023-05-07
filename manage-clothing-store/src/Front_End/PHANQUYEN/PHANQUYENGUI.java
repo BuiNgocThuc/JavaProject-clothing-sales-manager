@@ -34,6 +34,8 @@ import Back_End.NHOMQUYEN.NHOMQUYEN;
 import Back_End.NHOMQUYEN.NHOMQUYENBUS;
 import Front_End.FrameLayout.LayoutFrame;
 import Front_End.HandleEvent.EventInLabel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,7 +46,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
 
     JPanel nqBusTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
-    JTable tblList = new JTable();
+    public static JTable tblList = new JTable();
 
     JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
     JLabel lblRemove = new JLabel("Xóa", JLabel.CENTER);
@@ -152,14 +154,58 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         cbSearch.setBackground(Color.white);
         cbSearch.setOpaque(true);
         cbSearch.setBounds(40, 30, 120, 20);
-        cbSearch.setModel(new DefaultComboBoxModel<>(new String[]{"Tất cả", "Mã Quyền", "Tên Quyền", "Chi Tiết Quyền"}));
+        cbSearch.setModel(new DefaultComboBoxModel<>(new String[]{"Tất cả", "Mã Quyền", "Tên Quyền"}));
 
         txtSearch.setBackground(Color.white);
         txtSearch.setOpaque(true);
         txtSearch.setForeground(Color.black);
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
+         txtSearch.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                String selectedOption = cbSearch.getSelectedItem().toString();
+                ArrayList<NHOMQUYEN> arrTimKiem = new ArrayList<>();
+                DefaultTableModel dtm = (DefaultTableModel) PHANQUYENGUI.tblList.getModel();
+                String text;
+                text = txtSearch.getText().toLowerCase();
+                int[] arrSTT = new int[dsnq.size()];
+                int i = 0;
+//                JOptionPane.showMessageDialog(null, selectedOption);
+                switch (selectedOption) {
+                    case "Tất cả":
+                        for (NHOMQUYEN km : dsnq) {
+                            if (((km.getMaQuyen()).toLowerCase().contains(text) || (km.getTenQuyen()).toLowerCase().contains(text)) && (km.getTrangThai().toLowerCase().equals("đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dsnq.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Mã Quyền":
+                        for (NHOMQUYEN km : dsnq) {
+                            if ((km.getMaQuyen()).toLowerCase().contains(text) && (km.getTrangThai().toLowerCase().equals("đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dsnq.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Tên Quyền":
+                        for (NHOMQUYEN km : dsnq) {
+                            if ((km.getTenQuyen()).toLowerCase().contains(text) && (km.getTrangThai().toLowerCase().equals("đang hoạt động"))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dsnq.indexOf(km);
+                            }
+                        }
+                        break;
 
+                }
+                dtm.setRowCount(0);
+                i = 0;
+                for (NHOMQUYEN km : arrTimKiem) {
+                    dtm.addRow(new Object[]{arrSTT[i++], km.getMaQuyen(), km.getTenQuyen(), km.getMoTaQuyen()});
+                }
+            }
+        });
+        
         nqBusSearch.setPreferredSize(new Dimension(400, 80));
         nqBusSearch.setBackground(Color.white);
         nqBusSearch.setOpaque(true);
@@ -224,7 +270,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         if (e.getSource() == lblRemove) {
             int selectedRow = tblList.getSelectedRow();
             if (selectedRow != -1) {
-                int confirmed = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa sản phẩm này không?", "Xác nhận xóa sản phẩm", JOptionPane.YES_NO_OPTION);
+                int confirmed = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa nhóm quyền này không?", "Xác nhận xóa nhóm quyền", JOptionPane.YES_NO_OPTION);
 
                 if (confirmed == JOptionPane.YES_OPTION) {
                     // Xóa sản phẩm
@@ -233,7 +279,7 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
                     String stringValue = value.toString();
                     boolean remove = nqBus.delete(stringValue);
                     if (remove) {
-                        JOptionPane.showMessageDialog(null, "Xóa Thành Công !!");
+                        JOptionPane.showMessageDialog(null, "Xóa Thành Công!! Nhấn 'Làm Mới' để cập nhật");
                     } else {
                         JOptionPane.showMessageDialog(null, "Xóa Thất Bại!!!");
                     }

@@ -38,6 +38,7 @@ public class updatePQForm extends JFrame {
     ArrayList<JCheckBox> chbList = new ArrayList<>();
     JTextField txtRoleID = new JTextField();
     JTextField txtRoleName = new JTextField();
+    JTextField txtDescription = new JTextField();
 
     JLabel lblAdd = new JLabel("Sửa", JLabel.CENTER);
     JLabel lblCancel = new JLabel("Hủy", JLabel.CENTER);
@@ -51,17 +52,18 @@ public class updatePQForm extends JFrame {
     public updatePQForm(NHOMQUYEN role, ArrayList<String> dscnNew) {
         txtRoleID.setText(role.getMaQuyen());
         txtRoleName.setText(role.getTenQuyen());
+        txtDescription.setText(role.getMoTaQuyen());
         for (CHUCNANG cn : dscn) {
             JCheckBox cb = new JCheckBox(cn.getTenCN());
             System.out.println(cn.getMaCN());
-             for(String maCN : dscnNew) {
-                if(cn.getMaCN().equals(maCN)) {
+            for (String maCN : dscnNew) {
+                if (cn.getMaCN().equals(maCN)) {
                     cb.setSelected(true);
                     break;
                 }
             }
             chbList.add(cb);
-           
+
         }
 
         initComponents(dsnq);
@@ -82,16 +84,21 @@ public class updatePQForm extends JFrame {
 
     public JPanel textInfo(ArrayList<NHOMQUYEN> dsnq) {
         pnText.setLayout(new FlowLayout());
-        pnText.setPreferredSize(new Dimension(300, 50));
+        pnText.setPreferredSize(new Dimension(450, 50));
 
         txtRoleID.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Mã quyền"));
-        txtRoleID.setPreferredSize(new Dimension(140, 40));
+        txtRoleID.setPreferredSize(new Dimension(80, 40));
+        txtRoleID.setEnabled(false);
 
         txtRoleName.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tên quyền"));
-        txtRoleName.setPreferredSize(new Dimension(140, 40));
+        txtRoleName.setPreferredSize(new Dimension(150, 40));
+
+        txtDescription.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Mô Tả quyền"));
+        txtDescription.setPreferredSize(new Dimension(150, 40));
 
         pnText.add(txtRoleID);
         pnText.add(txtRoleName);
+        pnText.add(txtDescription);
         return pnText;
     }
 
@@ -120,7 +127,17 @@ public class updatePQForm extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 String maQuyen = txtRoleID.getText();
                 String tenQuyen = txtRoleName.getText();
-                String moTaQuyen = txtRoleName.getText();
+                String moTaQuyen = txtDescription.getText();
+                if (tenQuyen.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Tên quyền không để trống");
+                    txtRoleName.requestFocus();
+                    return;
+                }
+                if (moTaQuyen.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Mô tả quyền không để trống");
+                    txtDescription.requestFocus();
+                    return;
+                }
                 String trangThai = "ĐANG HOAT ĐỘNG";
                 boolean success = nq.update(maQuyen, tenQuyen, moTaQuyen, trangThai);
                 if (success) {
@@ -139,11 +156,12 @@ public class updatePQForm extends JFrame {
                             }
                         }
                     }
-
-                    JOptionPane.showMessageDialog(null, "Đã thêm nhóm quyền thành công");
+                    
+                    JOptionPane.showMessageDialog(null, "Đã sửa nhóm quyền thành công!! Nhấn 'Làm Mới' để cập nhật");
+                    updatePQForm.this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Đã thêm nhóm quyền thất bại");
-
+                    JOptionPane.showMessageDialog(null, "Đã sửa nhóm quyền thất bại");
+                    return;
                 }
             }
         });

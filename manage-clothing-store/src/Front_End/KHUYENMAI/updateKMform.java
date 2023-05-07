@@ -58,7 +58,7 @@ public class updateKMform extends JFrame {
     KHUYENMAIBUS km = new KHUYENMAIBUS();
 
     public updateKMform(KHUYENMAI kmNew) {
-//        txtMaKM.setText(kmNew.getMaKM());
+        txtMaKM.setText(kmNew.getMaKM());
         txtTenKM.setText(kmNew.getTenKM());
         txtDieuKien.setText(String.valueOf(kmNew.getDieuKien()));
         txtPhanTramGiamGia.setText(String.valueOf(kmNew.getPhanTramGiamGia()));
@@ -73,7 +73,8 @@ public class updateKMform extends JFrame {
     }
 
     public void initComponents() {
-//        txtList.add(txtMaKM);
+        txtMaKM.setEnabled(false);
+        txtList.add(txtMaKM);
         txtList.add(txtTenKM);
         txtList.add(txtDieuKien);
         txtList.add(txtPhanTramGiamGia);
@@ -143,20 +144,32 @@ public class updateKMform extends JFrame {
         lblAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblAdd.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                if(!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) return;
+                if (!tc.isTextFieldEmpty(txtDieuKien) || !tc.isTextFieldEmpty(txtTenKM) || !tc.isTextFieldEmpty(txtPhanTramGiamGia)) {
+                    return;
+                }
                 String maKM = txtMaKM.getText();
                 String tenKM = txtTenKM.getText();
                 Double phanTram = 0.0;
                 try {
-                      phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                    phanTram = Double.parseDouble(txtPhanTramGiamGia.getText());
+                    if (phanTram <= 0) {
+                        JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        txtPhanTramGiamGia.requestFocus();
+                        return;
+                    }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "phần trăm giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     txtPhanTramGiamGia.requestFocus();
                     return;
                 }
-               Double dieuKien = 0.0;
+                Double dieuKien = 0.0;
                 try {
                     dieuKien = Double.parseDouble(txtDieuKien.getText());
+                    if (dieuKien <= 0) {
+                        JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        txtDieuKien.requestFocus();
+                        return;
+                    }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "điều kiện giảm giá không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     txtDieuKien.requestFocus();
@@ -168,7 +181,7 @@ public class updateKMform extends JFrame {
                     startDate = dateS.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Không thể chuyển đổi giá trị ngày bắt đầu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                   lblCalendar_Start.requestFocus();
+                    lblCalendar_Start.requestFocus();
                     return;
                 }
 
@@ -181,11 +194,16 @@ public class updateKMform extends JFrame {
                     lblCalendar_End.requestFocus();
                     return;
                 }
-
+                 if (startDate.isAfter(endDate) || startDate.isEqual(endDate)) {
+                    JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải nhỏ hơn ngày kết thúc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 String tinhTrang = "Đang hoạt động";
+              
                 boolean success = km.update(maKM, tenKM, dieuKien, phanTram, startDate, endDate, tinhTrang);
                 if (success) {
                     JOptionPane.showMessageDialog(null, "Sửa Khuyến Mại Thành Công!! nhấn 'Làm mới' để cập nhật");
+                    updateKMform.this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Sửa Khuyến Mại Thất Bại");
                 }

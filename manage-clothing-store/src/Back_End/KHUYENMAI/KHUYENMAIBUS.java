@@ -34,54 +34,54 @@ public class KHUYENMAIBUS {
         dskm = kmDAO.selectAll();
     }
 
-    public void timKiem(JTextField txt, String selectedOption) {
-        txt.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                ArrayList<KHUYENMAI> arrTimKiem = new ArrayList<>();
-                DefaultTableModel dtm = (DefaultTableModel) KHUYENMAIGUI.tblList.getModel();
-                String text;
-                text = txt.getText().toLowerCase();
-                int[] arrSTT = new int[dskm.size()];
-                int i = 0;
-                JOptionPane.showMessageDialog(null, selectedOption);
-                switch (selectedOption) {
-                    case "Tất cả":
-                        for (KHUYENMAI km : dskm) {
-                            if ((((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text))) && (km.getTrangThai().equals("Đang hoạt động"))) {
-                                arrTimKiem.add(km);
-                                arrSTT[i++] = dskm.indexOf(km);
-                            }
-                        }
-                        break;
-                    case "Mã Khuyến Mại":
-                        for (KHUYENMAI km : dskm) {
-                            if ((km.getMaKM()).toLowerCase().contains(text) && (km.getTrangThai().equals("Đang hoạt động"))) {
-                                arrTimKiem.add(km);
-                                arrSTT[i++] = dskm.indexOf(km);
-                            }
-                        }
-                        break;
-                }
-                dtm.setRowCount(0);
-                i = 0;
-                for (KHUYENMAI km : arrTimKiem) {
-                    dtm.addRow(new Object[]{arrSTT[i++], km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
-                }
-            }
-        });
-    }
-
-    public void showConsole() {
-        dskm.forEach((km) -> {
-            System.out.print(km.getMaKM() + " ");
-            System.out.print(km.getTenKM() + " ");
-            System.out.println(km.getDieuKien() + " ");
-            System.out.println(km.getPhanTramGiamGia() + " ");
-            System.out.println(km.getNgayBD() + " ");
-            System.out.println(km.getNgayKT() + " ");
-            System.out.println(km.getTrangThai() + " ");
-        });
-    }
+//    public void timKiem(JTextField txt, String selectedOption) {
+//        txt.addKeyListener(new KeyAdapter() {
+//            public void keyReleased(KeyEvent e) {
+//                ArrayList<KHUYENMAI> arrTimKiem = new ArrayList<>();
+//                DefaultTableModel dtm = (DefaultTableModel) KHUYENMAIGUI.tblList.getModel();
+//                String text;
+//                text = txt.getText().toLowerCase();
+//                int[] arrSTT = new int[dskm.size()];
+//                int i = 0;
+//                JOptionPane.showMessageDialog(null, selectedOption);
+//                switch (selectedOption) {
+//                    case "Tất cả":
+//                        for (KHUYENMAI km : dskm) {
+//                            if ((((km.getMaKM()).toLowerCase().contains(text) || (km.getTenKM()).toLowerCase().contains(text))) && (km.getTrangThai().equals("Đang hoạt động"))) {
+//                                arrTimKiem.add(km);
+//                                arrSTT[i++] = dskm.indexOf(km);
+//                            }
+//                        }
+//                        break;
+//                    case "Mã Khuyến Mại":
+//                        for (KHUYENMAI km : dskm) {
+//                            if ((km.getMaKM()).toLowerCase().contains(text) && (km.getTrangThai().equals("Đang hoạt động"))) {
+//                                arrTimKiem.add(km);
+//                                arrSTT[i++] = dskm.indexOf(km);
+//                            }
+//                        }
+//                        break;
+//                }
+//                dtm.setRowCount(0);
+//                i = 0;
+//                for (KHUYENMAI km : arrTimKiem) {
+//                    dtm.addRow(new Object[]{arrSTT[i++], km.getMaKM(), km.getTenKM(), km.getDieuKien(), km.getPhanTramGiamGia(), km.getNgayBD(), km.getNgayKT()});
+//                }
+//            }
+//        });
+//    }
+//
+//    public void showConsole() {
+//        dskm.forEach((km) -> {
+//            System.out.print(km.getMaKM() + " ");
+//            System.out.print(km.getTenKM() + " ");
+//            System.out.println(km.getDieuKien() + " ");
+//            System.out.println(km.getPhanTramGiamGia() + " ");
+//            System.out.println(km.getNgayBD() + " ");
+//            System.out.println(km.getNgayKT() + " ");
+//            System.out.println(km.getTrangThai() + " ");
+//        });
+//    }
 
     public String[] getTitle() {
         return new String[]{"Số thứ tự", "Mã khuyến mãi", "Tên khuyến mãi", "Điều kiện khuyến mãi", "Phần trăm khuyến mãi", "Ngày bắt đầu", "Ngày kết thúc"};
@@ -187,7 +187,9 @@ public class KHUYENMAIBUS {
 
     public boolean update(String maKM, String tenKM, double dieuKien, double phanTram, LocalDate ngayBD, LocalDate ngayKT, String tinhTrang) {
         KHUYENMAI voucher = new KHUYENMAI(maKM, tenKM, dieuKien, ngayBD, ngayKT, phanTram, tinhTrang);
+//        JOptionPane.showMessageDialog(null, maKM + ", " + tenKM + ", " + phanTram + ", " + dieuKien + ", " + ngayBD + ", " + ngayKT);
         int update = kmDAO.update(voucher);
+        System.out.println(update);
         if (update == 1) {
             dskm.forEach((km) -> {
                 if (km.getMaKM().equals(maKM)) {

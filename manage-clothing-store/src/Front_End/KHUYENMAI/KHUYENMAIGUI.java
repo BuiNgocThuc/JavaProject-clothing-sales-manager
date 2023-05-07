@@ -124,7 +124,6 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         lblRemove.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-remove-28.png"));
         lblRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblRemove.addMouseListener(this);
-        lblExport.addMouseListener(this);
 
         lblFix.setPreferredSize(new Dimension(100, 30));
         lblFix.setBackground(Color.white);
@@ -404,7 +403,6 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
         }
 
         if (e.getSource() == lblExport) {
-            System.out.println("Front_End.KHUYENMAI.KHUYENMAIGUI.mouseClicked()");
             IOExcel.writeExcel(tblList, "Danh Sách Khuyến Mại", "DSKM");
         }
 

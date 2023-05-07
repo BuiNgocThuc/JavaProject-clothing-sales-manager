@@ -110,7 +110,7 @@ public class CTPhieuNhapDAO implements DAOInterface<CTPhieuNhap> {
 			while (rs.next()) {
 				String maPN = rs.getString("CTPN_MAPN");
 				String maSP = rs.getString("CTPN_MASP");
-				Float donGia = rs.getFloat("CTSP_DONGIA");
+				Float donGia = rs.getFloat("CTSP_GIASP");
 			    int soLuong = rs.getInt("CTSP_SOLUONGSP");
 			    
 			    CTPhieuNhap a = new CTPhieuNhap(maPN, maSP, donGia, soLuong);

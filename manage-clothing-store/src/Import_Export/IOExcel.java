@@ -122,6 +122,7 @@ public class IOExcel {
 
             } else {
                 JOptionPane.showMessageDialog(null, "Xuất File Excel thất bại");
+                return;
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);

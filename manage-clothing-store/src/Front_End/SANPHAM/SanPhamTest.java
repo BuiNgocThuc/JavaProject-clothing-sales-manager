@@ -21,7 +21,7 @@ public class SanPhamTest {
 		f.setLocationRelativeTo(null);
 		f.setLayout(null);
 		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-		SANPHAMGUI a= new SANPHAMGUI(f);
+		SANPHAMGUI a= new SANPHAMGUI();
 		//FormNHAPHANG a = new FormNHAPHANG(f);
     	f.setVisible(true);
 	}

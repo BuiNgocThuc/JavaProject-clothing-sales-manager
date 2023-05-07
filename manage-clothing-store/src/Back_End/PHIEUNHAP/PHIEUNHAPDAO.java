@@ -23,7 +23,7 @@ public class PHIEUNHAPDAO implements DAOInterface<PHIEUNHAP> {
 		int ketQua = 0;
 		try {
 			Connection c = connec.getConnection();
-			String sql = "INSERT INTO PHIEUNHAP(MAPN, PN_MNCC, PN_MANV, NGAYNHAP, PN_TONGTIEN) " +
+			String sql = "INSERT INTO PHIEUNHAP(MAPN, PN_MANCC, PN_MANV, NGAYNHAP, PN_TONGTIEN) " +
 			             " VALUES(?,?,?,?,?)";
 			PreparedStatement pst = c.prepareStatement(sql);
 			pst.setString(1, t.getMaPN());

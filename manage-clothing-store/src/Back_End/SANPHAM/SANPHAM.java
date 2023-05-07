@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Back_End.SANPHAM;
 
 /**
@@ -26,6 +23,20 @@ public class SANPHAM {
         this.hinhAnh = hinhAnh;
        
     }
+
+    public SANPHAM(String maSP, String maTH, String tenSP, String kichCo, String mauSac, float giaSP, int soLuongSP,  String trangThai, String hinhAnh) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.trangThai = trangThai;
+        this.mauSac = mauSac;
+        this.kichCo = kichCo;
+        this.maTH = maTH;
+        this.hinhAnh = hinhAnh;
+        this.giaSP = giaSP;
+        this.soLuongSP = soLuongSP;
+    }
+    
+    
     
     public SANPHAM()
     {

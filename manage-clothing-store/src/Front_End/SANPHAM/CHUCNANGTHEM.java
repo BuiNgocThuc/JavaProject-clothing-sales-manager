@@ -1,5 +1,4 @@
 package Front_End.SANPHAM;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -213,7 +212,7 @@ public class CHUCNANGTHEM extends JFrame{
 			Float donGia = Float.parseFloat(txtdonGia.getText());
 			String hinhAnh = txthinhAnh.getText();
 			
-			spThem = new SANPHAM(maSP, maTH, tenSP, size, color, donGia, 0, "Còn", hinhAnh);
+			spThem = new SANPHAM(maSP, maTH, tenSP, size, color,0, donGia, 0, "Còn", hinhAnh);
 			if(spb.addSP(spThem))
 			{
 				JOptionPane.showMessageDialog(this,"Thêm thành công");

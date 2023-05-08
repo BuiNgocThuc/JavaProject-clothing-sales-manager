@@ -32,12 +32,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+
+import Back_End.THONGKE.ThongKeBUS;
+
 /**
  *
  * @author NGOC THUC
  */
 public class THONGKEGUI extends JPanel implements ChangeListener {
-
+	
+	public static JTable tblList;
     JTabbedPane tpStatistic = new JTabbedPane();
     JPanel pnKhachHang = new JPanel();
     JPanel pnNhaCungCap = new JPanel();
@@ -57,18 +62,27 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     JLabel lblProdData = new JLabel("0", JLabel.CENTER);
     JLabel lblCusData = new JLabel("0", JLabel.CENTER);
     JLabel lblProvData = new JLabel("0", JLabel.CENTER);
+    
     JPanel pnProdSta = new JPanel();
     JPanel pnCusSta = new JPanel();
     JPanel pnProvSta = new JPanel();
     JPanel pnGeneralStatistic = new JPanel();
     JPanel pnTongKet = new JPanel();
 
+    JDateChooser Date_Start;
+    JDateChooser Date_End;
+    JLabel lblReset;
+    JLabel lblApplyDate;
+    JComboBox<String> cb_thongKe;
 //    JComboBox<String> cb_thongKe = new JComboBox<>();
     JFrame jf = new JFrame();
-
+    
     public THONGKEGUI() {
+        ThongKeBUS a = new ThongKeBUS();
         initComponents();
-
+        a.uploadSLB();
+        a.applyDate(Date_Start, Date_End, lblApplyDate, lblReset, cb_thongKe);
+        
 //        jf.setSize(800, 500);
 //        jf.setLayout(new BorderLayout());
 //        jf.add(paneStatistic(), BorderLayout.CENTER);
@@ -84,52 +98,53 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
 
     public JPanel panelTools(String[] items) {
         JPanel pnTool = new JPanel();
-
+        
         JPanel pnDate = new JPanel();
-        JLabel lblCalendar_Start = new JLabel();
-        JLabel lblCalendar_End = new JLabel();
-        JTextField txtDate_Start = new JTextField();
-        JTextField txtDate_End = new JTextField();
-        JLabel lblReset = new JLabel("Làm mới", JLabel.CENTER);
-        JComboBox<String> cb_thongKe = new JComboBox<>();
+        Date_Start = new JDateChooser();
+        Date_End = new JDateChooser();
+        lblReset = new JLabel("Làm mới", JLabel.CENTER);
+        lblApplyDate = new JLabel("Áp dụng", JLabel.CENTER);
+        cb_thongKe = new JComboBox<String>(items);
 
-        cb_thongKe.setModel(new DefaultComboBoxModel(items));
+        cb_thongKe.setPreferredSize(new Dimension(135, 30));
+        cb_thongKe.setFont(new Font(null, Font.PLAIN, 12));
+        cb_thongKe.setBackground(Color.WHITE);
+        cb_thongKe.setOpaque(true);
+        
+        Date_Start.setPreferredSize(new Dimension(120, 45));
+        Date_Start.setBackground(Color.WHITE);
+        Date_Start.setOpaque(true);
+        Date_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ ngày", TitledBorder.LEFT, TitledBorder.TOP));
 
-        lblCalendar_Start.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
-        lblCalendar_Start.setBackground(Color.WHITE);
-        lblCalendar_Start.setOpaque(true);
+        Date_End.setPreferredSize(new Dimension(120, 45));
+        Date_End.setBackground(Color.WHITE);
+        Date_End.setOpaque(true);
+        Date_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến ngày", TitledBorder.LEFT, TitledBorder.TOP));
 
-        lblCalendar_End.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-calendar-32.png"));
-        lblCalendar_End.setBackground(Color.WHITE);
-        lblCalendar_End.setOpaque(true);
-
-        txtDate_Start.setPreferredSize(new Dimension(100, 40));
-        txtDate_Start.setBackground(Color.WHITE);
-        txtDate_Start.setOpaque(true);
-        txtDate_Start.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Từ Ngày", TitledBorder.LEFT, TitledBorder.TOP));
-
-        txtDate_End.setPreferredSize(new Dimension(100, 40));
-        txtDate_End.setBackground(Color.WHITE);
-        txtDate_End.setOpaque(true);
-        txtDate_End.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Đến Ngày", TitledBorder.LEFT, TitledBorder.TOP));
-
-        pnDate.setPreferredSize(new Dimension(350, 80));
+        lblApplyDate.setPreferredSize(new Dimension(80, 30));
+        lblApplyDate.setBackground(Color.white);
+        lblApplyDate.setOpaque(true);
+        lblApplyDate.setBorder(BorderFactory.createLineBorder(Color.black));
+        lblApplyDate.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-done-32.png")));
+        lblApplyDate.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        pnDate.setPreferredSize(new Dimension(420, 80));
         pnDate.setBackground(Color.white);
         pnDate.setOpaque(true);
-        pnDate.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Trong Khoảng", TitledBorder.LEFT, TitledBorder.TOP));
-        pnDate.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        pnDate.add(txtDate_Start);
-        pnDate.add(lblCalendar_Start);
-        pnDate.add(txtDate_End);
-        pnDate.add(lblCalendar_End);
+        pnDate.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Trong khoảng", TitledBorder.LEFT, TitledBorder.TOP));
+        pnDate.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 5));
+        pnDate.add(Date_Start);
+        pnDate.add(Date_End);
+        pnDate.add(lblApplyDate);
+
 
         lblReset.setPreferredSize(new Dimension(100, 40));
         lblReset.setBackground(Color.white);
         lblReset.setOpaque(true);
         lblReset.setBorder(BorderFactory.createLineBorder(Color.black));
-        lblReset.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-reset-32.png"));
+        lblReset.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
         lblReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        
         pnTool.setPreferredSize(new Dimension(0, 150));
         pnTool.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 20));
         pnTool.add(cb_thongKe);
@@ -196,31 +211,44 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     }
 
     public JScrollPane spStatistic(String[] title) {
-        Object[][] product = {};
-        DefaultTableModel model = new DefaultTableModel(product, title);
+        tblList = new JTable();
 
-        JScrollPane spnSta = new JScrollPane();
-        JTable tblList = new JTable();
+        DefaultTableModel model = new DefaultTableModel() {
+        	/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			@Override
+        	public boolean isCellEditable(int row, int column) {
+        		return false;
+        	}
+        };
+        
+        for(String str : title) {
+			model.addColumn(str);
+		}
+
         tblList.setModel(model);
 
+        JScrollPane spnSta = new JScrollPane(tblList);
         spnSta.setBorder(BorderFactory.createLineBorder(Color.black));
-        spnSta.setViewportView(tblList);
+        
         return spnSta;
     }
 
-    public JPanel panelSummary() {
-        String[] items = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-
-        pnTongKet.setPreferredSize(new Dimension(800, 500));
-        pnTongKet.setLayout(new BorderLayout());
-        pnTongKet.add(panelTools(items), BorderLayout.NORTH);
-        pnTongKet.add(generalStatistic(), BorderLayout.CENTER);
-        return pnTongKet;
-    }
+//    public JPanel panelSummary() {
+//        String[] items = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+//
+//        pnTongKet.setPreferredSize(new Dimension(800, 500));
+//        pnTongKet.setLayout(new BorderLayout());
+//        pnTongKet.add(panelTools(items), BorderLayout.NORTH);
+//        pnTongKet.add(generalStatistic(), BorderLayout.CENTER);
+//        return pnTongKet;
+//    }
 
     public JPanel panelProduct() {
-        String[] itemsPro = new String[]{"Số lượng nhập vào", "Số Lượng Bán Ra"};
-        String[] title = new String[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Mã Phiếu Nhập", "Tên Nhà Cung Cấp", "Ngày Nhập", "Số Lượng", "Đơn Giá", "Tổng Tiền"};
+        String[] itemsPro = new String[]{"Số lượng bán ra", "Số lượng nhập vào"};
+        String[] title = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Số lượng", "Tổng tiền"};
         pnSanPham.setPreferredSize(new Dimension(800, 500));
         pnSanPham.setLayout(new BorderLayout());
         pnSanPham.add(panelTools(itemsPro), BorderLayout.NORTH);
@@ -228,32 +256,32 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
         return pnSanPham;
     }
 
-    public JPanel panelCustomer() {
-        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-        String[] title = new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Mã Hóa Đơn", "Tổng Tiền"};
-        pnKhachHang.setPreferredSize(new Dimension(800, 500));
-        pnKhachHang.setLayout(new BorderLayout());
-        pnKhachHang.add(panelTools(itemsPro), BorderLayout.NORTH);
-        pnKhachHang.add(spStatistic(title), BorderLayout.CENTER);
-        return pnKhachHang;
-    }
+//    public JPanel panelCustomer() {
+//        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+//        String[] title = new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Mã Hóa Đơn", "Tổng Tiền"};
+//        pnKhachHang.setPreferredSize(new Dimension(800, 500));
+//        pnKhachHang.setLayout(new BorderLayout());
+//        pnKhachHang.add(panelTools(itemsPro), BorderLayout.NORTH);
+//        pnKhachHang.add(spStatistic(title), BorderLayout.CENTER);
+//        return pnKhachHang;
+//    }
 
-    public JPanel panelProvider() {
-        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-        String[] title = new String[]{"Mã Khách Hàng", "Tên Nhà Cung Cấp", "Mã Phiếu Nhập", "Tổng Tiền"};
-        pnNhaCungCap.setPreferredSize(new Dimension(800, 500));
-        pnNhaCungCap.setLayout(new BorderLayout());
-        pnNhaCungCap.add(panelTools(itemsPro), BorderLayout.NORTH);
-        pnNhaCungCap.add(spStatistic(title), BorderLayout.CENTER);
-        return pnNhaCungCap;
-
-    }
+//    public JPanel panelProvider() {
+//        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+//        String[] title = new String[]{"Mã Khách Hàng", "Tên Nhà Cung Cấp", "Mã Phiếu Nhập", "Tổng Tiền"};
+//        pnNhaCungCap.setPreferredSize(new Dimension(800, 500));
+//        pnNhaCungCap.setLayout(new BorderLayout());
+//        pnNhaCungCap.add(panelTools(itemsPro), BorderLayout.NORTH);
+//        pnNhaCungCap.add(spStatistic(title), BorderLayout.CENTER);
+//        return pnNhaCungCap;
+//
+//    }
 
     public JTabbedPane paneStatistic() {
-        tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
+//        tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
         tpStatistic.addTab("Sản Phẩm", panelProduct());
-        tpStatistic.addTab("Khách Hàng", panelCustomer());
-        tpStatistic.addTab("Nhà Cung Cấp", panelProvider());
+//        tpStatistic.addTab("Khách Hàng", panelCustomer());
+//        tpStatistic.addTab("Nhà Cung Cấp", panelProvider());
 
         return tpStatistic;
     }
@@ -274,7 +302,7 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
 
         switch (tabIndex) {
             case 0:
-                tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
+//                tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
                 break;
             default:
                 throw new AssertionError();

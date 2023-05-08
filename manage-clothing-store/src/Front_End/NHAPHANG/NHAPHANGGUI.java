@@ -1,4 +1,9 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Front_End.NHAPHANG;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,9 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -85,6 +93,11 @@ public class NHAPHANGGUI extends JPanel{
 	SANPHAMBUS spb = new SANPHAMBUS();
 	PHIEUNHAPBUS pnb = new PHIEUNHAPBUS();
 	CTPhieuNhapBUS ctpnb = new CTPhieuNhapBUS();
+	
+	Locale locale = new Locale("en", "EN");
+	String pattern = "### ###.###";
+	DecimalFormat dcf = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+
 	public NHAPHANGGUI()
 	{
 		init();
@@ -334,7 +347,9 @@ public class NHAPHANGGUI extends JPanel{
 			{
 				tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
 			}
-			labelTongTien.setText(String.valueOf(tongTien));
+			dcf.applyPattern(pattern);
+			String value = dcf.format(tongTien);
+			labelTongTien.setText(value);
 			labelMaSP.setText("");
 			labelTenSP.setText("");
 			labelTenTH.setText("");
@@ -357,7 +372,9 @@ public class NHAPHANGGUI extends JPanel{
 		{
 			tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
 		}
-		labelTongTien.setText(String.valueOf(tongTien));
+		dcf.applyPattern(pattern);
+		String value = dcf.format(tongTien);
+		labelTongTien.setText(value);
 	}
 	
 	public void mouseClickbtnSua()
@@ -389,7 +406,9 @@ public class NHAPHANGGUI extends JPanel{
 		{
 			tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
 		}
-		labelTongTien.setText(String.valueOf(tongTien));
+		dcf.applyPattern(pattern);
+		String value = dcf.format(tongTien);
+		labelTongTien.setText(value);
 
 	}
 	
@@ -440,8 +459,10 @@ public class NHAPHANGGUI extends JPanel{
 		String soLuong = txtSoLuong.getText();
 		String giaNhap = txtGiaNhap.getText();
 		Float thanhTien = Float.parseFloat(soLuong) * Float.parseFloat(giaNhap);
+		dcf.applyPattern(pattern);
+		String value = dcf.format(thanhTien);
 		
-		model2.addRow(new Object[] {maSP,tenSP,soLuong,giaNhap,thanhTien});
+		model2.addRow(new Object[] {maSP,tenSP,soLuong,giaNhap,value});
 				
 	}
 	public boolean checkInput()
@@ -457,6 +478,14 @@ public class NHAPHANGGUI extends JPanel{
 		else {
 			try {
 				int soLuong = Integer.parseInt(txtSoLuong.getText());
+				if(soLuong==0)
+				{
+					return showErr(txtSoLuong, "Số lượng phải khác 0");
+				}
+				else if(soLuong<0)
+				{
+					return showErr(txtSoLuong, "Số lượng phải là số dương");
+				}
 			} catch (Exception e) {
 				return showErr(txtSoLuong, "Số lượng phải là số nguyên");
 			}
@@ -466,6 +495,13 @@ public class NHAPHANGGUI extends JPanel{
 		String giaNhapStr = txtGiaNhap.getText();
 		try {
 			Float giaNhap2 = Float.parseFloat(giaNhapStr);
+			if (giaNhap2 == 0) {
+				return showErr(txtGiaNhap, "Giá nhập phải khác 0");
+			}
+			else if (giaNhap2 < 0) {
+				return showErr(txtGiaNhap, "Giá nhập phải là số dương");
+			}
+			
 			if(giaNhap2-giaNhap > 0)
 			{
 				int choose = JOptionPane.showConfirmDialog(this, "Giá nhập mới cao hơn giá nhập cũ(Bạn có muốn thay đổi giá bán?)", "Thông báo", JOptionPane.OK_CANCEL_OPTION);
@@ -520,4 +556,5 @@ public class NHAPHANGGUI extends JPanel{
 		tf.requestFocus();
 		return false;
 	}
+	
 }

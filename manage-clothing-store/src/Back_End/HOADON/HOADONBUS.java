@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Back_End.HOADON;
 
 import java.awt.BorderLayout;
@@ -15,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.FlatteningPathIterator;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -38,6 +43,9 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import Back_End.CTHoaDon.CTHoaDonBUS;
+import Back_End.KHUYENMAI.KHUYENMAI;
+import Back_End.KHUYENMAI.KhuyenMaiDao;
+import Back_End.PHIEUNHAP.PHIEUNHAPDAO;
 import Front_End.HOADON.HOADONGUI;
 /**
  *
@@ -62,8 +70,8 @@ public class HOADONBUS {
     		}
 		}
     }
-
-    public String autoID()
+	
+	public String autoID()
 	{ 
 		String id = new String();
 			if(arrHD.isEmpty())
@@ -97,7 +105,6 @@ public class HOADONBUS {
 			}
 		return id;
 	}
-    
     
     public void timKiem(JTextField txt, JButton btn, JDateChooser dc, JComboBox<String> cb) {
 		btn.addActionListener(new ActionListener() {
@@ -338,5 +345,51 @@ public class HOADONBUS {
 			}
 		}
     	return ten;
+	}
+    
+    public static String getTenKM2(JLabel labelTongTien,JLabel tenKM) {
+    	String maKM = "";
+    	String ten = new String();
+    	ArrayList<KHUYENMAI> aKhuyenmais = KhuyenMaiDao.getInstance().selectAll();
+    	Float tongTieFloat = Float.parseFloat(labelTongTien.getText());
+    	int km = 0;
+    	float dieukien=0, tmp = 0;
+    	int i = 0;
+    	for (KHUYENMAI khuyenmai : aKhuyenmais) {
+			if(khuyenmai.getTrangThai().equals("Đang hoạt động"))
+			{
+				dieukien = (float) khuyenmai.getDieuKien();
+				if(tongTieFloat>dieukien)
+				{
+					if(i == 0)
+					{
+						km = (int) khuyenmai.getPhanTramGiamGia();
+						ten = khuyenmai.getTenKM();
+						maKM = khuyenmai.getMaKM();
+						tmp = tongTieFloat-dieukien;
+						i++;
+					}
+					else {
+						if(tongTieFloat-dieukien < tmp)
+						{
+							km = (int) khuyenmai.getPhanTramGiamGia();
+							ten = khuyenmai.getTenKM();
+							maKM = khuyenmai.getMaKM();
+							tmp = tongTieFloat-dieukien;
+							i++;
+						}
+						else {
+							i++;
+						}
+					}
+				}
+			}
+		}
+    	if (km!=0) {
+			Float tongTien = tongTieFloat - (tongTieFloat*km/100);
+			labelTongTien.setText(String.valueOf(tongTien));
+			tenKM.setText(ten);
+		}
+    	return maKM;
 	}
 }

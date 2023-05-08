@@ -4,6 +4,8 @@
  */
 package Back_End.SANPHAM;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,6 +13,7 @@ import javax.sound.midi.Soundbank;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import Back_End.KICHCO.KICHCO;
@@ -340,7 +343,7 @@ public class SANPHAMBUS {
 		DefaultTableModel dModel = (DefaultTableModel) SANPHAMGUI.tableSP.getModel();
 		dModel.setRowCount(0);
 		for (int i=0 ; i<tmp.size(); i++) {
-			dModel.addRow(new Object[] {i+1, tmp.get(i).getMaSP(),tmp.get(i).getTenSP(), getTenTH_formID(tmp.get(i).getMaTH()), getSize_fromID(tmp.get(i).getKichCo()),
+			dModel.addRow(new Object[] {i+1, tmp.get(i).getMaSP(), getTenTH_formID(tmp.get(i).getMaTH()),tmp.get(i).getTenSP(), getSize_fromID(tmp.get(i).getKichCo()),
 					getMau_fromID(tmp.get(i).getMauSac()), tmp.get(i).getSoLuongSP(), tmp.get(i).getGiaSP() });
 		}
 	}
@@ -538,5 +541,49 @@ public class SANPHAMBUS {
 		}
 	}
 	
+	public void txtTimKiem(JTextField txt, JTable table)
+	{
+		txt.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(txt.getText().equals(""))
+				{
+					loadDataToTable_UseArray(table);
+				}
+				else {
+					String value = txt.getText().toLowerCase();
+					ArrayList<SANPHAM> arrTimKiem = new ArrayList<>();
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					for(SANPHAM o : data)
+					{
+						if(o.getMaSP().toLowerCase().contains(value) || o.getTenSP().toLowerCase().contains(value))
+						{
+							arrTimKiem.add(o);
+						}
+					}
+					model.setRowCount(0);
+					for (int i=0; i<arrTimKiem.size(); i++) {
+						model.addRow(new Object[] {i+1, arrTimKiem.get(i).getMaSP(), getTenTH_formID(arrTimKiem.get(i).getMaTH()), arrTimKiem.get(i).getTenSP(),
+								getSize_fromID(arrTimKiem.get(i).getKichCo()), getMau_fromID(arrTimKiem.get(i).getMauSac()), arrTimKiem.get(i).getSoLuongSP(),
+								arrTimKiem.get(i).getGiaSP() });
+					}
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 	
 }

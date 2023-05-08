@@ -244,4 +244,22 @@ public class CTHoaDonDAO implements DAOInterface<CTHoaDon> {
 		}
 		return ten;
 	}
+	
+	public String selectTinhTrang(String maHD) {
+		String ten = new String();
+		try {
+			Connection c = connec.getConnection();
+			String sql = "SELECT HD_TINHTRANG FROM CHITIETHOADON JOIN HOADON ON CTHD_MAHD = MAHD "
+					+ " WHERE CTHD_MAHD = ?";
+			PreparedStatement pst = c.prepareStatement(sql);
+			pst.setString(1, maHD);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {		
+				ten = rs.getString("HD_TINHTRANG");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ten;
+	}
 }

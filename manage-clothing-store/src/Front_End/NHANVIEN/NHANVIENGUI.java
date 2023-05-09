@@ -26,7 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class NHANVIENGUI extends JPanel{
+public class NHANVIENGUI extends JPanel {
 
     NHANVIENBUS nvb = new NHANVIENBUS();
 
@@ -49,7 +49,7 @@ public class NHANVIENGUI extends JPanel{
     private void init() {
         jp = new JPanel(new BorderLayout());
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(400, 450));
+        jp1.setPreferredSize(new Dimension(400, 550));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp1.setBorder(BorderFactory.createTitledBorder("Thông tin nhân viên"));
 
@@ -186,7 +186,7 @@ public class NHANVIENGUI extends JPanel{
         jp1.add(resetBtn);
 
         jp3 = new JPanel(new BorderLayout());
-        jp3.setPreferredSize(new Dimension(400, 450));
+        jp3.setPreferredSize(new Dimension(400, 550));
         jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp3.setBorder(BorderFactory.createTitledBorder("Danh sách nhân viên"));
         tb = new JTable();
@@ -320,6 +320,7 @@ public class NHANVIENGUI extends JPanel{
     public void resetBtnActionPerformed(ActionEvent e){
         nvb.reset();
         textNhanVien.setEditable(true);
+        nvb.loadData();
     }
     
     private boolean checkValue() {

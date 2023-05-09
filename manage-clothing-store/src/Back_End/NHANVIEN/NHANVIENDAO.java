@@ -224,7 +224,7 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM NHANVIEN WHERE MANV='" + id + "'";
+			String sql = "SELECT * FROM NHANVIEN WHERE MANV LIKE '%" + id + "%'";
 			
 			Statement st = conn.createStatement();
 			
@@ -254,7 +254,7 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM NHANVIEN WHERE TENNV='" + name + "'";
+			String sql = "SELECT * FROM NHANVIEN WHERE TENNV LIKE '%" + name + "%'";
 			
 			Statement st = conn.createStatement();
 			

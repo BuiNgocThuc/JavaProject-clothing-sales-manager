@@ -47,7 +47,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp = new JPanel(new BorderLayout());
 
         jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jp1.setPreferredSize(new Dimension(400, 450));
+        jp1.setPreferredSize(new Dimension(400, 550));
         jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp1.setBorder(BorderFactory.createTitledBorder("Thông tin nhà cung cấp"));
 
@@ -177,7 +177,7 @@ public class NHACUNGCAPGUI extends JPanel {
         jp1.add(resetBtn);
 
         jp3 = new JPanel(new BorderLayout());
-        jp3.setPreferredSize(new Dimension(400, 450));
+        jp3.setPreferredSize(new Dimension(400, 550));
         jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         jp3.setBorder(BorderFactory.createTitledBorder("Danh sách nhà cung cấp"));
         tb = new JTable();
@@ -304,6 +304,7 @@ public class NHACUNGCAPGUI extends JPanel {
     public void resetBtnActionPerformed(ActionEvent e){
         nccb.reset();
         textMaNCC.setEditable(true);
+        nccb.loadData();
     }
     
     private boolean checkValue() {

@@ -191,7 +191,7 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM KHACHHANG WHERE MAKH='" + id + "'";
+			String sql = "SELECT * FROM KHACHHANG WHERE MAKH LIKE '%" + id + "%'";
 			
 			Statement st = conn.createStatement();
 			
@@ -219,7 +219,7 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG>{
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM KHACHHANG WHERE TENKH='" + name + "'";
+			String sql = "SELECT * FROM KHACHHANG WHERE TENKH LIKE '%" + name + "%'";
 			
 			Statement st = conn.createStatement();
 			

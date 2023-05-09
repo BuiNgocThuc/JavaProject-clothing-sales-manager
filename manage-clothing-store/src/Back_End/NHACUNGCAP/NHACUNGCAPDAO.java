@@ -187,7 +187,7 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM NHACUNGCAP WHERE MANCC='" + id + "'";
+			String sql = "SELECT * FROM NHACUNGCAP WHERE MANCC LIKE '%" + id + "%'";
 			
 			Statement st = conn.createStatement();
 			
@@ -215,7 +215,7 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
 		try {
 			Connection conn = connec.getConnection();
 			
-			String sql = "SELECT * FROM NHACUNGCAP WHERE TENNCC='" + name + "'";
+			String sql = "SELECT * FROM NHACUNGCAP WHERE TENNCC LIKE '%" + name + "%'";
 			
 			Statement st = conn.createStatement();
 			

@@ -35,6 +35,8 @@ import javax.swing.table.DefaultTableModel;
 import Back_End.HOADON.HOADON;
 import Back_End.HOADON.HOADONBUS;
 import Back_End.HOADON.HOADONDAO;
+import Back_End.SANPHAM.SANPHAM;
+import Back_End.SANPHAM.SANPHAMDAO;
 import Front_End.HOADON.HOADONGUI;
 
 /**
@@ -128,6 +130,16 @@ public class CTHoaDonBUS {
                                     dtm.removeRow(tbl.getSelectedRow());
                                 }
                             }
+                            
+                            String condition = "CTHD_MAHD = '" + maHD + "'";
+                            ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
+                            for (CTHoaDon cthd : arrCTHD) {
+								SANPHAM sanpham = new SANPHAM(cthd.getMaSP(), null, null, null, null, 0, 0, 0, null, null);
+								sanpham = SANPHAMDAO.getInstance().selectById(sanpham);
+								sanpham.setSoLuongSP(sanpham.getSoLuongSP() + cthd.getSoLuong());
+								SANPHAMDAO.getInstance().update(sanpham);
+							}
+                            
                             dialog.dispose();
                         }
                     }
@@ -164,6 +176,7 @@ public class CTHoaDonBUS {
                 dtm.addColumn("Màu sắc");
                 dtm.addColumn("Đơn giá");
                 dtm.addColumn("Số lượng");
+                dtm.addColumn("Tổng tiền");
                 tbl1.setModel(dtm);
                 tbl1.setAutoCreateRowSorter(true);
                 tbl1.getTableHeader().setPreferredSize(new Dimension(1000, 40));
@@ -175,6 +188,7 @@ public class CTHoaDonBUS {
                 tbl1.getColumnModel().getColumn(3).setPreferredWidth(50);
                 tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
                 tbl1.getColumnModel().getColumn(5).setPreferredWidth(50);
+                tbl1.getColumnModel().getColumn(6).setPreferredWidth(100);
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
                 centerRenderer.setHorizontalAlignment(JLabel.CENTER);
                 tbl1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -183,6 +197,7 @@ public class CTHoaDonBUS {
                 tbl1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
                 tbl1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
                 tbl1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+                tbl1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
                 tbl1.setBorder(BorderFactory.createRaisedBevelBorder());
 
                 JScrollPane sp = new JScrollPane(tbl1);
@@ -194,7 +209,8 @@ public class CTHoaDonBUS {
                 dcf.applyPattern(pattern);
                 dtm.setRowCount(0);
                 for (CTHoaDon cthoadon : arrCTHD) {
-                    dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong()});
+                    float tongTien = (float) cthoadon.getDonGia() * cthoadon.getSoLuong();
+                    dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong(), dcf.format(tongTien)});
                 }
 
                 pnl2.add(btn1);
@@ -302,6 +318,7 @@ public class CTHoaDonBUS {
                     dtm.addColumn("Màu sắc");
                     dtm.addColumn("Đơn giá");
                     dtm.addColumn("Số lượng");
+                    dtm.addColumn("Tổng tiền");
                     tbl1.setModel(dtm);
                     tbl1.setAutoCreateRowSorter(true);
                     tbl1.getTableHeader().setPreferredSize(new Dimension(1000, 40));
@@ -313,6 +330,7 @@ public class CTHoaDonBUS {
                     tbl1.getColumnModel().getColumn(3).setPreferredWidth(50);
                     tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
                     tbl1.getColumnModel().getColumn(5).setPreferredWidth(50);
+                    tbl1.getColumnModel().getColumn(6).setPreferredWidth(100);
                     tbl1.setAlignmentX(20);
                     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
                     centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -322,6 +340,7 @@ public class CTHoaDonBUS {
                     tbl1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
                     tbl1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
                     tbl1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+                    tbl1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
                     tbl1.setBorder(BorderFactory.createRaisedBevelBorder());
 
                     JScrollPane sp = new JScrollPane(tbl1);
@@ -333,7 +352,8 @@ public class CTHoaDonBUS {
                     dcf.applyPattern(pattern);
                     dtm.setRowCount(0);
                     for (CTHoaDon cthoadon : arrCTHD) {
-                        dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong()});
+                        float tongTien = (float) cthoadon.getDonGia() * cthoadon.getSoLuong();
+                        dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong(), dcf.format(tongTien)});
                     }
 
                     pnl2.add(btn1);

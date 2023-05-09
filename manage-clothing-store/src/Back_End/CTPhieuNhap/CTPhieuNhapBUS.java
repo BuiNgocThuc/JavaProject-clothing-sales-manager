@@ -135,6 +135,7 @@ public class CTPhieuNhapBUS {
                 dtm.addColumn("Màu sắc");
                 dtm.addColumn("Giá nhập");
                 dtm.addColumn("Số lượng");
+                dtm.addColumn("Tổng tiền");
                 tbl1.setModel(dtm);
                 tbl1.setAutoCreateRowSorter(true);
                 tbl1.getTableHeader().setPreferredSize(new Dimension(1000, 40));
@@ -146,6 +147,7 @@ public class CTPhieuNhapBUS {
                 tbl1.getColumnModel().getColumn(3).setPreferredWidth(50);
                 tbl1.getColumnModel().getColumn(4).setPreferredWidth(100);
                 tbl1.getColumnModel().getColumn(5).setPreferredWidth(50);
+                tbl1.getColumnModel().getColumn(6).setPreferredWidth(100);
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
                 centerRenderer.setHorizontalAlignment(JLabel.CENTER);
                 tbl1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -154,6 +156,7 @@ public class CTPhieuNhapBUS {
                 tbl1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
                 tbl1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
                 tbl1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+                tbl1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
                 tbl1.setBorder(BorderFactory.createRaisedBevelBorder());
 
                 JScrollPane sp = new JScrollPane(tbl1);
@@ -165,7 +168,8 @@ public class CTPhieuNhapBUS {
                 dcf.applyPattern(pattern);
                 dtm.setRowCount(0);
                 for (CTPhieuNhap ctphieunhap : arrCTPN) {
-                    dtm.addRow(new Object[]{CTPhieuNhapDAO.getInstance().selectTenSP(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenTH(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenSize(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenMau(ctphieunhap.getMaSP()), dcf.format(ctphieunhap.getDonGia()), ctphieunhap.getSoLuong()});
+                    float tongTien = (float) ctphieunhap.getDonGia() * ctphieunhap.getSoLuong();
+                    dtm.addRow(new Object[]{CTPhieuNhapDAO.getInstance().selectTenSP(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenTH(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenSize(ctphieunhap.getMaSP()), CTPhieuNhapDAO.getInstance().selectTenMau(ctphieunhap.getMaSP()), dcf.format(ctphieunhap.getDonGia()), ctphieunhap.getSoLuong(), dcf.format(tongTien)});
                 }
 
                 pnl2.add(btn1);

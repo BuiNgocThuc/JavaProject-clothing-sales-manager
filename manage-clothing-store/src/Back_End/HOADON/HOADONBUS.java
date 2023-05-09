@@ -42,10 +42,14 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import Back_End.CTHoaDon.CTHoaDon;
 import Back_End.CTHoaDon.CTHoaDonBUS;
+import Back_End.CTHoaDon.CTHoaDonDAO;
 import Back_End.KHUYENMAI.KHUYENMAI;
 import Back_End.KHUYENMAI.KhuyenMaiDao;
 import Back_End.PHIEUNHAP.PHIEUNHAPDAO;
+import Back_End.SANPHAM.SANPHAM;
+import Back_End.SANPHAM.SANPHAMDAO;
 import Front_End.HOADON.HOADONGUI;
 /**
  *
@@ -311,6 +315,15 @@ public class HOADONBUS {
 										dtm.removeRow(tbl1.getSelectedRow());
 										uploadData();
 									}
+								}
+								
+								String condition = "CTHD_MAHD = '" + maHD + "'";
+	                            ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
+	                            for (CTHoaDon cthd : arrCTHD) {
+									SANPHAM sanpham = new SANPHAM(cthd.getMaSP(), null, null, null, null, 0, 0, 0, null, null);
+									sanpham = SANPHAMDAO.getInstance().selectById(sanpham);
+									sanpham.setSoLuongSP(sanpham.getSoLuongSP() - cthd.getSoLuong());
+									SANPHAMDAO.getInstance().update(sanpham);
 								}
 							}
 						}

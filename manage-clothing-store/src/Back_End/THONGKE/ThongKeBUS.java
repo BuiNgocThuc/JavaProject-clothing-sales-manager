@@ -148,10 +148,51 @@ public class ThongKeBUS {
                                 }
                             }
                             
-                            dtm.setRowCount(0);
-                            for (CTHoaDon ctTK : arrTK) {
-                                float tongTien = (float) ctTK.getDonGia() * ctTK.getSoLuong();
-                                dtm.addRow(new Object[]{ctTK.getMaSP(), CTHoaDonDAO.getInstance().selectTenSP(ctTK.getMaSP()), dcf.format(ctTK.getDonGia()), ctTK.getSoLuong(), dcf.format(tongTien)});
+                            String selectedItem = cb_thongKe.getSelectedItem().toString();
+                            switch(selectedItem) {
+                                case "Bán Chạy Nhất":
+                                	for (int i = 0; i < arrTK.size(); i++) {
+            							for (int j = i+1; j < arrTK.size(); j++) {
+            								if(arrTK.get(i).getSoLuong() < arrTK.get(j).getSoLuong()) {
+            									CTHoaDon tmp = arrTK.get(i);
+            									arrTK.set(i, arrTK.get(j));
+            									arrTK.set(j, tmp);
+            								}
+            							}
+            						}
+                                	
+                                    dtm.setRowCount(0);
+                                    for (CTHoaDon ctTK : arrTK) {
+                                        float tongTien = (float) ctTK.getDonGia() * ctTK.getSoLuong();
+                                        dtm.addRow(new Object[]{ctTK.getMaSP(), CTHoaDonDAO.getInstance().selectTenSP(ctTK.getMaSP()), dcf.format(ctTK.getDonGia()), ctTK.getSoLuong(), dcf.format(tongTien)});
+                                    }
+                                    break;
+                                case "Doanh Thu Cao Nhất":
+                                	for (int i = 0; i < arrTK.size(); i++) {
+                                		float tongTieni = (float) arrTK.get(i).getDonGia() * arrTK.get(i).getSoLuong();
+            							for (int j = i+1; j < arrTK.size(); j++) {
+            								float tongTienj = (float) arrTK.get(j).getDonGia() * arrTK.get(j).getSoLuong();
+            								if(tongTieni < tongTienj) {
+            									CTHoaDon tmp = arrTK.get(i);
+            									arrTK.set(i, arrTK.get(j));
+            									arrTK.set(j, tmp);
+            								}
+            							}
+            						}
+                                	
+                                    dtm.setRowCount(0);
+                                    for (CTHoaDon ctTK : arrTK) {
+                                        float tongTien = (float) ctTK.getDonGia() * ctTK.getSoLuong();
+                                        dtm.addRow(new Object[]{ctTK.getMaSP(), CTHoaDonDAO.getInstance().selectTenSP(ctTK.getMaSP()), dcf.format(ctTK.getDonGia()), ctTK.getSoLuong(), dcf.format(tongTien)});
+                                    }
+                                    break;
+                                case "Sắp Xếp Theo":
+                                	dtm.setRowCount(0);
+                                    for (CTHoaDon ctTK : arrTK) {
+                                        float tongTien = (float) ctTK.getDonGia() * ctTK.getSoLuong();
+                                        dtm.addRow(new Object[]{ctTK.getMaSP(), CTHoaDonDAO.getInstance().selectTenSP(ctTK.getMaSP()), dcf.format(ctTK.getDonGia()), ctTK.getSoLuong(), dcf.format(tongTien)});
+                                    }
+                                	break;
                             }
                         }
                     }
@@ -215,6 +256,9 @@ public class ThongKeBUS {
         cb_thongKe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	Date_Start.setDate(null);
+                Date_End.setDate(null);
+            	
                 // Lấy giá trị được chọn và hiển thị lên JLabel
                 String selectedItem = cb_thongKe.getSelectedItem().toString();
                 switch(selectedItem) {

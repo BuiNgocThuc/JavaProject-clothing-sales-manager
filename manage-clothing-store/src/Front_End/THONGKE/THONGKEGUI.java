@@ -76,14 +76,15 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
     JLabel lblReset;
     JLabel lblApplyDate;
     JComboBox<String> cb_thongKe;
+    JTextField txtTopSP;
 //    JComboBox<String> cb_thongKe = new JComboBox<>();
     JFrame jf = new JFrame();
 
     public THONGKEGUI() {
         ThongKeBUS a = new ThongKeBUS();
         initComponents();
-        a.uploadSLB();
-        a.applyDate(Date_Start, Date_End, lblApplyDate, lblReset, cb_thongKe);
+        a.uploadData();
+        a.allEvent(Date_Start, Date_End, lblApplyDate, lblReset, cb_thongKe, txtTopSP);
 
 //        jf.setSize(800, 500);
 //        jf.setLayout(new BorderLayout());
@@ -100,7 +101,7 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
 
     public JPanel panelTools(String[] items) {
         JPanel pnTool = new JPanel();
-        JTextField txtTopSP = new JTextField();
+        txtTopSP = new JTextField();
 
         txtTopSP.setBorder(BorderFactory.createTitledBorder("Top sản phẩm"));
         txtTopSP.setPreferredSize(new Dimension(100, 40));
@@ -116,21 +117,7 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
         cb_thongKe.setFont(new Font(null, Font.PLAIN, 12));
         cb_thongKe.setBackground(Color.WHITE);
         cb_thongKe.setOpaque(true);
-        cb_thongKe.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Lấy giá trị được chọn và hiển thị lên JLabel
-                        String selectedItem = cb_thongKe.getSelectedItem().toString();
-                        switch(selectedItem) {
-                            case "Bán Chạy Nhất":
-                                
-                                break;
-                            case "Doanh Thu Cao Nhất":
-                            
-                            break;
-                        }
-                    }
-                });
+        
 
         Date_Start.setPreferredSize(new Dimension(120, 45));
         Date_Start.setBackground(Color.WHITE);

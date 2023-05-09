@@ -11,9 +11,6 @@ import Back_End.NHOMQUYEN.NHOMQUYEN;
 import Back_End.NHOMQUYEN.NHOMQUYENBUS;
 import Back_End.TAIKHOAN.TAIKHOAN;
 import Back_End.TAIKHOAN.TAIKHOANBUS;
-import Front_End.PHANQUYEN.CHUCNANGGUI;
-import Front_End.PHANQUYEN.PHANQUYENGUI;
-import static Front_End.PHANQUYEN.PHANQUYENGUI.tblList;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -26,23 +23,17 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author NGOC THUC
  */
-public class newAccount extends JFrame {
+public class updateAccount extends JFrame {
 
     JTextField txtMaNV = new JTextField();
     JTextField txtMaQuyen = new JTextField();
@@ -56,7 +47,7 @@ public class newAccount extends JFrame {
     JButton btnMaNV = new JButton("...");
     JButton btnMaQuyen = new JButton("...");
 
-    JLabel lblAdd = new JLabel("Thêm");
+    JLabel lblAdd = new JLabel("Sửa");
     JLabel lblCancel = new JLabel("Hủy");
 
     TAIKHOANBUS tk = new TAIKHOANBUS();
@@ -64,7 +55,7 @@ public class newAccount extends JFrame {
     NHANVIENBUS nvBUS = new NHANVIENBUS();
     NHOMQUYENBUS nqBus = new NHOMQUYENBUS();
 
-    public newAccount() {
+    public updateAccount() {
         initComponents();
     }
 
@@ -97,16 +88,17 @@ public class newAccount extends JFrame {
         pnMaNV.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Mã Nhân Viên"));
 
         txtMaNV.setPreferredSize(new Dimension(180, 35));
+        txtMaNV.setEnabled(false);
         btnMaNV.setPreferredSize(new Dimension(20, 20));
         btnMaNV.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              new newEmployee(getTxtMaNV());
+                newEmployee nE = new newEmployee(getTxtMaNV());
             }
         });
 
         pnMaNV.add(txtMaNV);
-        pnMaNV.add(btnMaNV);
+//        pnMaNV.add(btnMaNV);
         return pnMaNV;
     }
 
@@ -167,11 +159,11 @@ public class newAccount extends JFrame {
                 String userName = txtMaNV.getText();
                 String passWord = txtPassword.getText();
                 String maQuyen = txtMaQuyen.getText();
-                if (userName.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Mã nhân viên không để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    txtMaNV.requestFocus();
-                    return;
-                }
+//                if (userName.isEmpty()) {
+//                    JOptionPane.showMessageDialog(null, "Mã nhân viên không để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                    txtMaNV.requestFocus();
+//                    return;
+//                }
                 if (passWord.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "mật khẩu không để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     txtPassword.requestFocus();
@@ -183,47 +175,26 @@ public class newAccount extends JFrame {
                     return;
                 }
                 boolean isValid = false;
-                ArrayList<NHANVIEN> dsnv = nvDAO.selectAll();
-                for (NHANVIEN nv : dsnv) {
-                    System.out.println(nv.getMaNV());
-                    if (nv.getMaNV().equals(userName)) {
 
+                ArrayList<NHOMQUYEN> dsnq = nqBus.getDsnq();
+                for (NHOMQUYEN nq : dsnq) {
+                    if (nq.getMaQuyen().equals(maQuyen)) {
                         isValid = true;
                         break;
                     }
                 }
-                System.out.println(userName + " " + isValid);
                 if (!isValid) {
-                    JOptionPane.showMessageDialog(null, "mã nhân viên không tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "nhóm quyền không tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return;
-                } else {
-                    isValid = false;
-                    ArrayList<NHOMQUYEN> dsnq = nqBus.getDsnq();
-                    for (NHOMQUYEN nq : dsnq) {
-                        if (nq.getMaQuyen().equals(maQuyen)) {
-                            isValid = true;
-                            break;
-                        }
-                    }
-                    if (!isValid) {
-                        JOptionPane.showMessageDialog(null, "nhóm quyền không tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
                 }
-                ArrayList<TAIKHOAN> dstk = tk.getDstk();
-                for (TAIKHOAN acc : dstk) {
-                    if (acc.getUserName().equals(userName)) {
-                        JOptionPane.showMessageDialog(null, "Tài Khoản này đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                }
+
                 String trangthai = "Đang hoạt động";
-                boolean success = tk.add(userName, passWord, maQuyen, trangthai);
+                boolean success = tk.update(userName, passWord, maQuyen, trangthai);
                 if (success) {
-                    JOptionPane.showMessageDialog(null, "Tạo tài khoản người dùng thành công!!! Nhấn 'Làm mới' để cập nhật");
-                    newAccount.this.dispose();
+                    JOptionPane.showMessageDialog(null, "Sua tài khoản người dùng thành công!!! Nhấn 'Làm mới' để cập nhật");
+                    updateAccount.this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Tạo tài khoản thất bại");
+                    JOptionPane.showMessageDialog(null, "Sửa tài khoản thất bại");
                 }
             }
         });
@@ -237,7 +208,7 @@ public class newAccount extends JFrame {
         lblCancel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblCancel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                newAccount.this.dispose();
+                updateAccount.this.dispose();
             }
         });
 
@@ -247,9 +218,5 @@ public class newAccount extends JFrame {
         pnTool.add(lblAdd);
         pnTool.add(lblCancel);
         return pnTool;
-    }
-
-    public static void main(String[] args) {
-        new newAccount();
     }
 }

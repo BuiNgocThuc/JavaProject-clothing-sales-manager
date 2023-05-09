@@ -10,12 +10,15 @@ package Back_End.HOADON;
  */
 public class HOADON {
 
-	private String maHD, maNV, maKM, maKH, ngayNhap, tinhTrang;
+    private String maHD, maNV, maKM, maKH, ngayNhap, tinhTrang;
     private float tongTien;
-    
-    public HOADON()
-    {
-    	
+
+    public HOADON() {
+
+    }
+
+    public HOADON(String maHD) {
+        this.maHD = maHD;
     }
 
     public HOADON(String maHD, String maNV, String maKM, String maKH, String ngayNhap, Float tongTien, String tinhTrang) {
@@ -28,60 +31,60 @@ public class HOADON {
         this.tinhTrang = tinhTrang;
     }
 
-	public String getMaHD() {
-		return maHD;
-	}
+    public String getMaHD() {
+        return maHD;
+    }
 
-	public void setMaHD(String maHD) {
-		this.maHD = maHD;
-	}
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
 
-	public String getMaNV() {
-		return maNV;
-	}
-	
-	public String getMaKM() {
-		return maKM;
-	}
+    public String getMaNV() {
+        return maNV;
+    }
 
-	public void setMaKM(String maKM) {
-		this.maKM = maKM;
-	}
+    public String getMaKM() {
+        return maKM;
+    }
 
-	public void setMaNV(String maNV) {
-		this.maNV = maNV;
-	}
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
 
-	public String getMaKH() {
-		return maKH;
-	}
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
 
-	public void setMaKH(String maKH) {
-		this.maKH = maKH;
-	}
+    public String getMaKH() {
+        return maKH;
+    }
 
-	public String getNgayNhap() {
-		return ngayNhap;
-	}
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
 
-	public void setNgayNhap(String ngayNhap) {
-		this.ngayNhap = ngayNhap;
-	}
+    public String getNgayNhap() {
+        return ngayNhap;
+    }
 
-	public float getTongTien() {
-		return tongTien;
-	}
+    public void setNgayNhap(String ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
 
-	public void setTongTien(float tongTien) {
-		this.tongTien = tongTien;
-	}
+    public float getTongTien() {
+        return tongTien;
+    }
 
-	public String getTinhTrang() {
-		return tinhTrang;
-	}
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
+    }
 
-	public void setTinhTrang(String tinhTrang) {
-		this.tinhTrang = tinhTrang;
-	}
-	
+    public String getTinhTrang() {
+        return tinhTrang;
+    }
+
+    public void setTinhTrang(String tinhTrang) {
+        this.tinhTrang = tinhTrang;
+    }
+
 }

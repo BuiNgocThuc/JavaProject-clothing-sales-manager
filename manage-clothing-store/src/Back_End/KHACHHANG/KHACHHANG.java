@@ -9,6 +9,7 @@ package Back_End.KHACHHANG;
  * @author NGOC THUC
  */
 public class KHACHHANG {
+
     private String maKH, tenKH, sdt, diaChi, trangThai;
 
     public KHACHHANG(String maKH, String tenKH, String sdt, String diaChi, String trangThai) {
@@ -17,6 +18,10 @@ public class KHACHHANG {
         this.sdt = sdt;
         this.diaChi = diaChi;
         this.trangThai = trangThai;
+    }
+
+    public KHACHHANG(String maKH) {
+        this.maKH = maKH;
     }
 
     public String getMaKH() {
@@ -51,14 +56,12 @@ public class KHACHHANG {
         this.diaChi = diaChi;
     }
 
-	public String getTrangThai() {
-		return trangThai;
-	}
+    public String getTrangThai() {
+        return trangThai;
+    }
 
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
-    
-    
-    
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
 }

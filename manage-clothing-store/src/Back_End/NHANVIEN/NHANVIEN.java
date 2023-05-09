@@ -11,74 +11,75 @@ package Back_End.NHANVIEN;
  */
 public class NHANVIEN {
 
-	private String maNV, tenNV,ngaySinh, diaChi, sdt, trangThai;
-	    
-	 public NHANVIEN() {
-	        maNV = null;
-	        tenNV = null;
-	        diaChi = null;
-	        sdt = null;
-	        trangThai = null;
-	  }
+    private String maNV, tenNV, ngaySinh, diaChi, sdt, trangThai;
 
-	 public NHANVIEN(String maNV, String tenNV, String ngaySinh, String sdt, String diaChi, String trangThai) {
-	        this.maNV = maNV;
-	        this.tenNV = tenNV;
-	        this.ngaySinh = ngaySinh;
-	        this.diaChi = diaChi;
-	        this.sdt = sdt;
-	        this.trangThai = trangThai;
-	  }
+    public NHANVIEN() {
+        maNV = null;
+        tenNV = null;
+        diaChi = null;
+        sdt = null;
+        trangThai = null;
+    }
 
-	public String getMaNV() {
-		return maNV;
-	}
+    public NHANVIEN(String maNV) {
+        this.maNV = maNV;
+    }
 
-	public void setMaNV(String maNV) {
-		this.maNV = maNV;
-	}
+    public NHANVIEN(String maNV, String tenNV, String ngaySinh, String sdt, String diaChi, String trangThai) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.ngaySinh = ngaySinh;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.trangThai = trangThai;
+    }
 
-	public String getTenNV() {
-		return tenNV;
-	}
+    public String getMaNV() {
+        return maNV;
+    }
 
-	public void setTenNV(String tenNV) {
-		this.tenNV = tenNV;
-	}
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
 
-	public String getDiaChi() {
-		return diaChi;
-	}
+    public String getTenNV() {
+        return tenNV;
+    }
 
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
-	}
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
+    }
 
-	public String getSdt() {
-		return sdt;
-	}
+    public String getDiaChi() {
+        return diaChi;
+    }
 
-	public void setSdt(String sdt) {
-		this.sdt = sdt;
-	}
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
 
-	public String getNgaySinh() {
-		return ngaySinh;
-	}
+    public String getSdt() {
+        return sdt;
+    }
 
-	public void setNgaySinh(String ngaySinh) {
-		this.ngaySinh = ngaySinh;
-	}
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
 
-	public String getTrangThai() {
-		return trangThai;
-	}
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
 
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
 
-	
-	 
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
 }

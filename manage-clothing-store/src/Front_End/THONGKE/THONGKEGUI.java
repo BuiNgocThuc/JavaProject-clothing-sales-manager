@@ -236,18 +236,18 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
         return spnSta;
     }
 
-//    public JPanel panelSummary() {
-//        String[] items = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-//
-//        pnTongKet.setPreferredSize(new Dimension(800, 500));
-//        pnTongKet.setLayout(new BorderLayout());
-//        pnTongKet.add(panelTools(items), BorderLayout.NORTH);
-//        pnTongKet.add(generalStatistic(), BorderLayout.CENTER);
-//        return pnTongKet;
-//    }
+    public JPanel panelSummary() {
+        String[] items = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+
+        pnTongKet.setPreferredSize(new Dimension(800, 500));
+        pnTongKet.setLayout(new BorderLayout());
+        pnTongKet.add(panelTools(items), BorderLayout.NORTH);
+        pnTongKet.add(generalStatistic(), BorderLayout.CENTER);
+        return pnTongKet;
+    }
 
     public JPanel panelProduct() {
-        String[] itemsPro = new String[]{"Số lượng bán ra", "Số lượng nhập vào"};
+        String[] itemsPro = new String[]{"Sắp Xếp Theo","Bán Chạy Nhất", "Doanh Thu Cao Nhất"};
         String[] title = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Số lượng", "Tổng tiền"};
         pnSanPham.setPreferredSize(new Dimension(800, 500));
         pnSanPham.setLayout(new BorderLayout());
@@ -256,29 +256,29 @@ public class THONGKEGUI extends JPanel implements ChangeListener {
         return pnSanPham;
     }
 
-//    public JPanel panelCustomer() {
-//        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-//        String[] title = new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Mã Hóa Đơn", "Tổng Tiền"};
-//        pnKhachHang.setPreferredSize(new Dimension(800, 500));
-//        pnKhachHang.setLayout(new BorderLayout());
-//        pnKhachHang.add(panelTools(itemsPro), BorderLayout.NORTH);
-//        pnKhachHang.add(spStatistic(title), BorderLayout.CENTER);
-//        return pnKhachHang;
-//    }
+    public JPanel panelCustomer() {
+        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+        String[] title = new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Mã Hóa Đơn", "Tổng Tiền"};
+        pnKhachHang.setPreferredSize(new Dimension(800, 500));
+        pnKhachHang.setLayout(new BorderLayout());
+        pnKhachHang.add(panelTools(itemsPro), BorderLayout.NORTH);
+        pnKhachHang.add(spStatistic(title), BorderLayout.CENTER);
+        return pnKhachHang;
+    }
 
-//    public JPanel panelProvider() {
-//        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
-//        String[] title = new String[]{"Mã Khách Hàng", "Tên Nhà Cung Cấp", "Mã Phiếu Nhập", "Tổng Tiền"};
-//        pnNhaCungCap.setPreferredSize(new Dimension(800, 500));
-//        pnNhaCungCap.setLayout(new BorderLayout());
-//        pnNhaCungCap.add(panelTools(itemsPro), BorderLayout.NORTH);
-//        pnNhaCungCap.add(spStatistic(title), BorderLayout.CENTER);
-//        return pnNhaCungCap;
-//
-//    }
+    public JPanel panelProvider() {
+        String[] itemsPro = new String[]{"Tổng Tiền", "Số Lượng Sản Phẩm"};
+        String[] title = new String[]{"Mã Khách Hàng", "Tên Nhà Cung Cấp", "Mã Phiếu Nhập", "Tổng Tiền"};
+        pnNhaCungCap.setPreferredSize(new Dimension(800, 500));
+        pnNhaCungCap.setLayout(new BorderLayout());
+        pnNhaCungCap.add(panelTools(itemsPro), BorderLayout.NORTH);
+        pnNhaCungCap.add(spStatistic(title), BorderLayout.CENTER);
+        return pnNhaCungCap;
+
+    }
 
     public JTabbedPane paneStatistic() {
-//        tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
+        tpStatistic.addTab("Thống Kê Tổng Quát", panelSummary());
         tpStatistic.addTab("Sản Phẩm", panelProduct());
 //        tpStatistic.addTab("Khách Hàng", panelCustomer());
 //        tpStatistic.addTab("Nhà Cung Cấp", panelProvider());

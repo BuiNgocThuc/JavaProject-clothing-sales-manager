@@ -119,8 +119,9 @@ public class TAIKHOANDAO {
         try {
             Connection c = connec.getConnection();
 
-            String sql = "DELETE FROM TAIKHOAN "
-                    + " WHERE Username=?";
+            String sql = "UPDATE TAIKHOAN "
+                    + "SET TRANGTHAI = 'Đã Xóa' "
+                    + "WHERE Username=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getUserName());
 
@@ -132,9 +133,10 @@ public class TAIKHOANDAO {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
 
-        return 0;
+        return 1;
     }
 
     public int update(TAIKHOAN t) {
@@ -161,9 +163,10 @@ public class TAIKHOANDAO {
             connec.closeConnection(c);
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
 
-        return 0;
+        return 1;
     }
 
     public ArrayList<TAIKHOAN> selectAll() {
@@ -171,7 +174,7 @@ public class TAIKHOANDAO {
         try {
             Connection c = connec.getConnection();
             Statement st = c.createStatement();
-            String sql = "SELECT * FROM TAIKHOAN";
+            String sql = "SELECT * FROM TAIKHOAN WHERE TRANGTHAI NOT IN ('Đã Xóa')";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {

@@ -16,6 +16,10 @@ public class THUONGHIEU {
 
     }
 
+    public THUONGHIEU(String maTH) {
+        this.maTH = maTH;
+    }
+
     public THUONGHIEU(String maTH, String tenTH, String trangthai) {
         this.trangthai = trangthai;
         this.maTH = maTH;

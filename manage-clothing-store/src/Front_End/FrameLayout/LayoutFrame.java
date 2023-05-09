@@ -23,11 +23,16 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -35,6 +40,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -55,11 +61,13 @@ public class LayoutFrame extends JFrame {
     JPanel pnHeader = new JPanel();
     JPanel pnMenu = new JPanel();
     JPanel pnMainContent = new JPanel();
+    JPanel pnHello = new JPanel();
     JLabel lblInfoUser = new JLabel("Xin Chào, Bùi Ngọc Thức", JLabel.CENTER);
 
     JLabel lblMinimize = new JLabel();
     JLabel lblClose = new JLabel("X", JLabel.CENTER);
     JLabel lblLogOut = new JLabel();
+    JLabel lblWelcome = new JLabel("Chào Mừng đến với hệ thống");
 
     JLabel lblSetting = new JLabel();
     JPanel btnMenu = new JPanel();
@@ -97,7 +105,7 @@ public class LayoutFrame extends JFrame {
     }
 
     public LayoutFrame() {
-        this.setUndecorated(true);
+//        this.setUndecorated(true);
         initComponents();
     }
 
@@ -315,6 +323,7 @@ public class LayoutFrame extends JFrame {
         closeMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-close-40.png"));
         closeMenu.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                closeMenu();
                 btnMenu.removeAll();
                 btnMenu.add(openMenu);
                 btnMenu.repaint();
@@ -327,6 +336,7 @@ public class LayoutFrame extends JFrame {
         openMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-menu-40.png"));
         openMenu.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                openMenu();
                 btnMenu.removeAll();
                 btnMenu.add(closeMenu);
                 btnMenu.repaint();
@@ -370,7 +380,7 @@ public class LayoutFrame extends JFrame {
 
         pnFunction.setBackground(Color.black);
         pnFunction.setOpaque(true);
-        pnFunction.setPreferredSize(new Dimension(180, 900));
+        pnFunction.setPreferredSize(new Dimension(180, 950));
         pnFunction.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
         pnFunction.add(lblLogo);
@@ -445,13 +455,91 @@ public class LayoutFrame extends JFrame {
         pnMenu.add(sbMenu);
         return pnMenu;
     }
+    
+    public void openMenu() {
+        int initialWidth = pnMenu.getPreferredSize().width;
+        int steps = 200 / 10; // 10 ms interval between each step
+        int stepWidth = widthBar / steps;
 
+        Timer timer = new Timer(10, new ActionListener() {
+            int currentWidth = initialWidth;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentWidth += stepWidth;
+                if (currentWidth >= widthBar) {
+                    currentWidth = widthBar;
+                    ((Timer) e.getSource()).stop();
+                }
+                Dimension newPreferredSize = new Dimension(currentWidth, pnMenu.getPreferredSize().height);
+                pnMenu.setPreferredSize(newPreferredSize);
+                pnMenu.revalidate();
+            }
+        });
+        timer.start();
+    }
+    
+    public void closeMenu() {
+        int initialWidth = pnMenu.getPreferredSize().width;
+        int steps = 200 / 10; // 10 ms interval between each step
+        int stepWidth = initialWidth / steps;
+
+        Timer timer = new Timer(10, new ActionListener() {
+            int currentWidth = initialWidth;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentWidth -= stepWidth;
+                if (currentWidth <= 0) {
+                    currentWidth = 0;
+                    ((Timer) e.getSource()).stop();
+                }
+                Dimension newPreferredSize = new Dimension(currentWidth, pnMenu.getPreferredSize().height);
+                pnMenu.setPreferredSize(newPreferredSize);
+                pnMenu.revalidate();
+            }
+        });
+        timer.start();
+    }
+    
     public JPanel mainContent() {
+        
         pnMainContent.setPreferredSize(new Dimension(820, 0));
-
+        
         pnMainContent.setLayout(new CardLayout());
-
+        pnMainContent.add(Hello());
         return pnMainContent;
+    }
+    
+    JPanel Hello() {
+        pnHello.setSize(900, 400);
+        pnHello.setLayout(null);
+        pnHello.setBackground(Color.white);
+        pnHello.setOpaque(true);
+         //set Img
+         lblWelcome.setBounds(380,80,280,30);
+         lblWelcome.setBorder(BorderFactory.createLineBorder(Color.black));
+         lblWelcome.setBackground(Color.decode("#CCEAE7"));
+         lblWelcome.setOpaque(true);
+         
+         JLabel lblImg = new JLabel();
+            Calendar calendar = Calendar.getInstance();
+            int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+            ImageIcon icon = null;
+            if (currentHour <= 6 && currentHour > 18) {
+                icon = new ImageIcon(getClass().getResource("/Icon/icon_img/day.gif"));
+                Image img = icon.getImage().getScaledInstance(300, 300, java.awt.Image.SCALE_DEFAULT);
+                icon = new ImageIcon(img);
+            } else {
+                icon = new ImageIcon(getClass().getResource("/Icon/icon_img/moon.gif"));
+                Image img = icon.getImage().getScaledInstance(300, 300, java.awt.Image.SCALE_DEFAULT);
+                icon = new ImageIcon(img);
+            }
+            lblImg.setIcon(icon);
+            lblImg.setBounds(50,50, 300,300);
+            pnHello.add(lblImg);
+            pnHello.add(lblWelcome);
+        return  pnHello;
     }
 
     public static void main(String[] args) {

@@ -4,14 +4,18 @@
  */
 package Front_End.TAIKHOAN;
 
+import Back_End.NHOMQUYEN.NHOMQUYEN;
 import Back_End.TAIKHOAN.TAIKHOANBUS;
 import Back_End.TAIKHOAN.TAIKHOAN;
+import Front_End.PHANQUYEN.PHANQUYENGUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,6 +36,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -40,7 +46,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
 
     JPanel pnTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
-    JTable tblList = new JTable();
+    public static JTable tblList = new JTable();
 
     JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
     JLabel lblRemove = new JLabel("Xóa", JLabel.CENTER);
@@ -56,11 +62,10 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
 
     JFrame jf = new JFrame();
     TAIKHOANBUS tk = new TAIKHOANBUS();
-        ArrayList<TAIKHOAN> dstk = tk.getDstk();
-        String[] titles = tk.getTitle();
+    ArrayList<TAIKHOAN> dstk = tk.getDstk();
+    String[] titles = tk.getTitle();
 
     public TAIKHOANGUI() {
-        
 
         initComponents(titles, dstk);
 
@@ -101,6 +106,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         lblRemove.setBorder(BorderFactory.createLineBorder(Color.black));
         lblRemove.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-remove-28.png"));
         lblRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblRemove.addMouseListener(this);
 
         lblFix.setPreferredSize(new Dimension(100, 30));
         lblFix.setBackground(Color.white);
@@ -108,6 +114,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         lblFix.setBorder(BorderFactory.createLineBorder(Color.black));
         lblFix.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-tools-28.png"));
         lblFix.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblFix.addMouseListener(this);
 
         lblImport.setPreferredSize(new Dimension(100, 30));
         lblImport.setBackground(Color.white);
@@ -115,6 +122,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         lblImport.setBorder(BorderFactory.createLineBorder(Color.black));
         lblImport.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-microsoft-excel-2019-28.png"));
         lblImport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblImport.addMouseListener(this);
 
         lblExport.setPreferredSize(new Dimension(100, 30));
         lblExport.setBackground(Color.white);
@@ -122,6 +130,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         lblExport.setBorder(BorderFactory.createLineBorder(Color.black));
         lblExport.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-microsoft-excel-2019-28.png"));
         lblExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblExport.addMouseListener(this);
 
         lblPDF.setPreferredSize(new Dimension(100, 30));
         lblPDF.setBackground(Color.white);
@@ -152,7 +161,50 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         txtSearch.setForeground(Color.black);
         txtSearch.setBounds(190, 15, 180, 40);
         txtSearch.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "tất cả", TitledBorder.LEFT, TitledBorder.TOP));
-
+        txtSearch.addKeyListener(new KeyAdapter() {
+             public void keyReleased(KeyEvent e) {
+                String selectedOption = cbSearch.getSelectedItem().toString();
+                ArrayList<TAIKHOAN> arrTimKiem = new ArrayList<>();
+                DefaultTableModel dtm = (DefaultTableModel) TAIKHOANGUI.tblList.getModel();
+                String text;
+                text = txtSearch.getText().toLowerCase();
+                int[] arrSTT = new int[dstk.size()];
+                int i = 0;
+//                JOptionPane.showMessageDialog(null, selectedOption);
+                switch (selectedOption) {
+                    case "Tất cả":
+                        for (TAIKHOAN km : dstk) {
+                            if (((km.getMaQuyen()).toLowerCase().contains(text) || (km.getUserName()).toLowerCase().contains(text))) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dstk.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Tên Đăng Nhập":
+                        for (TAIKHOAN km : dstk) {
+                            if ((km.getUserName()).toLowerCase().contains(text)) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dstk.indexOf(km);
+                            }
+                        }
+                        break;
+                    case "Mã Quyền":
+                        for (TAIKHOAN km : dstk) {
+                            if ((km.getMaQuyen()).toLowerCase().contains(text)) {
+                                arrTimKiem.add(km);
+                                arrSTT[i++] = dstk.indexOf(km);
+                            }
+                        }
+                        break;
+                }
+                dtm.setRowCount(0);
+                i = 0;
+                for (TAIKHOAN km : arrTimKiem) {
+                    dtm.addRow(new Object[]{arrSTT[i++], km.getUserName(), km.getPassWord(), km.getMaQuyen()});
+                }
+            }
+        });
+        
         pnSearch.setPreferredSize(new Dimension(400, 80));
         pnSearch.setBackground(Color.white);
         pnSearch.setOpaque(true);
@@ -167,6 +219,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         lblReset.setBorder(BorderFactory.createLineBorder(Color.black));
         lblReset.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-reset-32.png"));
         lblReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblReset.addMouseListener(this);
 
         pnFrameSearch.add(pnSearch);
         pnFrameSearch.add(lblReset);
@@ -194,7 +247,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
             };
         }
 
-        tblList.setModel(new DefaultTableModel(data,  titles));
+        tblList.setModel(new DefaultTableModel(data, titles));
         spnList.setBorder(BorderFactory.createLineBorder(Color.black));
         spnList.setViewportView(tblList);
         return spnList;
@@ -206,12 +259,51 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 
-        if(e.getSource() == lblAdd){
-                   new newAccount();
+        if (e.getSource() == lblAdd) {
+            new newAccount();
         }
-        if(e.getSource() == lblReset) {
+        if (e.getSource() == lblRemove) {
+            int selectedRow = tblList.getSelectedRow();
+            if (selectedRow != -1) {
+                int choice = JOptionPane.showConfirmDialog(null, "Xác nhận xóa tài khoản này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Xóa dữ liệu
+                    int columnIndex = tblList.getColumnModel().getColumnIndex("Tên tài khoản");
+                    Object value = tblList.getModel().getValueAt(selectedRow, columnIndex);
+                    String stringValue = value.toString();
+                    boolean remove = tk.delete(stringValue);
+                    if (remove) {
+                        JOptionPane.showMessageDialog(null, "Xóa Thành Công!! Nhấn 'Làm Mới' để cập nhật");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa Thất Bại!!!");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn xóa");
+                return;
+            }
+        }
+        if (e.getSource() == lblFix) {
+            int selectedRow = tblList.getSelectedRow();
+            if (selectedRow != -1) {
+                TableModel model = tblList.getModel();
+                String username = model.getValueAt(selectedRow, 1).toString();
+                String password = model.getValueAt(selectedRow, 2).toString();
+                String roleID = model.getValueAt(selectedRow, 3).toString();
+
+                updateAccount newAcc = new updateAccount();
+                newAcc.getTxtMaNV().setText(username);
+                newAcc.getTxtPassword().setText(password);
+                newAcc.getTxtMaQuyen().setText(roleID);
+            } else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn hàng muốn sửa");
+                return;
+            }
+
+        }
+        if (e.getSource() == lblReset) {
             ArrayList<TAIKHOAN> dstkNew = tk.getDstk();
 //            for (TAIKHOAN nq : dstkNew) { 
 //                System.out.println(nq.getMaQuyen());
@@ -240,21 +332,21 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

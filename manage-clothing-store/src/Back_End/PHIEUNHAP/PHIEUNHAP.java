@@ -10,12 +10,15 @@ package Back_End.PHIEUNHAP;
  */
 public class PHIEUNHAP {
 
-	private String maPN, maNV, maNCC, ngayNhap;
+    private String maPN, maNV, maNCC, ngayNhap;
     private float tongTien;
-    
-    public PHIEUNHAP()
-    {
-    	
+
+    public PHIEUNHAP() {
+
+    }
+
+    public PHIEUNHAP(String maPN) {
+        this.maPN = maPN;
     }
 
     public PHIEUNHAP(String maPN, String maNV, String maNCC, String ngayNhap, float tongTien) {
@@ -26,46 +29,44 @@ public class PHIEUNHAP {
         this.tongTien = tongTien;
     }
 
-	public String getMaPN() {
-		return maPN;
-	}
+    public String getMaPN() {
+        return maPN;
+    }
 
-	public void setMaPN(String maPN) {
-		this.maPN = maPN;
-	}
+    public void setMaPN(String maPN) {
+        this.maPN = maPN;
+    }
 
-	public String getMaNV() {
-		return maNV;
-	}
+    public String getMaNV() {
+        return maNV;
+    }
 
-	public void setMaNV(String maNV) {
-		this.maNV = maNV;
-	}
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
 
-	public String getMaNCC() {
-		return maNCC;
-	}
+    public String getMaNCC() {
+        return maNCC;
+    }
 
-	public void setMaNCC(String maNCC) {
-		this.maNCC = maNCC;
-	}
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
+    }
 
-	public String getNgayNhap() {
-		return ngayNhap;
-	}
+    public String getNgayNhap() {
+        return ngayNhap;
+    }
 
-	public void setNgayNhap(String ngayNhap) {
-		this.ngayNhap = ngayNhap;
-	}
+    public void setNgayNhap(String ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
 
-	public float getTongTien() {
-		return tongTien;
-	}
+    public float getTongTien() {
+        return tongTien;
+    }
 
-	public void setTongTien(float tongTien) {
-		this.tongTien = tongTien;
-	}
-    
-    
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
+    }
 
 }

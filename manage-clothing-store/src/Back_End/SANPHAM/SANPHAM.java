@@ -24,6 +24,12 @@ public class SANPHAM {
 
     }
 
+    public SANPHAM(String maSP) {
+        this.maSP = maSP;
+    }
+    
+    
+
     public SANPHAM() {
 
     }

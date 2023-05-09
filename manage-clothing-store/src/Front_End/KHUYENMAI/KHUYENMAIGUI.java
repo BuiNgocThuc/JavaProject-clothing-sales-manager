@@ -437,9 +437,9 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
             km.insertDTO(data);
 
         }
-        if (e.getSource() == lblPDF) {
-            writePDF.writeHD();
-        }
+//        if (e.getSource() == lblPDF) {
+//            writePDF.writeHD();
+//        }
     }
 
     @Override

@@ -20,6 +20,10 @@ public class NHACUNGCAP {
         trangThai = null;
     }
 
+    public NHACUNGCAP(String maNCC) {
+        this.maNCC = maNCC;
+    }
+
     public NHACUNGCAP(String maNCC, String tenNCC, String sdt, String diaChi, String trangThai) {
         this.maNCC = maNCC;
         this.tenNCC = tenNCC;
@@ -60,17 +64,12 @@ public class NHACUNGCAP {
         this.sdt = sdt;
     }
 
-	public String getTrangThai() {
-		return trangThai;
-	}
+    public String getTrangThai() {
+        return trangThai;
+    }
 
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
-    
-    
-    
-    
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
-    
 }

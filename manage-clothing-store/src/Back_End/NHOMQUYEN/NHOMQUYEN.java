@@ -22,6 +22,14 @@ public class NHOMQUYEN {
         this.moTaQuyen = moTaQuyen;
         this.trangThai = trangThai;
     }
+
+    public NHOMQUYEN(String maQuyen, String tenQuyen, String moTaQuyen) {
+        this.maQuyen = maQuyen;
+        this.tenQuyen = tenQuyen;
+        this.moTaQuyen = moTaQuyen;
+    }
+    
+    
     
     public NHOMQUYEN(String maQuyen) {
         this.maQuyen =maQuyen;

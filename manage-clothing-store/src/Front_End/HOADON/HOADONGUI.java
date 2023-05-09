@@ -150,7 +150,7 @@ public class HOADONGUI extends JPanel {
 		pnl3.add(btn2);
 		pnl3.add(btn3);
 		pnl3.add(btn4);
-		pnl3.add(btn5);
+//		pnl3.add(btn5);
 		
 		pnl2.add(txt1);
 		pnl2.add(btn1);

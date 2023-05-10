@@ -27,6 +27,21 @@ public class TAIKHOANBUS {
     public TAIKHOANBUS() {
         dstk = tkDAO.selectAll();
     }
+    
+    public void insertDTO(ArrayList<ArrayList<Object>> data) {
+         ArrayList<TAIKHOAN> listKM = new ArrayList<>();
+        for (ArrayList<Object> voucher : data) {
+            String username = voucher.get(1).toString();
+            String password = voucher.get(2) + "";
+             String maQuyen = voucher.get(3) + "";
+
+           
+            String trangthai = "ĐANG HOẠT ĐỘNG";
+            TAIKHOAN kmDTO = new TAIKHOAN(username,password,maQuyen,trangthai);
+            listKM.add(kmDTO);
+        }
+        tkDAO.insertArray(listKM);
+    }
 
     public static TAIKHOAN curentLogin = new TAIKHOANBUS().getByUsername("3121410482");
 
@@ -224,6 +239,7 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
     }
 
     public ArrayList<TAIKHOAN> getDstk() {
+        dstk = tkDAO.selectAll();
         return dstk;
     }
 

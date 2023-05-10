@@ -28,9 +28,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -67,7 +70,7 @@ public class LayoutFrame extends JFrame {
     JLabel lblMinimize = new JLabel();
     JLabel lblClose = new JLabel("X", JLabel.CENTER);
     JLabel lblLogOut = new JLabel();
-    JLabel lblWelcome = new JLabel("Chào Mừng đến với hệ thống");
+    JLabel lblWelcome = new JLabel("Hôm nay là: ");
 
     JLabel lblSetting = new JLabel();
     JPanel btnMenu = new JPanel();
@@ -94,6 +97,7 @@ public class LayoutFrame extends JFrame {
     ArrayList<JLabel> dslbl = new ArrayList<>();
 
     Font font = new Font("Arial", Font.ITALIC, 18);
+    Font font2 = new Font("Arial", Font.ITALIC, 20);
     Border border = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.WHITE);
 
     public JPanel getPnMainContent() {
@@ -345,17 +349,9 @@ public class LayoutFrame extends JFrame {
             }
         });
 
-        lblInfoUser.setBounds(80, 15, 250, 50);
-        lblInfoUser.setForeground(Color.white);
-//        lblInfoUser.setBackground(Color.red);
-//        lblInfoUser.setOpaque(true);
-        lblInfoUser.setFont(font);
-        lblInfoUser.setBorder(border);
-
         btnMenu.add(closeMenu, "close");
         btnMenu.add(openMenu, "open");
 
-        pnHeader.add(lblInfoUser);
         pnHeader.add(btnMenu);
         pnHeader.add(lblClose);
         pnHeader.add(lblMinimize);
@@ -516,17 +512,35 @@ public class LayoutFrame extends JFrame {
         pnHello.setLayout(null);
         pnHello.setBackground(Color.white);
         pnHello.setOpaque(true);
+        
+        lblInfoUser.setBounds(350, 120, 400, 50);
+        lblInfoUser.setForeground(Color.black);
+        lblInfoUser.setFont(font2);
+        
          //set Img
-         lblWelcome.setBounds(380,80,280,30);
-         lblWelcome.setBorder(BorderFactory.createLineBorder(Color.black));
-         lblWelcome.setBackground(Color.decode("#CCEAE7"));
+         // Lấy thứ, ngày và tháng hiện tại
+        LocalDate today = LocalDate.now();
+        String dayOfWeek = today.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.forLanguageTag("vi-VN"));
+        int dayOfMonth = today.getDayOfMonth();
+        int month = today.getMonthValue();
+        int year = today.getYear();
+        
+        // Hiển thị thông tin lấy được
+      String date = "Hôm nay là " + dayOfWeek + ", ngày " + dayOfMonth + " tháng " + month + " năm " + year;
+         
+      lblWelcome.setText(date);
+         lblWelcome.setBounds(350,180,400,30);
+//         lblWelcome.setBorder(BorderFactory.createLineBorder(Color.black));
+         lblWelcome.setBackground(Color.white);
+        lblWelcome.setForeground(Color.black);
+        lblWelcome.setFont(font);
          lblWelcome.setOpaque(true);
          
          JLabel lblImg = new JLabel();
             Calendar calendar = Calendar.getInstance();
             int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
             ImageIcon icon = null;
-            if (currentHour <= 6 && currentHour > 18) {
+            if (currentHour >= 6 && currentHour < 18) {
                 icon = new ImageIcon(getClass().getResource("/Icon/icon_img/day.gif"));
                 Image img = icon.getImage().getScaledInstance(300, 300, java.awt.Image.SCALE_DEFAULT);
                 icon = new ImageIcon(img);
@@ -537,6 +551,8 @@ public class LayoutFrame extends JFrame {
             }
             lblImg.setIcon(icon);
             lblImg.setBounds(50,50, 300,300);
+            
+            pnHello.add(lblInfoUser);
             pnHello.add(lblImg);
             pnHello.add(lblWelcome);
         return  pnHello;

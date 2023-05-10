@@ -238,7 +238,6 @@ public class KHUYENMAIBUS {
             String trangthai = "ĐANG HOẠT ĐỘNG";
             KHUYENMAI kmDTO = new KHUYENMAI(maKM, tenKM, dieuKien, startDate, endDate, phanTram, trangthai);
             listKM.add(kmDTO);
-            System.out.println(voucher.get(3) + "");
         }
         kmDAO.insertArray(listKM);
     }

@@ -142,9 +142,9 @@ public class PHANQUYENGUI extends JPanel implements MouseListener {
         nqBusPopUp.add(lblAdd);
         nqBusPopUp.add(lblRemove);
         nqBusPopUp.add(lblFix);
-        nqBusPopUp.add(lblImport);
-        nqBusPopUp.add(lblExport);
-        nqBusPopUp.add(lblPDF);
+//        nqBusPopUp.add(lblImport);
+//        nqBusPopUp.add(lblExport);
+//        nqBusPopUp.add(lblPDF);
 
         JPanel nqBusFrameSearch = new JPanel();
         nqBusFrameSearch.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));

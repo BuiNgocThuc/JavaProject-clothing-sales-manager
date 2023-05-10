@@ -7,7 +7,9 @@ package Front_End.TAIKHOAN;
 import Back_End.NHOMQUYEN.NHOMQUYEN;
 import Back_End.TAIKHOAN.TAIKHOANBUS;
 import Back_End.TAIKHOAN.TAIKHOAN;
+import Front_End.KHUYENMAI.KHUYENMAIGUI;
 import Front_End.PHANQUYEN.PHANQUYENGUI;
+import Import_Export.IOExcel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -18,7 +20,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -37,6 +42,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -144,7 +150,7 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
         pnPopUp.add(lblFix);
         pnPopUp.add(lblImport);
         pnPopUp.add(lblExport);
-        pnPopUp.add(lblPDF);
+//        pnPopUp.add(lblPDF);
 
         JPanel pnFrameSearch = new JPanel();
         pnFrameSearch.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -328,6 +334,20 @@ public class TAIKHOANGUI extends JPanel implements MouseListener {
             spnList.validate();
             spnList.repaint();
         }
+         if (e.getSource() == lblExport) {
+            IOExcel.writeExcel(tblList, "Danh Sách Tài Khoản", "DSTK");
+        }
+         if(e.getSource() == lblImport) {
+               ArrayList<ArrayList<Object>> data = null;
+            try {
+                data = IOExcel.readExcel(0);
+            } catch (IOException ex) {
+                Logger.getLogger(TAIKHOANGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(TAIKHOANGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tk.insertDTO(data);
+         }
     }
 
     @Override

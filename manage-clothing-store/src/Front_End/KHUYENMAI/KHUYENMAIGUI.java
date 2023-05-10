@@ -64,7 +64,7 @@ public class KHUYENMAIGUI extends JPanel implements MouseListener {
 
     JPanel pnTool = new JPanel();
     JScrollPane spnList = new JScrollPane();
-    public static JTable tblList = new JTable();
+   static JTable tblList = new JTable();
 
     JLabel lblAdd = new JLabel("Thêm", JLabel.CENTER);
     JLabel lblRemove = new JLabel("Xóa", JLabel.CENTER);

@@ -4,6 +4,7 @@
  */
 package Back_End.TAIKHOAN;
 
+import Back_End.KHUYENMAI.KHUYENMAI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 
 import Connection.connec;
 import Dao.DAOInterface;
+import java.sql.Date;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +28,30 @@ public class TAIKHOANDAO {
 
     public static TAIKHOANDAO getInstance() {
         return new TAIKHOANDAO();
+    }
+    
+     public boolean insertArray(ArrayList<TAIKHOAN> listKM) {
+        try {
+            Connection c = connec.getConnection();
+            String sql = "INSERT INTO TAIKHOAN(Username, matKhau, MaQuyen, TRANGTHAI) "
+                    + " VALUES(?,?,?,?)";
+            PreparedStatement pst = c.prepareStatement(sql);
+            for (TAIKHOAN t : listKM) {
+                pst.setString(1, t.getUserName());
+                pst.setString(2, t.getPassWord());
+                pst.setString(3, t.getMaQuyen());
+                pst.setNString(4, t.getTrangthai());
+                
+                pst.executeUpdate();
+            }
+            
+            connec.closeConnection(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu xuống bảng TAIKHOAN");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public String getNameByUsername(String Username) {

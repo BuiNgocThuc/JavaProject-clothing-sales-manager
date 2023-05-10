@@ -30,6 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author NGOC THUC
  */
 public class IOExcel {
+
     public static ArrayList<ArrayList<Object>> readExcel(int sheetIndex) throws IOException, InvalidFormatException {
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.showOpenDialog(null);
@@ -59,6 +60,9 @@ public class IOExcel {
                 }
                 data.add(rowData);
             }
+        }
+        if(!data.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Đọc File Excel thành công!! Nhấn làm mới để cập nhật");
         }
         return data;
     }
@@ -138,7 +142,6 @@ public class IOExcel {
                 | UnsupportedLookAndFeelException ignored) {
         }
 
-       
 //        ArrayList<ArrayList<Object>> data = IOExcel.readExcel(0);
 //        for (ArrayList<Object> sv : data) {
 //            for (Object cot : sv) {

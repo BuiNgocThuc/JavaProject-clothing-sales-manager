@@ -58,7 +58,7 @@ public class newRole extends JFrame {
         this.setUndecorated(true);
         this.setSize(550, 600);
         this.setLayout(new BorderLayout());
-//        this.add(tableList(titlesRole, dsnq), BorderLayout.CENTER);
+        this.add(tableList(titlesRole, dsnq), BorderLayout.CENTER);
         this.add(tools(txtRoleID), BorderLayout.SOUTH);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

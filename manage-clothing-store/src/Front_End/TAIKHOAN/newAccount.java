@@ -144,7 +144,7 @@ public class newAccount extends JFrame {
         btnMaQuyen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newRole nR = new newRole(getTxtMaQuyen());
+               new newRole(getTxtMaQuyen());
             }
         });
 

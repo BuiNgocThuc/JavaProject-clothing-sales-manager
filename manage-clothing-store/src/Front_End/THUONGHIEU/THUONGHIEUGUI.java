@@ -24,8 +24,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import Back_End.THUONGHIEU.THUONGHIEUBUS;
+import Front_End.TAIKHOAN.TAIKHOANGUI;
+import Import_Export.IOExcel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -38,8 +47,10 @@ public class THUONGHIEUGUI extends JPanel {
     private JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7;
     private JTextField txt;
     
+    THUONGHIEUBUS a = new THUONGHIEUBUS();
+    
     public THUONGHIEUGUI() {
-        THUONGHIEUBUS a = new THUONGHIEUBUS();
+        
         innit();
         a.uploadData();
         a.timKiem(txt, btn1);
@@ -92,12 +103,33 @@ public class THUONGHIEUGUI extends JPanel {
         btn5.setBackground(Color.WHITE);
         btn5.setMargin(new Insets(0, 0, 0, 0));
         btn5.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        btn5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<ArrayList<Object>> data = null;
+            try {
+                data = IOExcel.readExcel(0);
+            } catch (IOException ex) {
+                Logger.getLogger(THUONGHIEUGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(THUONGHIEUGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            a.insertDTO(data);
+            }
+        });
         
         btn6 = new JButton("Xuất");
         btn6.setPreferredSize(new Dimension(100, 30));
         btn6.setBackground(Color.WHITE);
         btn6.setMargin(new Insets(0, 0, 0, 0));
         btn6.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lấy giá trị được chọn và hiển thị lên JLabel
+               IOExcel.writeExcel(tbl, "Danh Sách Thương Hiệu", "DSTH");
+            }
+        });
         
         btn7 = new JButton("Xuất PDF");
         btn7.setPreferredSize(new Dimension(100, 30));
@@ -137,7 +169,7 @@ public class THUONGHIEUGUI extends JPanel {
         
         pnl4.add(btn5);
         pnl4.add(btn6);
-        pnl4.add(btn7);
+//        pnl4.add(btn7);
         
         pnl3.add(btn2);
         pnl3.add(btn3);

@@ -8,11 +8,35 @@ import java.util.ArrayList;
 
 import Connection.connec;
 import Dao.DAOInterface;
+import javax.swing.JOptionPane;
 
 public class THUONGHIEUDAO implements DAOInterface<THUONGHIEU> {
 
     public static THUONGHIEUDAO getInstance() {
         return new THUONGHIEUDAO();
+    }
+    
+         public boolean insertArray(ArrayList<THUONGHIEU> listKM) {
+        try {
+            Connection c = connec.getConnection();
+            String sql = "INSERT INTO THUONGHIEU(MATH, TENTH, TRANGTHAI) "
+                    + " VALUES(?,?,?)";
+            PreparedStatement pst = c.prepareStatement(sql);
+            for (THUONGHIEU t : listKM) {
+                pst.setString(1, t.getMaTH());
+                pst.setString(2, t.getTenTH());
+                pst.setNString(3, t.getTrangthai());
+                
+                pst.executeUpdate();
+            }
+            
+            connec.closeConnection(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu xuống bảng THUONGHIEU");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

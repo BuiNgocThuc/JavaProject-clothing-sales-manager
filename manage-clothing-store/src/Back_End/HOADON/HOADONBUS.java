@@ -404,6 +404,9 @@ public class HOADONBUS {
             labelTongTien.setText(String.valueOf(tongTien));
             tenKM.setText(ten);
         }
+        else {
+            maKM = "KM0";
+        }
         return maKM;
     }
 }

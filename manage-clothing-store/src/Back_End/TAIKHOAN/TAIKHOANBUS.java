@@ -23,23 +23,24 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author NGOC THUC
  */
 public class TAIKHOANBUS {
+
     public static ArrayList<TAIKHOAN> dstk = new ArrayList<>();
     TAIKHOANDAO tkDAO = new TAIKHOANDAO();
+    public static String tenTK;
 
     public TAIKHOANBUS() {
         dstk = tkDAO.selectAll();
     }
-    
+
     public void insertDTO(ArrayList<ArrayList<Object>> data) {
-         ArrayList<TAIKHOAN> listKM = new ArrayList<>();
+        ArrayList<TAIKHOAN> listKM = new ArrayList<>();
         for (ArrayList<Object> voucher : data) {
             String username = voucher.get(1).toString();
             String password = voucher.get(2) + "";
-             String maQuyen = voucher.get(3) + "";
+            String maQuyen = voucher.get(3) + "";
 
-           
             String trangthai = "ĐANG HOẠT ĐỘNG";
-            TAIKHOAN kmDTO = new TAIKHOAN(username,password,maQuyen,trangthai);
+            TAIKHOAN kmDTO = new TAIKHOAN(username, password, maQuyen, trangthai);
             listKM.add(kmDTO);
         }
         tkDAO.insertArray(listKM);
@@ -48,7 +49,7 @@ public class TAIKHOANBUS {
     public static TAIKHOAN curentLogin = new TAIKHOANBUS().getByUsername("3121410482");
 
     public static void login(LoginForm lg) {
-        String tenTK = lg.getUsername().getText();
+        tenTK = lg.getUsername().getText();
         String matkhau = lg.getPassword().getText();
         TAIKHOANBUS qltk = new TAIKHOANBUS();
         curentLogin = qltk.getByUsername(tenTK);
@@ -65,10 +66,11 @@ public class TAIKHOANBUS {
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ignored) {
 
                 }
-                LayoutFrame lf  = new LayoutFrame();
+                LayoutFrame lf = new LayoutFrame();
                 String name = qltk.getNameByUsername(tenTK);
                 qltk.phanQuyen(dsq, lf);
                 qltk.currentUser(name, lf);
+
                 lg.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Sai mật khẩu");
@@ -79,7 +81,7 @@ public class TAIKHOANBUS {
         }
     }
 
-public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
+    public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf) {
         lf.getLblBanHang().setVisible(false);
         lf.getLblNhapHang().setVisible(false);
         lf.getLblSanPham().setVisible(false);
@@ -129,7 +131,7 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
     public void currentUser(String name, LayoutFrame lf) {
         lf.getInfoUser().setText("Xin chào, " + name);
     }
-    
+
     public void getMaNV(String Username) {
     }
 
@@ -140,7 +142,7 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
     public TAIKHOAN getByUsername(String tentk) {
         return tkDAO.getByUserName(tentk);
     }
-    
+
     public String getNameByUsername(String Username) {
         return tkDAO.getNameByUsername(Username);
     }
@@ -155,7 +157,7 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
     }
 
     public String[] getTitle() {
-        return new String[]{"Số Thứ Tự","Tên tài khoản", "Mật khẩu", "Mã Quyền"};
+        return new String[]{"Số Thứ Tự", "Tên tài khoản", "Mật khẩu", "Mã Quyền"};
     }
 
     public String getNextID() {

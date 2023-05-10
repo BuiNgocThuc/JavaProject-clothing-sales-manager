@@ -237,14 +237,14 @@ public class FormChonKH extends JFrame{
 			String id = String.valueOf(tableNV.getValueAt(index, 0));
 			String tenNV = String.valueOf(tableNV.getValueAt(index, 1 ));
 			txt.setText(tenNV);
-			maKH = id;
+			BANHANGGUI.maKH = id;
 			this.dispose();
 	}
 	
 	private void btnOK1(JTextField txt)
 	{
 		if (checkInput()==true) {
-			maKH = labelmaKH.getText();
+			BANHANGGUI.maKH = labelmaKH.getText();
 			txt.setText(txtTenKH.getText());
 			KHACHHANG aKhachhang = new KHACHHANG(labelmaKH.getText(), txtTenKH.getText(), txtSDT.getText(), txtDiaChi.getText(), "Khách hàng");
 			KHACHHANGDAO.getInstance().insert(aKhachhang);

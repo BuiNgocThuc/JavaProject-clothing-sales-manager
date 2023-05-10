@@ -297,7 +297,8 @@ public class writePDF {
             cell.setPhrase(new Phrase("ngày lập: " + selectedHD.getNgayNhap(), vn));
 //            cell.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
             tbl2col.addCell(cell);
-
+            cell.setPhrase(new Phrase("Mã khuyến mại: " + selectedHD.getMaKM(), vn));
+            tbl2col.addCell(cell);
             document.add(tbl2col);
 
             PdfPTable tbl5col = new PdfPTable(7);

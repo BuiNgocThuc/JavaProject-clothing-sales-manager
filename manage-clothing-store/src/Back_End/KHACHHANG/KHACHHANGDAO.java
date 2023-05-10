@@ -84,7 +84,7 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG> {
         try {
             Connection c = connec.getConnection();
 
-            String sql = "DELETE FROM KHACHHANG "
+            String sql = "UPDATE FROM KHACHHANG SET TRANGTHAI =( 'Đã Xóa') "
                     + " WHERE MAKH=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaKH());
@@ -138,7 +138,7 @@ public class KHACHHANGDAO implements DAOInterface<KHACHHANG> {
         try {
             Connection c = connec.getConnection();
 
-            String sql = "SELECT * FROM KHACHHANG";
+            String sql = "SELECT * FROM KHACHHANG WHERE TRANGTHAI NOT IN ('Đã Xóa')";
             Statement st = c.createStatement();
 
             ResultSet rs = st.executeQuery(sql);

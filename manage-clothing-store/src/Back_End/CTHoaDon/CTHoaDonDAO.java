@@ -69,7 +69,7 @@ public class CTHoaDonDAO implements DAOInterface<CTHoaDon> {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "INSERT INTO CHITIETHOADON(CTHD_MAHD, CTHD_MASP, DONGIA, CTHD_SOLUONG "
+            String sql = "INSERT INTO CHITIETHOADON(CTHD_MAHD, CTHD_MASP, DONGIA, CTHD_SOLUONG) "
                     + " VALUES(?,?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaHD());

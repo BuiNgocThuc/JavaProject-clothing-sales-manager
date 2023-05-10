@@ -82,7 +82,7 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
         int ketQua = 0;
         try {
             Connection c = connec.getConnection();
-            String sql = "DELETE FROM NHACUNGCAP "
+            String sql = "UPDATE FROM NHACUNGCAP SET TRANGTHAI =( 'Đã Xóa')"
                     + " WHERE MANCC=?";
             PreparedStatement pst = c.prepareStatement(sql);
             pst.setString(1, t.getMaNCC());
@@ -134,7 +134,7 @@ public class NHACUNGCAPDAO implements DAOInterface<NHACUNGCAP> {
         ArrayList<NHACUNGCAP> ketQua = new ArrayList<>();
         try {
             Connection c = connec.getConnection();
-            String sql = "SELECT * FROM NHACUNGCAP";
+            String sql = "SELECT * FROM NHACUNGCAP WHERE  TRANGTHAI NOT IN ( 'Đã Xóa')";
             Statement st = c.createStatement();
             ResultSet rs = st.executeQuery(sql);
 

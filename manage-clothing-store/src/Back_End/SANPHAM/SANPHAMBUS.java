@@ -514,7 +514,7 @@ public class SANPHAMBUS {
 		}
 	}
 	
-	public void updateGiaBan_SoLuong(String id,int SoLuong,Float giaNhap)
+	public void updateGiaBan_SoLuong(String id,int SoLuong)
 	{
 		
 		int soLuongNew=0, soLuongOld=0;
@@ -524,7 +524,6 @@ public class SANPHAMBUS {
 				soLuongOld = o.getSoLuongSP();
 				soLuongNew = soLuongOld + SoLuong;
 				o.setSoLuongSP(soLuongNew);
-				o.setGiaNhap(giaNhap);
 				SANPHAMDAO.getInstance().update(o);
 				break;
 			}
@@ -541,6 +540,19 @@ public class SANPHAMBUS {
 				soLuongOld = o.getSoLuongSP();
 				soLuongNew = soLuongOld - SoLuong;
 				o.setSoLuongSP(soLuongNew);
+				SANPHAMDAO.getInstance().update(o);
+				break;
+			}
+		}
+	}
+	
+	public void updateGiaNhap(String id,float giaNhap)
+	{
+		
+		for (SANPHAM o : data) {
+			if(id.equals(o.getMaSP()))
+			{
+				o.setGiaNhap(giaNhap);
 				SANPHAMDAO.getInstance().update(o);
 				break;
 			}

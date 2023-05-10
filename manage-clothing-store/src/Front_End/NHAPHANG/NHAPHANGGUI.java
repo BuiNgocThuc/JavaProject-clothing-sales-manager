@@ -462,7 +462,7 @@ public class NHAPHANGGUI extends JPanel {
                     Integer soLuong = Integer.parseInt(String.valueOf(tableNhapHang.getValueAt(i, 2)));
                     CTPhieuNhap ctpn = new CTPhieuNhap(maPN, maSP, donGia, soLuong);
                     CTPhieuNhapDAO.getInstance().insert(ctpn);
-
+                    spb.updateGiaBan_SoLuong(maSP, soLuong);
                 }
 
                 JOptionPane.showMessageDialog(this, "Thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -526,7 +526,9 @@ public class NHAPHANGGUI extends JPanel {
             } else if (giaNhap2 < 0) {
                 return showErr(txtGiaNhap, "Giá nhập phải là số dương");
             }
-
+            else {
+            	 spb.updateGiaNhap(labelMaSP.getText(), giaNhap2);
+            }
             if (giaNhap2 - giaNhap > 0) {
                 int choose = JOptionPane.showConfirmDialog(this, "Giá nhập mới cao hơn giá nhập cũ(Bạn có muốn thay đổi giá bán?)", "Thông báo", JOptionPane.OK_CANCEL_OPTION);
                 if (choose == 0) {
@@ -555,6 +557,7 @@ public class NHAPHANGGUI extends JPanel {
                             check = true;
                             JOptionPane.showConfirmDialog(this, "Giá bán đã được thay đổi", "Thông báo", JOptionPane.OK_OPTION);
                             spb.updateGiaBan(labelMaSP.getText(), giaFloat);
+                            spb.updateGiaNhap(labelMaSP.getText(), giaNhap2);
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(this, "Giá bán không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
                         }

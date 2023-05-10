@@ -21,7 +21,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 import Back_End.PHIEUNHAP.PHIEUNHAPDAO;
+import Front_End.HOADON.HOADONGUI;
 import Front_End.PHIEUNHAP.PHIEUNHAPGUI;
+import Import_Export.IOExcel;
 /**
  *
  * @author NGOC THUC
@@ -195,6 +197,15 @@ public class PHIEUNHAPBUS {
 						}
 					}
 				}
+			}
+		});
+	}
+	
+	public void xuatEx(JButton btn1) {
+    	btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IOExcel.writeExcel(PHIEUNHAPGUI.tbl, "Danh sách phiếu nhập", "DSPN");
 			}
 		});
 	}

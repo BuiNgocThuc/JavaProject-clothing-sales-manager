@@ -280,7 +280,7 @@ public class LayoutFrame extends JFrame {
         pnHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
         lblLogOut.setBounds(930, 15, 50, 50);
-        lblLogOut.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-log-out-32 (3).png"));
+        lblLogOut.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-log-out-32 (3).png")));
         lblLogOut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -311,7 +311,7 @@ public class LayoutFrame extends JFrame {
         });
 
         lblMinimize.setBounds(810, 15, 50, 50);
-        lblMinimize.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-subtract-50.png"));
+        lblMinimize.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-subtract-50.png")));
         lblMinimize.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 LayoutFrame.this.setState(JFrame.ICONIFIED);
@@ -324,7 +324,7 @@ public class LayoutFrame extends JFrame {
         btnMenu.setLayout(new CardLayout());
 
         closeMenu.setPreferredSize(new Dimension(50, 50));
-        closeMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-close-40.png"));
+        closeMenu.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-close-40.png")));
         closeMenu.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 closeMenu();
@@ -337,7 +337,7 @@ public class LayoutFrame extends JFrame {
         });
 
         openMenu.setPreferredSize(new Dimension(50, 50));
-        openMenu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-menu-40.png"));
+        openMenu.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-menu-40.png")));
         openMenu.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 openMenu();
@@ -428,21 +428,21 @@ public class LayoutFrame extends JFrame {
         lblLogo.setPreferredSize(new Dimension(180, 100));
         lblLogo.setBackground(Color.black);
         lblLogo.setOpaque(true);
-        lblLogo.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/fashion boulevard.png"));
+        lblLogo.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/fashion boulevard.png")));
 
-        lblBanHang.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-shopping-basket-32.png"));
-        lblNhapHang.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-add-product-32.png"));
-        lblSanPham.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-formal-outfit-32.png"));
-        lblThuongHieu.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-adidas-trefoil-32.png"));
-        lblHoaDon.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-receipt-dollar-32.png"));
-        lblPhieuNhap.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-receipt-32.png"));
-        lblNhanVien.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-sales-agent-32.png"));
-        lblKhachHang.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-customer-32.png"));
-        lblNhaCungCap.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-supplier-32.png"));
-        lblThongKe.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-statistic-32.png"));
-        lblKhuyenMai.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-discount-32.png"));
-        lblTaiKhoan.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-user-32.png"));
-        lblPhanQuyen.setIcon(new ImageIcon("E:/nam II - HKII/java/DO_AN_BAN_QUAN_AO/JavaProject-clothing-sales-manager/manage-clothing-store/src/Icon/icon_img/icons8-decentralization-32.png"));
+        lblBanHang.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-shopping-basket-32.png")));
+        lblNhapHang.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-add-product-32.png")));
+        lblSanPham.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-formal-outfit-32.png")));
+        lblThuongHieu.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-adidas-trefoil-32.png")));
+        lblHoaDon.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-receipt-dollar-32.png")));
+        lblPhieuNhap.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-receipt-32.png")));
+        lblNhanVien.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-sales-agent-32.png")));
+        lblKhachHang.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-customer-32.png")));
+        lblNhaCungCap.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-supplier-32.png")));
+        lblThongKe.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-statistic-32.png")));
+        lblKhuyenMai.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-discount-32.png")));
+        lblTaiKhoan.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-user-32.png")));
+        lblPhanQuyen.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-decentralization-32.png")));
 
         sbMenu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         sbMenu.setBounds(0, 0, 180, 520);

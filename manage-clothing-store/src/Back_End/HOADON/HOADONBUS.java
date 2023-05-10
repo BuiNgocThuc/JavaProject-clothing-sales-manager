@@ -51,6 +51,7 @@ import Back_End.PHIEUNHAP.PHIEUNHAPDAO;
 import Back_End.SANPHAM.SANPHAM;
 import Back_End.SANPHAM.SANPHAMDAO;
 import Front_End.HOADON.HOADONGUI;
+import Import_Export.IOExcel;
 /**
  *
  * @author NGOC THUC
@@ -343,6 +344,15 @@ public class HOADONBUS {
 				dialog.add(sp, BorderLayout.CENTER);
 				dialog.add(pnl2, BorderLayout.SOUTH);
 				dialog.setVisible(true);
+			}
+		});
+	}
+    
+    public void xuatEx(JButton btn1) {
+    	btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IOExcel.writeExcel(HOADONGUI.tbl, "Danh sách hóa đơn", "DSHD");
 			}
 		});
 	}

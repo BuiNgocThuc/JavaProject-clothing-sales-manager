@@ -38,6 +38,7 @@ import Back_End.HOADON.HOADONDAO;
 import Back_End.SANPHAM.SANPHAM;
 import Back_End.SANPHAM.SANPHAMDAO;
 import Front_End.HOADON.HOADONGUI;
+import Import_Export.IOExcel;
 
 /**
  *
@@ -203,7 +204,7 @@ public class CTHoaDonBUS {
 
                 JScrollPane sp = new JScrollPane(tbl1);
                 sp.setBorder(BorderFactory.createRaisedBevelBorder());
-
+                
                 String condition = "CTHD_MAHD = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
                 ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
 
@@ -213,6 +214,14 @@ public class CTHoaDonBUS {
                     float tongTien = (float) cthoadon.getDonGia() * cthoadon.getSoLuong();
                     dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong(), dcf.format(tongTien)});
                 }
+                
+                btn2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						IOExcel.writeExcel(tbl1, "Danh sách chi tiết hóa đơn", "DSCTHD");
+					}
+				});
+
 
                 pnl2.add(btn1);
                 pnl2.add(btn2);
@@ -286,20 +295,6 @@ public class CTHoaDonBUS {
                     lbl[11].setBounds(150, 160, 400, 30);
                     pnl1.add(lbl[11]);
 
-                    JPanel pnl2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-
-                    JButton btn1 = new JButton("Xuất");
-                    btn1.setPreferredSize(new Dimension(100, 30));
-                    btn1.setBackground(Color.WHITE);
-                    btn1.setMargin(new Insets(0, 0, 0, 0));
-                    btn1.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
-
-                    JButton btn2 = new JButton("Xuất PDF");
-                    btn2.setPreferredSize(new Dimension(100, 30));
-                    btn2.setBackground(Color.WHITE);
-                    btn2.setMargin(new Insets(0, 0, 0, 0));
-                    btn2.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
-
                     JTable tbl1 = new JTable();
                     DefaultTableModel dtm = new DefaultTableModel() {
                         /**
@@ -357,12 +352,8 @@ public class CTHoaDonBUS {
                         dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong(), dcf.format(tongTien)});
                     }
 
-                    pnl2.add(btn1);
-                    pnl2.add(btn2);
-
                     dialog.add(pnl1, BorderLayout.NORTH);
                     dialog.add(sp, BorderLayout.CENTER);
-                    dialog.add(pnl2, BorderLayout.SOUTH);
                     dialog.setVisible(true);
                 } catch (Exception e2) {
                     JOptionPane.showMessageDialog(dialog, "Vui lòng chọn hóa đơn cần xem chi tiết.", "Thông báo", JOptionPane.WARNING_MESSAGE);

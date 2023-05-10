@@ -1,5 +1,6 @@
 package Back_End.CTPhieuNhap;
 
+import Import_Export.IOExcel;
 import Import_Export.writePDF;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -161,6 +162,13 @@ public class CTPhieuNhapBUS {
 
                 JScrollPane sp = new JScrollPane(tbl1);
                 sp.setBorder(BorderFactory.createRaisedBevelBorder());
+                
+                btn1.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						IOExcel.writeExcel(tbl1, "Danh sách chi tiết phiếu nhập", "DSCTPN");
+					}
+				});
 
                 String condition = "CTPN_MAPN = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
                 ArrayList<CTPhieuNhap> arrCTPN = CTPhieuNhapDAO.getInstance().selectByCondition(condition);

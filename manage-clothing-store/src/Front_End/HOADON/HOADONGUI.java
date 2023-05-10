@@ -36,7 +36,7 @@ import Back_End.HOADON.HOADONBUS;
 public class HOADONGUI extends JPanel {
 	private JPanel pnl1, pnl2, pnl3;
 	public static JTable tbl;
-	private JButton btn1, btn2, btn3, btn4, btn5;
+	private JButton btn1, btn2, btn3;
 	private JTextField txt1;
 	private JDateChooser dc;
 	private JComboBox<String> cb;
@@ -48,6 +48,7 @@ public class HOADONGUI extends JPanel {
 		a.uploadData();
 		a.timKiem(txt1, btn1, dc, cb);
 		a.showHDHuy(btn2);
+		a.xuatEx(btn3);
 		b.showCTHD(tbl);
 	}
 	
@@ -90,17 +91,17 @@ public class HOADONGUI extends JPanel {
 		btn2.setMargin(new Insets(0, 0, 0, 0));
 		btn2.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-bill-32.png")));
 		
-		btn3 = new JButton("Nhập");
+		btn3 = new JButton("Xuất");
 		btn3.setPreferredSize(new Dimension(100, 30));
 		btn3.setBackground(Color.WHITE);
 		btn3.setMargin(new Insets(0, 0, 0, 0));
 		btn3.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
 		
-		btn4 = new JButton("Xuất");
-		btn4.setPreferredSize(new Dimension(100, 30));
-		btn4.setBackground(Color.WHITE);
-		btn4.setMargin(new Insets(0, 0, 0, 0));
-		btn4.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+//		btn4 = new JButton("Xuất");
+//		btn4.setPreferredSize(new Dimension(100, 30));
+//		btn4.setBackground(Color.WHITE);
+//		btn4.setMargin(new Insets(0, 0, 0, 0));
+//		btn4.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
 		
 //		btn5 = new JButton("Xuất PDF");
 //		btn5.setPreferredSize(new Dimension(100, 30));
@@ -108,6 +109,7 @@ public class HOADONGUI extends JPanel {
 //		btn5.setMargin(new Insets(0, 0, 0, 0));
 //		btn5.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
 		
+
 		tbl = new JTable();
 		DefaultTableModel dtm = new DefaultTableModel() {
 			/**
@@ -149,8 +151,6 @@ public class HOADONGUI extends JPanel {
 				
 		pnl3.add(btn2);
 		pnl3.add(btn3);
-		pnl3.add(btn4);
-//		pnl3.add(btn5);
 		
 		pnl2.add(txt1);
 		pnl2.add(btn1);

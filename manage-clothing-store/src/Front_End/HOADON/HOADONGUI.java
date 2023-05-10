@@ -102,11 +102,11 @@ public class HOADONGUI extends JPanel {
 		btn4.setMargin(new Insets(0, 0, 0, 0));
 		btn4.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
 		
-		btn5 = new JButton("Xuất PDF");
-		btn5.setPreferredSize(new Dimension(100, 30));
-		btn5.setBackground(Color.WHITE);
-		btn5.setMargin(new Insets(0, 0, 0, 0));
-		btn5.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
+//		btn5 = new JButton("Xuất PDF");
+//		btn5.setPreferredSize(new Dimension(100, 30));
+//		btn5.setBackground(Color.WHITE);
+//		btn5.setMargin(new Insets(0, 0, 0, 0));
+//		btn5.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
 		
 		tbl = new JTable();
 		DefaultTableModel dtm = new DefaultTableModel() {

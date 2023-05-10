@@ -156,6 +156,7 @@ public class CTHoaDonBUS {
                 btn3.setBackground(Color.WHITE);
                 btn3.setMargin(new Insets(0, 0, 0, 0));
                 btn3.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
+                //Xuất PDF
 
                 JTable tbl1 = new JTable();
                 DefaultTableModel dtm = new DefaultTableModel() {

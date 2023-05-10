@@ -109,7 +109,7 @@ public class LayoutFrame extends JFrame {
     }
 
     public LayoutFrame() {
-//        this.setUndecorated(true);
+        this.setUndecorated(true);
         initComponents();
     }
 

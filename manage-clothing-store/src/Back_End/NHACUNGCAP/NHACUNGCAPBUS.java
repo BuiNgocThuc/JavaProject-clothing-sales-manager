@@ -14,6 +14,21 @@ public class NHACUNGCAPBUS {
     public static ArrayList<NHACUNGCAP> dsncc = new ArrayList<>();
     private NHACUNGCAPDAO nccDao = new NHACUNGCAPDAO();
     public static DefaultTableModel model = new DefaultTableModel();
+    
+    public void insertDTO(ArrayList<ArrayList<Object>> data) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<NHACUNGCAP> listNV = new ArrayList<>();
+        for (ArrayList<Object> voucher : data) {
+            String maNCC = voucher.get(0) + "";
+            String tenNCC = voucher.get(1) + "";
+            String sdtNCC = voucher.get(2) + "";
+            String diaChi = voucher.get(3) + "";
+            String trangthai = "Đang Làm Việc";
+            NHACUNGCAP nvDTO = new NHACUNGCAP(maNCC,tenNCC,sdtNCC,diaChi, trangthai);
+            listNV.add(nvDTO);
+        }
+        nccDao.insertArray(listNV);
+    }
 
     public void loadData() {
         model = (DefaultTableModel) NHACUNGCAPGUI.tb.getModel();

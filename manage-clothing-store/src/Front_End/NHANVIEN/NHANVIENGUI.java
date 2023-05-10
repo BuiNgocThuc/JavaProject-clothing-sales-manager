@@ -49,7 +49,6 @@ public class NHANVIENGUI extends JPanel {
 
         nvb.loadData();
 
-        nvb.showConsole();
     }
 
     private void init() {

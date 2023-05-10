@@ -13,6 +13,21 @@ public class KHACHHANGBUS {
     public static ArrayList<KHACHHANG> dskh = new ArrayList<>();
     private KHACHHANGDAO khDao = new KHACHHANGDAO();
     public static DefaultTableModel model = new DefaultTableModel();
+    
+        public void insertDTO(ArrayList<ArrayList<Object>> data) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<KHACHHANG> listNV = new ArrayList<>();
+        for (ArrayList<Object> voucher : data) {
+            String maKH = voucher.get(0) + "";
+            String tenKH = voucher.get(1) + "";
+            String sdtKH = voucher.get(2) + "";
+            String diaChi = voucher.get(3) + "";
+            String trangthai = "Đang Làm Việc";
+            KHACHHANG nvDTO = new KHACHHANG(maKH,tenKH,sdtKH,diaChi, trangthai);
+            listNV.add(nvDTO);
+        }
+        khDao.insertArray(listNV);
+    }
 
     public void loadData() {
         model = (DefaultTableModel) KHACHHANGGUI.tb.getModel();

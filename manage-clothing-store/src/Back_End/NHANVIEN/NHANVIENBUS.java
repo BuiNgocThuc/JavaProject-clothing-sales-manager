@@ -31,16 +31,16 @@ public class NHANVIENBUS {
         NHANVIENGUI.textStatus.setText("");
     }
     
-    public void showConsole() {
-        dsnv.forEach((nv) -> {
-            System.out.print(nv.getMaNV() + " ");
-            System.out.println(nv.getTenNV() + " ");
-            System.out.println(nv.getNgaySinh() + " ");
-            System.out.println(nv.getSdt() + " ");
-            System.out.println(nv.getDiaChi() + " ");
-            System.out.println(nv.getTrangThai());
-        });
-    }
+//    public void showConsole() {
+//        dsnv.forEach((nv) -> {
+//            System.out.print(nv.getMaNV() + " ");
+//            System.out.println(nv.getTenNV() + " ");
+//            System.out.println(nv.getNgaySinh() + " ");
+//            System.out.println(nv.getSdt() + " ");
+//            System.out.println(nv.getDiaChi() + " ");
+//            System.out.println(nv.getTrangThai());
+//        });
+//    }
     
     public boolean add(String id,String name,String date,String phone,String address,String status){
         NHANVIEN nv = new NHANVIEN(id, name, date, phone, address, status);
@@ -94,12 +94,15 @@ public class NHANVIENBUS {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         ArrayList<NHANVIEN> listNV = new ArrayList<>();
         for (ArrayList<Object> voucher : data) {
-            String maNV = voucher.get(1).toString();
-            String tenNV = voucher.get(2) + "";
-            String ngaysinh = voucher.get(3) + "";
-            String sdt = voucher.get(4) + "";
-            String diachi = voucher.get(5) + "";
-            String trangthai = voucher.get(6)+ "";
+            String maNV = voucher.get(0) + "";
+            String tenNV = voucher.get(1) + "";
+            String ngaysinh = voucher.get(2) + "";
+//            String[] dateArr =  ngaysinh.split("/");
+         //   ngaysinh = dateArr[0] + "-" + dateArr[1] + "-" + dateArr[2];
+//            System.out.println(ngaysinh);
+            String sdt = voucher.get(3) + "";
+            String diachi = voucher.get(4) + "";
+            String trangthai = "Đang Làm Việc";
             NHANVIEN nvDTO = new NHANVIEN(maNV,tenNV,ngaysinh,sdt,diachi,trangthai);
             listNV.add(nvDTO);
         }

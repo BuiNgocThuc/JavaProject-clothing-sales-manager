@@ -39,6 +39,7 @@ import Back_End.SANPHAM.SANPHAM;
 import Back_End.SANPHAM.SANPHAMDAO;
 import Front_End.HOADON.HOADONGUI;
 import Import_Export.IOExcel;
+import Import_Export.writePDF;
 
 /**
  *
@@ -131,16 +132,16 @@ public class CTHoaDonBUS {
                                     dtm.removeRow(tbl.getSelectedRow());
                                 }
                             }
-                            
+
                             String condition = "CTHD_MAHD = '" + maHD + "'";
                             ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
                             for (CTHoaDon cthd : arrCTHD) {
-								SANPHAM sanpham = new SANPHAM(cthd.getMaSP(), null, null, null, null, 0, 0, 0, null, null);
-								sanpham = SANPHAMDAO.getInstance().selectById(sanpham);
-								sanpham.setSoLuongSP(sanpham.getSoLuongSP() + cthd.getSoLuong());
-								SANPHAMDAO.getInstance().update(sanpham);
-							}
-                            
+                                SANPHAM sanpham = new SANPHAM(cthd.getMaSP(), null, null, null, null, 0, 0, 0, null, null);
+                                sanpham = SANPHAMDAO.getInstance().selectById(sanpham);
+                                sanpham.setSoLuongSP(sanpham.getSoLuongSP() + cthd.getSoLuong());
+                                SANPHAMDAO.getInstance().update(sanpham);
+                            }
+
                             dialog.dispose();
                         }
                     }
@@ -157,6 +158,7 @@ public class CTHoaDonBUS {
                 btn3.setBackground(Color.WHITE);
                 btn3.setMargin(new Insets(0, 0, 0, 0));
                 btn3.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
+                
                 //Xuất PDF
 
                 JTable tbl1 = new JTable();
@@ -204,7 +206,7 @@ public class CTHoaDonBUS {
 
                 JScrollPane sp = new JScrollPane(tbl1);
                 sp.setBorder(BorderFactory.createRaisedBevelBorder());
-                
+
                 String condition = "CTHD_MAHD = '" + String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)) + "'";
                 ArrayList<CTHoaDon> arrCTHD = CTHoaDonDAO.getInstance().selectByCondition(condition);
 
@@ -214,14 +216,23 @@ public class CTHoaDonBUS {
                     float tongTien = (float) cthoadon.getDonGia() * cthoadon.getSoLuong();
                     dtm.addRow(new Object[]{CTHoaDonDAO.getInstance().selectTenSP(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenTH(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenSize(cthoadon.getMaSP()), CTHoaDonDAO.getInstance().selectTenMau(cthoadon.getMaSP()), dcf.format(cthoadon.getDonGia()), cthoadon.getSoLuong(), dcf.format(tongTien)});
                 }
-                
-                btn2.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						IOExcel.writeExcel(tbl1, "Danh sách chi tiết hóa đơn", "DSCTHD");
-					}
-				});
 
+                btn2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        IOExcel.writeExcel(tbl1, "Danh sách chi tiết hóa đơn", "DSCTHD");
+                    }
+                });
+                
+                btn3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String maHD = lbl[1].getText();
+//                        JOptionPane.showMessageDialog(null, maPN);
+                        writePDF wPDF = new writePDF();
+                        wPDF.writeHD(maHD);
+                    }
+                });
 
                 pnl2.add(btn1);
                 pnl2.add(btn2);

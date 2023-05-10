@@ -7,11 +7,13 @@ package Back_End.TAIKHOAN;
 import Back_End.CTPhanQuyen.CTPhanQuyen;
 import Back_End.CTPhanQuyen.CTPhanQuyenBUS;
 import Back_End.NHANVIEN.NHANVIENBUS;
+import Front_End.BANHANG.BANHANGGUI;
 import Front_End.FrameLayout.LayoutFrame;
 import Front_End.LoginForm.LoginForm;
 import Front_End.LoginForm.LoginFormtest;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -126,6 +128,9 @@ public void phanQuyen(ArrayList<String> dsq, LayoutFrame lf ) {
 
     public void currentUser(String name, LayoutFrame lf) {
         lf.getInfoUser().setText("Xin chào, " + name);
+    }
+    
+    public void getMaNV(String Username) {
     }
 
     public String getTrangThai(String username) {

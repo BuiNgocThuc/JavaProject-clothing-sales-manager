@@ -6,6 +6,7 @@ package Front_End.KHACHHANG;
 
 import Back_End.KHACHHANG.KHACHHANGBUS;
 import Back_End.KHACHHANG.KHACHHANGDAO;
+import Front_End.NHACUNGCAP.NHACUNGCAPGUI;
 import Import_Export.IOExcel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
@@ -20,9 +21,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 public class KHACHHANGGUI extends JPanel {
 
@@ -41,7 +47,6 @@ public class KHACHHANGGUI extends JPanel {
 
         khb.loadData();
 
-        khb.showConsole();
     }
 
     private void init() {
@@ -129,6 +134,20 @@ public class KHACHHANGGUI extends JPanel {
         importBtn = new JButton("Import");
         importBtn.setPreferredSize(new Dimension(120, 50));
         importBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        importBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               ArrayList<ArrayList<Object>> data = null;
+                try {
+                    data = IOExcel.readExcel(0);
+                } catch (IOException ex) {
+                    Logger.getLogger(KHACHHANGGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidFormatException ex) {
+                    Logger.getLogger(KHACHHANGGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                khb.insertDTO(data);
+            }
+        });
         jp1.add(importBtn);
 
         exportBtn = new JButton("Export");

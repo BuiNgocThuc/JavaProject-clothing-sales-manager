@@ -351,21 +351,27 @@ public class SANPHAMBUS {
 	public void xoaSP() {
 		int row = SANPHAMGUI.tableSP.getSelectedRow();
 		System.out.println(row);
-		String maSP = String.valueOf(SANPHAMGUI.tableSP.getValueAt(row, 1));
-		for (SANPHAM o : data) {
-			if (o.getMaSP().equalsIgnoreCase(maSP)) {
-				o.setTrangThai("Đã Xóa");
-				int result = SANPHAMDAO.getInstance().update(o);
-				data.remove(o);
-				if (result == -1) {
-					JOptionPane.showConfirmDialog(null, "Xóa không thành công", "Thông báo", JOptionPane.YES_OPTION);
-				} else {
-					JOptionPane.showConfirmDialog(null, "Xóa thành công", "Thông báo", JOptionPane.YES_OPTION);
+		if(row!=-1)
+		{
+			String maSP = String.valueOf(SANPHAMGUI.tableSP.getValueAt(row, 1));
+			for (SANPHAM o : data) {
+				if (o.getMaSP().equalsIgnoreCase(maSP)) {
+					o.setTrangThai("Đã Xóa");
+					int result = SANPHAMDAO.getInstance().update(o);
+					data.remove(o);
+					if (result == -1) {
+						JOptionPane.showConfirmDialog(null, "Xóa không thành công", "Thông báo", JOptionPane.YES_OPTION);
+					} else {
+						JOptionPane.showConfirmDialog(null, "Xóa thành công", "Thông báo", JOptionPane.YES_OPTION);
+					}
+					break;
 				}
-				break;
 			}
+			loadDataToTable_UseArray( SANPHAMGUI.tableSP);
 		}
-		loadDataToTable_UseArray( SANPHAMGUI.tableSP);
+		else {
+			JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void saveSP(String tenSP, String size,String mau, String donGia) {

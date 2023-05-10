@@ -337,10 +337,45 @@ public class NHAPHANGGUI extends JPanel{
 	
 	public void mouseClickBtnThem()
 	{
-        Float tongTien;
-		if(checkInput()==true)
-		{
-			loadDataToTableNhapHang();
+        int row = -1;
+        row = tableSP.getSelectedRow();
+        if(row >= 0)
+        {
+        	Float tongTien;
+    		if(checkInput()==true)
+    		{
+    			loadDataToTableNhapHang();
+    			int lenght = model2.getRowCount();
+    			tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
+    			for(int i=1; i<lenght; i++)
+    			{
+    				tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+    			}
+    			dcf.applyPattern(pattern);
+    			String value = dcf.format(tongTien);
+    			labelTongTien.setText(value);
+    			labelMaSP.setText("");
+    			labelTenSP.setText("");
+    			labelTenTH.setText("");
+    			labelMau.setText("");
+    			labelSize.setText("");
+    			txtGiaNhap.setText("");
+    			txtSoLuong.setText("");
+    		}
+        }
+        else {
+			JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm","Lỗi",JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	public void mouseClickbtnXoa()
+	{
+		int row = -1;
+		row = tableNhapHang.getSelectedRow();
+	    if(row >= 0) {
+	    	Float tongTien;
+			model2.removeRow(row);
 			int lenght = model2.getRowCount();
 			tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
 			for(int i=1; i<lenght; i++)
@@ -350,91 +385,84 @@ public class NHAPHANGGUI extends JPanel{
 			dcf.applyPattern(pattern);
 			String value = dcf.format(tongTien);
 			labelTongTien.setText(value);
-			labelMaSP.setText("");
-			labelTenSP.setText("");
-			labelTenTH.setText("");
-			labelMau.setText("");
-			labelSize.setText("");
-			txtGiaNhap.setText("");
-			txtSoLuong.setText("");
+	    }
+	    else {
+			JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
 		}
-		
-	}
-	
-	public void mouseClickbtnXoa()
-	{
-	    Float tongTien;
-		int row = tableNhapHang.getSelectedRow();
-		model2.removeRow(row);
-		int lenght = model2.getRowCount();
-		tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
-		for(int i=1; i<lenght; i++)
-		{
-			tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
-		}
-		dcf.applyPattern(pattern);
-		String value = dcf.format(tongTien);
-		labelTongTien.setText(value);
 	}
 	
 	public void mouseClickbtnSua()
 	{
-		int row = tableNhapHang.getSelectedRow();
-		boolean check = false;
-		while (check==false) {
-			String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng", "Sửa thông tin", JOptionPane.PLAIN_MESSAGE);
-			try {
-				int soLuong = Integer.parseInt(soLuongStr);
-				check = true;
-				String maSP = String.valueOf(tableNhapHang.getValueAt(row, 0));
-				String tenSP = String.valueOf(tableNhapHang.getValueAt(row, 1));
-				String giaNhap = String.valueOf(tableNhapHang.getValueAt(row, 3));
-				String soLuongString = String.valueOf(soLuong);
-				String thanhTien = String.valueOf(soLuong*Float.parseFloat(giaNhap));
-				
-				model2.removeRow(row);
-				model2.insertRow(row, new Object[] {maSP,tenSP,soLuongStr,giaNhap,thanhTien});
-				
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ(Phải là số nguyên)", "Lỗi", JOptionPane.ERROR_MESSAGE);
-			} 	
-		}
-		float tongTien;
-		int lenght = model2.getRowCount();
-		tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
-		for(int i=1; i<lenght; i++)
+		int row = -1;
+		row = tableNhapHang.getSelectedRow();
+		if(row >= 0)
 		{
-			tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+			boolean check = false;
+			while (check==false) {
+				String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng", "Sửa thông tin", JOptionPane.PLAIN_MESSAGE);
+				try {
+					int soLuong = Integer.parseInt(soLuongStr);
+					check = true;
+					String maSP = String.valueOf(tableNhapHang.getValueAt(row, 0));
+					String tenSP = String.valueOf(tableNhapHang.getValueAt(row, 1));
+					String giaNhap = String.valueOf(tableNhapHang.getValueAt(row, 3));
+					String soLuongString = String.valueOf(soLuong);
+					String thanhTien = String.valueOf(soLuong*Float.parseFloat(giaNhap));
+					
+					model2.removeRow(row);
+					model2.insertRow(row, new Object[] {maSP,tenSP,soLuongStr,giaNhap,thanhTien});
+					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ(Phải là số nguyên)", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				} 	
+			}
+			float tongTien;
+			int lenght = model2.getRowCount();
+			tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
+			for(int i=1; i<lenght; i++)
+			{
+				tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+			}
+			dcf.applyPattern(pattern);
+			String value = dcf.format(tongTien);
+			labelTongTien.setText(value);
 		}
-		dcf.applyPattern(pattern);
-		String value = dcf.format(tongTien);
-		labelTongTien.setText(value);
+		else {
+			JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		}
 
 	}
 	
 	public void mouseClickBtnNhapHang()
 	{
-		spb.updateGiaBan2();
-		String maPN = labelMaPN.getText();
-		String maNCC = txtMaNCC.getText();
-		String nhanVien = txtNhanVien.getText();
-		String arrNV[] = nhanVien.split("-");
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = txtNgayNhap.getDate();
-		String ngayNhap = dateFormat.format(date);
-		Float tongTien = Float.parseFloat(labelTongTien.getText());
-		PHIEUNHAP pnPhieunhap = new PHIEUNHAP(maPN, arrNV[0], maNCC, ngayNhap, tongTien);
-		pnb.insertDaTa(pnPhieunhap);
-		
-		for(int i=0; i<model2.getRowCount(); i++)
+		if(tableNhapHang.getRowCount()!=0)
 		{
-			String maSP = String.valueOf(tableNhapHang.getValueAt(i, 0));
-			Float giaNhap = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 3)));
-			int soLuong = Integer.parseInt(String.valueOf(tableNhapHang.getValueAt(i, 2)));
-			CTPhieuNhap ctPhieuNhap = new CTPhieuNhap(maPN, maSP, giaNhap, soLuong);
-			ctpnb.insertData(ctPhieuNhap);
-			spb.updateGiaBan_SoLuong(maSP, soLuong, giaNhap);
-		}	
+			Float tongTien;
+			if(checkInput2()==true)
+			{
+				loadDataToTableNhapHang();
+				int lenght = model2.getRowCount();
+				tongTien = Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(0, 4)));
+				for(int i=1; i<lenght; i++)
+				{
+					tongTien = tongTien + Float.parseFloat(String.valueOf(tableNhapHang.getValueAt(i, 4)));
+				}
+				dcf.applyPattern(pattern);
+				String value = dcf.format(tongTien);
+				labelTongTien.setText(value);
+				labelMaSP.setText("");
+				labelTenSP.setText("");
+				labelTenTH.setText("");
+				labelMau.setText("");
+				labelSize.setText("");
+				txtGiaNhap.setText("");
+				txtSoLuong.setText("");
+				JOptionPane.showMessageDialog(this, "Thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Bảng nhập hàng trống","Lỗi",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void mouseClickBtnLamMoi()
@@ -548,6 +576,21 @@ public class NHAPHANGGUI extends JPanel{
 			return showErr(txtGiaNhap, "Giá nhập không hợp lệ(Phải là số thực)");
 		}	
 		
+		return true;
+	}
+	
+	public boolean checkInput2()
+	{
+		if(txtMaNCC.getText().trim().equals(""))
+		{
+			showErr(txtMaNCC, "Mã nhà cung cấp không được để trống");
+		}
+		else if (txtNgayNhap.getDate()==null) {
+			showErr(txtMaNCC, "Ngày nhập không được để trống");
+		}
+		else if (txtNhanVien.getText().trim().equals("")) {
+			showErr(txtNhanVien, "Mã nhân viên không được để trống");
+		}
 		return true;
 	}
 	

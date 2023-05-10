@@ -155,6 +155,7 @@ public class BANHANGGUI extends JPanel {
         labelMaNV.setText("NV001");
         panelMaNV.add(labelMaNV);
         panelHoaDon.add(panelMaNV);
+        txtMaKH.setEnabled(false);
         
         panelMaKH.setBorder(BorderFactory.createTitledBorder(null, "Tên KH", TitledBorder.LEADING, TitledBorder.TOP, null, Color.black));
         panelMaKH.setPreferredSize(new Dimension(175, 55));
@@ -254,10 +255,14 @@ public class BANHANGGUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(labelKM.getText().equals(""))
 				{
-					maKM = hdb.getTenKM2(labelTongTienValue, labelKM);	
+					maKM = hdb.getTenKM2(labelTongTienValue, labelKM);
+					if(labelKM.getText().equals(""))
+					{
+						JOptionPane.showMessageDialog(labelKM, "Không có khuyến mãi", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 				else {
-					Float tongTien = (float) 0;
+					Float tongTien=0.0f;
 					for(int i=0; i<tableHoaDon.getRowCount(); i++)
 					{
 						tongTien = tongTien + (Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2))) * Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(i, 3))));
@@ -330,96 +335,105 @@ public class BANHANGGUI extends JPanel {
 	
 	public void btnThemMouseClick()
 	{
-		maKM = "";
-		labelKM.setText("");
-		Float tongTien = (float) 0;
-		for(int i=0; i<tableHoaDon.getRowCount(); i++)
+		int row = -1;
+		row = tableSP.getSelectedRow();
+		if(row >= 0)
 		{
-			tongTien = tongTien + (Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2))) * Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(i, 3))));
-		}
-		labelTongTienValue.setText(String.valueOf(tongTien));
-		//
-		int row = tableSP.getSelectedRow();
-		int tmp = 0;
-		boolean check = false;
-		while(check==false)
-		{
-			String soLuong = JOptionPane.showInputDialog(this, "Nhập số lượng","Thông báo", JOptionPane.PLAIN_MESSAGE);
-			if(soLuong!=null)
+			maKM = "";
+			labelKM.setText("");
+			Float tongTien = (float) 0;
+			for(int i=0; i<tableHoaDon.getRowCount(); i++)
 			{
-				int soLuongSP = Integer.parseInt(String.valueOf(tableSP.getValueAt(row, 6)));
-				int num;
-				try {
-					num = Integer.parseInt(soLuong);
-					if(num!=0 && num > 0)
-					{
-						if(soLuongSP-num >= 0)
+				tongTien = tongTien + (Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2))) * Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(i, 3))));
+			}
+			labelTongTienValue.setText(String.valueOf(tongTien));
+			//
+			
+			int tmp = 0;
+			boolean check = false;
+			while(check==false)
+			{
+				String soLuong = JOptionPane.showInputDialog(this, "Nhập số lượng","Thông báo", JOptionPane.PLAIN_MESSAGE);
+				if(soLuong!=null)
+				{
+					int soLuongSP = Integer.parseInt(String.valueOf(tableSP.getValueAt(row, 6)));
+					int num;
+					try {
+						num = Integer.parseInt(soLuong);
+						if(num!=0 && num > 0)
 						{
-							String maSP = String.valueOf(tableSP.getValueAt(row, 1));
-							String tenSP = String.valueOf(tableSP.getValueAt(row, 3));
-							Float donGia = Float.parseFloat(String.valueOf(tableSP.getValueAt(row, 7)));
-							if(dModel.getRowCount()==0)
+							if(soLuongSP-num >= 0)
 							{
-								System.out.println("0");
-								tmp = num;
-								dModel.addRow(new Object[] {maSP,tenSP,num,donGia});
-								labelTongTienValue.setText(String.valueOf(num*donGia));
-							}
-							else {
-								for(int i=0; i<dModel.getRowCount(); i++)
+								String maSP = String.valueOf(tableSP.getValueAt(row, 1));
+								String tenSP = String.valueOf(tableSP.getValueAt(row, 3));
+								Float donGia = Float.parseFloat(String.valueOf(tableSP.getValueAt(row, 7)));
+								if(dModel.getRowCount()==0)
 								{
-									if(maSP.equals(String.valueOf(tableHoaDon.getValueAt(i, 0))))
+									System.out.println("0");
+									tmp = num;
+									dModel.addRow(new Object[] {maSP,tenSP,num,donGia});
+									labelTongTienValue.setText(String.valueOf(num*donGia));
+								}
+								else {
+									for(int i=0; i<dModel.getRowCount(); i++)
 									{
-										System.out.println("Mã SP =" + maSP);
-										System.out.println(String.valueOf(tableHoaDon.getValueAt(i, 0)));
-										int numNew = num + Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2)));
-										tmp = numNew;
-										dModel.removeRow(i);
-										dModel.insertRow(i, new Object[] {maSP,tenSP,numNew,donGia});
-										Float tongTienFloat = Float.parseFloat(labelTongTienValue.getText());
-										Float tongTienNew = tongTienFloat + (numNew-num)*donGia;
-										labelTongTienValue.setText(String.valueOf(tongTienNew));
-										System.out.println("1");
-										break;
-									}
-									else {
-										if(i==dModel.getRowCount()-1)
+										if(maSP.equals(String.valueOf(tableHoaDon.getValueAt(i, 0))))
 										{
-											tmp = num;
-											dModel.addRow(new Object[] {maSP,tenSP,num,donGia});
+											System.out.println("Mã SP =" + maSP);
+											System.out.println(String.valueOf(tableHoaDon.getValueAt(i, 0)));
+											int numNew = num + Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2)));
+											tmp = numNew;
+											dModel.removeRow(i);
+											dModel.insertRow(i, new Object[] {maSP,tenSP,numNew,donGia});
 											Float tongTienFloat = Float.parseFloat(labelTongTienValue.getText());
-											Float tongTienNew = tongTienFloat + num*donGia;
+											Float tongTienNew = tongTienFloat + (numNew-num)*donGia;
 											labelTongTienValue.setText(String.valueOf(tongTienNew));
-											System.out.println("2");
+											System.out.println("1");
 											break;
 										}
+										else {
+											if(i==dModel.getRowCount()-1)
+											{
+												tmp = num;
+												dModel.addRow(new Object[] {maSP,tenSP,num,donGia});
+												Float tongTienFloat = Float.parseFloat(labelTongTienValue.getText());
+												Float tongTienNew = tongTienFloat + num*donGia;
+												labelTongTienValue.setText(String.valueOf(tongTienNew));
+												System.out.println("2");
+												break;
+											}
+										}
 									}
+									
 								}
-								
+								check = true;
 							}
-							check = true;
+							else {
+								JOptionPane.showMessageDialog(null, "Vượt quá số lượng sản phẩm đang có trong cửa hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Vượt quá số lượng sản phẩm đang có trong cửa hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Số lượng phải là số dương và khác 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
 						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ(Phải là số nguyên)", "Lỗi", JOptionPane.ERROR_MESSAGE);		
 					}
-					else {
-						JOptionPane.showMessageDialog(this, "Số lượng phải là số dương và khác 0", "Lỗi", JOptionPane.ERROR_MESSAGE);
-					}
-				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ(Phải là số nguyên)", "Lỗi", JOptionPane.ERROR_MESSAGE);		
 				}
-			}
-			else {
-				check = true;
-			}
-			
+				else {
+					check = true;
+				}
+				
 		}
+		
 		System.out.println("row = "+row+" "+"tmp = "+tmp);
 		if(tmp!=0) {
 		updateSoLuongInTable(row, tmp, 1);
 		}
 	}
+		else {
+			JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		}
+}
 	
 	public void updateSoLuongInTable(int row, int soLuong, int choose)
 	{	
@@ -470,22 +484,30 @@ public class BANHANGGUI extends JPanel {
 	
 	public void btnXoaMouseClick()
 	{
-		maKM = "";
-		labelKM.setText("");
-		Float tongTien2 = (float) 0;
-		for(int i=0; i<tableHoaDon.getRowCount(); i++)
+		int row = -1;
+		row = tableHoaDon.getSelectedRow();
+		if(row >= 0)
 		{
-			tongTien2 = tongTien2 + (Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2))) * Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(i, 3))));
-		}
+			maKM = "";
+			labelKM.setText("");
+			Float tongTien2 = (float) 0;
+			for(int i=0; i<tableHoaDon.getRowCount(); i++)
+			{
+				tongTien2 = tongTien2 + (Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(i, 2))) * Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(i, 3))));
+			}
 
-		Float tongTien;
-		int row = tableHoaDon.getSelectedRow();
-		int soLuong = Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(row, 2)));
-		Float tmp = Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(row, 3))) * Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(0, 2)));
-		updateSoLuongInTable(row, soLuong, 0);
-		dModel.removeRow(row);
-		tongTien = tongTien2 - tmp;
-		labelTongTienValue.setText(String.valueOf(tongTien));
+			Float tongTien;
+			
+			int soLuong = Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(row, 2)));
+			Float tmp = Float.parseFloat(String.valueOf(tableHoaDon.getValueAt(row, 3))) * Integer.parseInt(String.valueOf(tableHoaDon.getValueAt(0, 2)));
+			updateSoLuongInTable(row, soLuong, 0);
+			dModel.removeRow(row);
+			tongTien = tongTien2 - tmp;
+			labelTongTienValue.setText(String.valueOf(tongTien));
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void btnHoanThanhMouseClick()
@@ -509,6 +531,7 @@ public class BANHANGGUI extends JPanel {
 				CTHoaDonDAO.getInstance().insert(aCtHoaDon);
 				spb.updateGiaBan_SoLuong1(maSP, soLuong);
 			}
+			JOptionPane.showMessageDialog(this, "Thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -521,6 +544,11 @@ public class BANHANGGUI extends JPanel {
 		}
 		else if(TienKhachValue.getText().trim().equals("")){
 			JOptionPane.showMessageDialog(this, "Chưa nhập tiền khách đưa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		else if(tableHoaDon.getRowCount()==0)
+		{
+			JOptionPane.showMessageDialog(this, "Bảng hóa đơn trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

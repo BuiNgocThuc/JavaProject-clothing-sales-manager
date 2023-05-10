@@ -89,5 +89,21 @@ public class NHANVIENBUS {
     public ArrayList<NHANVIEN> getDsnv() {
         return dsnv;
     }
+    
+    public void insertDTO(ArrayList<ArrayList<Object>> data) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<NHANVIEN> listNV = new ArrayList<>();
+        for (ArrayList<Object> voucher : data) {
+            String maNV = voucher.get(1).toString();
+            String tenNV = voucher.get(2) + "";
+            String ngaysinh = voucher.get(3) + "";
+            String sdt = voucher.get(4) + "";
+            String diachi = voucher.get(5) + "";
+            String trangthai = voucher.get(6)+ "";
+            NHANVIEN nvDTO = new NHANVIEN(maNV,tenNV,ngaysinh,sdt,diachi,trangthai);
+            listNV.add(nvDTO);
+        }
+        nvDao.insertArray(listNV);
+    }
   
 }

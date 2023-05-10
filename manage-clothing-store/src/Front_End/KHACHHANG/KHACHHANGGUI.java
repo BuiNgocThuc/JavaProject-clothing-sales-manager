@@ -6,6 +6,7 @@ package Front_End.KHACHHANG;
 
 import Back_End.KHACHHANG.KHACHHANGBUS;
 import Back_End.KHACHHANG.KHACHHANGDAO;
+import Import_Export.IOExcel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -30,7 +31,7 @@ public class KHACHHANGGUI extends JPanel {
     private JPanel jp, jp1, jp2, jp3;
     private JLabel labelMaKH, labelHoTen, labelPhone, labelAddress, labelStatus;
     public static JTextField textMaKH, textHoTen, textPhone, textAddress, textStatus, textFind;
-    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn, resetBtn;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, resetBtn;
     public static JTable tb;
     private JScrollPane jsp;
     private JComboBox choose;
@@ -133,12 +134,24 @@ public class KHACHHANGGUI extends JPanel {
         exportBtn = new JButton("Export");
         exportBtn.setPreferredSize(new Dimension(120, 50));
         exportBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        exportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IOExcel.writeExcel(tb, "Danh Sách Khách Hàng", "DSKH");
+            }
+        });
         jp1.add(exportBtn);
 
-        pdfBtn = new JButton("PDF");
-        pdfBtn.setPreferredSize(new Dimension(120, 50));
-        pdfBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
-        jp1.add(pdfBtn);
+        resetBtn = new JButton("Reset");
+        resetBtn.setPreferredSize(new Dimension(120, 50));
+        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
+        resetBtn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e){
+               resetBtnActionPerformed(e);
+           }
+        });
+        jp1.add(resetBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jp2.setPreferredSize(new Dimension(370, 100));
@@ -163,18 +176,8 @@ public class KHACHHANGGUI extends JPanel {
             }
         });
 
-        resetBtn = new JButton("Reset");
-        resetBtn.setPreferredSize(new Dimension(120, 50));
-        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
-        resetBtn.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e){
-               resetBtnActionPerformed(e);
-           }
-        });
         jp1.add(jp2);
-        jp1.add(resetBtn);
-
+        
         jp3 = new JPanel(new BorderLayout());
         jp3.setPreferredSize(new Dimension(400, 550));
         jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import Connection.connec;
 import Dao.DAOInterface;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -124,6 +125,38 @@ public class NHANVIENDAO implements DAOInterface<NHANVIEN>{
 		}
 		return 0;
 	}
+        
+        public boolean insertArray(ArrayList<NHANVIEN> listNV) {
+        try {
+            Connection c = connec.getConnection();
+            String sql = "INSERT INTO  NHANVIEN(MANV, TENNV, NGAYSINH, SDTNV, DIACHINV, TRANGTHAI) "
+                    + " VALUES(?,?,?,?,?,?)";
+            PreparedStatement pst = c.prepareStatement(sql);
+            for (NHANVIEN t : listNV) {
+                pst.setString(1, t.getMaNV());
+		pst.setString(2, t.getTenNV());
+			
+		String ngay = t.getNgaySinh();
+		Date date = Date.valueOf(ngay);
+		pst.setDate(3, date);
+			
+		pst.setString(4, t.getSdt());
+		pst.setString(5, t.getDiaChi());
+		pst.setString(6, t.getTrangThai());
+                
+                pst.executeUpdate();
+            }
+
+            
+            
+            connec.closeConnection(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Không thể thêm dữ liệu xuống bảng NHANVIEN");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
 	@Override
 	public ArrayList<NHANVIEN> selectAll() {

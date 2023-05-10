@@ -6,6 +6,7 @@ package Front_End.NHANVIEN;
 
 import Back_End.NHANVIEN.NHANVIENBUS;
 import Back_End.NHANVIEN.NHANVIENDAO;
+import Import_Export.IOExcel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -19,12 +20,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 public class NHANVIENGUI extends JPanel {
 
@@ -33,7 +39,7 @@ public class NHANVIENGUI extends JPanel {
     private JPanel jp, jp1, jp2, jp3;
     private JLabel labelNhanVien, labelHoTen, labelDate, labelPhone, labelAddress, labelStatus;
     public static JTextField textNhanVien, textHoTen, textDate, textPhone, textAddress, textStatus, textFind;
-    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, pdfBtn, resetBtn;
+    private JButton addBtn, editBtn, deleteBtn, searchBtn, importBtn, exportBtn, resetBtn;
     public static JTable tb;
     private JScrollPane jsp;
     private JComboBox choose;
@@ -139,17 +145,43 @@ public class NHANVIENGUI extends JPanel {
         importBtn = new JButton("Import");
         importBtn.setPreferredSize(new Dimension(120, 50));
         importBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        importBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                ArrayList<ArrayList<Object>> data = null;
+                try {
+                    data = IOExcel.readExcel(0);
+                } catch (IOException ex) {
+                    Logger.getLogger(NHANVIENGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidFormatException ex) {
+                    Logger.getLogger(NHANVIENGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                nvb.insertDTO(data);
+            }
+        });
         jp1.add(importBtn);
 
         exportBtn = new JButton("Export");
         exportBtn.setPreferredSize(new Dimension(120, 50));
         exportBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-microsoft-excel-2019-28.png")));
+        exportBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IOExcel.writeExcel(tb, "Danh Sách Nhân Viên", "DSNV");
+            }
+        });
         jp1.add(exportBtn);
 
-        pdfBtn = new JButton("PDF");
-        pdfBtn.setPreferredSize(new Dimension(120, 50));
-        pdfBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-pdf-28.png")));
-        jp1.add(pdfBtn);
+        resetBtn = new JButton("Reset");
+        resetBtn.setPreferredSize(new Dimension(120, 50));
+        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
+        resetBtn.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e){
+               resetBtnActionPerformed(e);
+           }
+        });
+        jp1.add(resetBtn);
 
         jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jp2.setPreferredSize(new Dimension(370, 100));
@@ -173,18 +205,9 @@ public class NHANVIENGUI extends JPanel {
                 searchBtnActionPerformed(e);
             }
         });
-        resetBtn = new JButton("Reset");
-        resetBtn.setPreferredSize(new Dimension(120, 50));
-        resetBtn.setIcon(new ImageIcon(getClass().getResource("/Icon/icon_img/icons8-reset-32.png")));
-        resetBtn.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e){
-               resetBtnActionPerformed(e);
-           }
-        });
+        
         jp1.add(jp2);
-        jp1.add(resetBtn);
-
+        
         jp3 = new JPanel(new BorderLayout());
         jp3.setPreferredSize(new Dimension(400, 550));
         jp3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -342,5 +365,5 @@ public class NHANVIENGUI extends JPanel {
             return false;
         }
         return true;
-    }
+    } 
 }
